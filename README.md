@@ -14,11 +14,11 @@ Fixed-sized regular arrays are excelent for implementing:
 
 ## Variation: Dynamic Array
 
-A Dynamic Array is an array that includes a resize() operation when it gets full. It makes the ADT which are implemented by using arrays and the underlying data structure more flexible, however, the resize() operation has linear time complexity O(N).
+A Dynamic Array is an array that includes a resize() operation when it gets full. It makes the ADT which are implemented by using arrays and the underlying data structure more flexible as one wouldn't need to know the number of elements in advance, however, the resize() operation has linear time complexity O(N), so if you are going to rezise the array often and not going to use indices to return elements (like hash tables), it's better to use a Linked List.
 
 ## Variation: Circular Array (Circular Buffer)
 
-Well suited for implementing Queue (FIFO), while normal arrays (either dynamic or not) is well-suited for implementing a Stack (LIFO)
+A Circular Array has two pointers (start and end), which makes it suitable for both add() and remove() operations in both ends of the array.so basically if you insert data using the end point and remove data using the start pointer you can implement a Queue in constant time complexity O(1).
 
 ## Variation: Dynamic Circular Array
 
@@ -38,7 +38,9 @@ Bottom line: Singly Linked List with head and tail references allows to implemen
 
 # Deque: **D**ouble-**E**nded **Que**ue (Abstract Data Type)
 
-There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Dynamic Array`, `Dynamic Circular Array`, `Doubly Linked List`, `Doubly Circular Linked List`.
+There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Circular Array`, `Doubly Linked List`, `Doubly Circular Linked List`.
+
+Circular Singly Linked List is not suitable for implementing a Deque because removeBack() would still cost linear time complexity O(n) to traverse the list and get the reference to previous node of the node being removed.
 
 [Python Deque implementation](https://hg.python.org/cpython/file/3.5/Modules/_collectionsmodule.c) uses a `Doubly Linked List`.
 
