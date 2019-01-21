@@ -20,6 +20,8 @@ A Dynamic Array is an regular array that includes the `grow()` and `shrink()` op
 
 A [Circular Array](https://en.wikipedia.org/wiki/Circular_buffer) has two pointers (start and end), which makes it suitable for both add() and remove() operations at both ends of the array. So, it's excellent for implementing Queue, Stack and Deque - all of them in constant time complexity O(1).
 
+Bottom line: useful for implementing Queue and Deque (for a Stack, just replace it by a regular Array)
+
 ## Dynamic Circular Array
 
 This is exactly the same as the Circular Array, but it provides the additional features of grow() and shrink().
@@ -28,15 +30,19 @@ This is exactly the same as the Circular Array, but it provides the additional f
 
 By definition, a Singly Linked List has a pointer to the head of the list and each element has the data and a pointer to the next element. Having just a pointer to the head, a Singly Linked List would just allow constant time O(1) operations for add() and remove() from the beggining of the list (head), which means it is only optimal for implementing a Stack.
 
+Bottom line: useful for implementing a Stack with flexible number of elements.
+
 ## Singly Linked List (Head and Tail references)
 
 Again, the typical defition of a Singly Linked List just have a pointer to the head, which allows add() and remove() operations at the beginning of the list in O(1) but at the end in linear time complexity O(n). However, if we add a pointer to the tail in your implementation, we can make the add() operation at the end of the list (tail) in constant time complexity O(1) (the remove() at the end of the list would still be linear O(n) because it needs the tail's reference of the previous node, which is not possible to obtain by using the tail itself but only traversing the entire list starting from the head), which allows optimal implementation for a Queue with all operations in constant time O(1).
 
-Bottom line: Singly Linked List with head and tail references also allows to implement a Queue in O(1), but note that this is not the default definition of Singly Linked Lists in the books.
+Bottom line: useful for implementing a Queue in O(1), but note that this is not the default definition of Singly Linked Lists in the books. Removing an item from the tail is still bad, linear time complexity O(n). For a Stack, just use a regular Singly Linked List.
 
 ## Singly Circular Linked List
 
 This is very similar to the Singly Linked List with head and tail references. However, the Singly Circular Linked List has the tail always pointing to the head instead of null. The benefit of it over the Singly Linked List with head and tail references is that you wouldn't need to keep the head reference, as you could always obtain it with `tail.next`. As it's pretty much the same as the Singly Linked List with head and tail references, it also allows to implement a Queue in O(1) for all operations.
+
+Bottom line: useful for implementing a Queue in O(1). Removing an item from the tail is still bad, linear time complexity O(n). For a Stack, just use a regular Singly Linked List.
 
 # Stack (Abstract Data Type)
 
