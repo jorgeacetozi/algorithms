@@ -26,6 +26,8 @@ This is exactly the same as the Circular Array, but it provides the additional f
 
 # Singly Linked List (Data Structure)
 
+A Singly Linked List 
+
 ## Singly Linked List (Head and Tail references)
 
 The typical defition of a Singly Linked List just have a pointer to the head, which allows adding and removing operations at the beginning of the list in O(1) but at the end in O(N). If our implementation adds a pointer to the tail, we can make the add operation O(1) at the end of the list (the remove operation would still be O(N) because it needs the reference to the previous node of the tail, which is not possible to obtain by using the tail but only traversing the entire list starting from the head), which allows the implementation of a Queue in O(1).
@@ -36,6 +38,8 @@ Bottom line: Singly Linked List with head and tail references allows to implemen
 
 # Stack (Abstract Data Type)
 
+Insert and remove from the same end (LIFO).
+
 In order to implement all stack operations in constant time complexity O(1), you would have to use one of the options below:
 
 - Array
@@ -45,6 +49,8 @@ In order to implement all stack operations in constant time complexity O(1), you
 Note that the Array could either be dynamic or a fixed one - it doesn't matter.
 
 # Queue (Abstract Data Type)
+
+Insert at one end and remove from another (FIFO).
 
 In order to implement all queue operations in constant time complexity O(1), you would have to use one of the options below:
 
