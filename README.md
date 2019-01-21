@@ -8,17 +8,17 @@ An array is a fundamental data structure that supports the getting and setting o
 
 Fixed-sized regular arrays are excelent for implementing:
 
-- Stacks with fixed amount of elements because you can insert and remove at the end of the array in constant time complexity O(1) 
-- Heaps with fixed amount of nodes
+- Stack with fixed amount of elements because you can insert and remove at the end of the array in constant time complexity O(1) 
+- Heap with fixed amount of nodes
 - Hash tables for inserting and getting elements in constant time (nearly for get). However, the typical implementations perform a resizing operation on it when it's around 75% full (load factor = 0.75) to avoid having too much colisions
 
 ## Variation: Dynamic Array
 
-A Dynamic Array is an array that includes a resize() operation when it gets full. It makes the ADT which are implemented by using arrays and the underlying data structure more flexible as one wouldn't need to know the number of elements in advance, however, the resize() operation has linear time complexity O(N), so if you are going to rezise the array often and not going to use indices to return elements (like hash tables), it's better to use a Linked List.
+A Dynamic Array is an regular array that includes the grow() and shrink() operations that are used when it increase/decrease the number of elements by a factor (if the factor is 2, it means it will double the size when it gets full or shrink to half of the size when it gets half empty). It makes the ADTs implemented by using arrays as their underlying data structure more flexible as they wouldn't need to know the number of elements in advance. However, the grow() and shrink() operations have linear time complexity O(N), so if there will be lots of rezising due to variable number of elements and you don't need array indices like in Queues and Stacks, it's better to use a Linked List.
 
 ## Variation: Circular Array (Circular Buffer)
 
-A Circular Array has two pointers (start and end), which makes it suitable for both add() and remove() operations in both ends of the array.so basically if you insert data using the end point and remove data using the start pointer you can implement a Queue in constant time complexity O(1).
+A Circular Array has two pointers (start and end), which makes it suitable for both add() and remove() operations at both ends of the array. So, it's excellent for implementing Queue, Stack and Deque - all of them in constant time complexity O(1).
 
 ## Variation: Dynamic Circular Array
 
