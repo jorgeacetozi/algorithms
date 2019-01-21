@@ -28,6 +28,10 @@ Well suited for implementing Queue (FIFO), while normal arrays (either dynamic o
 
 ## Head and Tail References
 
+The typical defition of a Singly Linked List just have a pointer to the head, which allows adding and removing operations at the beginning of the list in O(1) but at the end in O(N). If our implementation adds a pointer to the tail, we can make the add operation O(1) at the end of the list (the remove operation would still be O(N) because it needs the reference to the previous node of the tail, which is not possible to obtain by using the tail but only traversing the entire list starting from the head), which allows the implementation of a Queue in O(1).
+
+Bottom line: Singly Linked List with head and tail references allows to implement both Queue and Stack in O(1), but adding a pointer to the tails is an implementation trick, it's not the default definition of a Singly Linked List.
+
 # Stack (Abstract Data Type)
 
 # Queue (Abstract Data Type)
