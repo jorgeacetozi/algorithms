@@ -6,7 +6,7 @@ import java.util.Queue;
 public class BreadthFirstSearch {
 
   void BFS(Vertex u) {
-    Queue<Vertex> queue = new ArrayDeque<>(); // BFS relies on Queue
+    Queue<Vertex> queue = new ArrayDeque<>(); // BFS relies on the Queue ADT
     System.out.print(u.name);
     u.visited = true;
     queue.add(u);
