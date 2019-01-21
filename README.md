@@ -2,11 +2,23 @@
 
 # Array (Data Structure)
 
-An array is a fundamental data structure that supports the getting and setting of values. The size of an array dictates how many values it can hold. An array of size n can hold n values. Arrays are distinguished by the fact that getting or setting any element in the array can be done in constant time, regardless of the size of the array.
+An array is a fundamental data structure that supports the getting and setting of values by index. The size of an array dictates how many values it can hold. An array of size n can hold n values. Arrays are distinguished by the fact that getting or setting any element in the array can be done in constant time if you know the index the element is, regardless of the size of the array.
 
-## Variation: Circular Array
+## Fixed-sized Regular Arrays
+
+Fixed-sized regular arrays are excelent for implementing:
+
+- Stacks with fixed amount of elements because you can insert and remove at the end of the array in constant time complexity O(1) 
+- Heaps with fixed amount of nodes
+- Hash tables for inserting and getting elements in constant time (nearly for get). However, the typical implementations perform a resizing operation on it when it's around 75% full (load factor = 0.75) to avoid having too much colisions
 
 ## Variation: Dynamic Array
+
+A Dynamic Array is an array that includes a resize() operation when it gets full. It makes the ADT which are implemented by using arrays and the underlying data structure more flexible, however, the resize() operation has linear time complexity O(N).
+
+## Variation: Circular Array (Circular Buffer)
+
+Well suited for implementing Queue (FIFO), while normal arrays (either dynamic or not) is well-suited for implementing a Stack (LIFO)
 
 ## Variation: Dynamic Circular Array
 
@@ -14,11 +26,7 @@ An array is a fundamental data structure that supports the getting and setting o
 
 ## Head Reference
 
-### Time Complexity
-
 ## Head and Tail References
-
-### Time Complexity
 
 # Stack (Abstract Data Type)
 
@@ -28,9 +36,11 @@ An array is a fundamental data structure that supports the getting and setting o
 
 There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Dynamic Array`, `Dynamic Circular Array`, `Doubly Linked List`, `Doubly Circular Linked List`.
 
-Python Deque [implements](https://hg.python.org/cpython/file/3.5/Modules/_collectionsmodule.c) a `Doubly Linked List`.
+[Python Deque implementation](https://hg.python.org/cpython/file/3.5/Modules/_collectionsmodule.c) uses a `Doubly Linked List`.
 
-# Binary Search (Algorithm)
+# Binary Search vs Binary Tree vs Binary Search Tree
+
+
 
 # Binary Search Tree (Data Structure)
 
