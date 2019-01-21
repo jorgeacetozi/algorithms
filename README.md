@@ -12,21 +12,23 @@ Fixed-sized regular arrays are excelent for implementing:
 - Heap with fixed amount of nodes
 - Hash tables for inserting and getting elements in constant time (nearly for get). However, the typical implementations perform a resizing operation on it when it's around 75% full (load factor = 0.75) to avoid having too much colisions
 
-## Variation: Dynamic Array
+## Dynamic Array
 
-A Dynamic Array is an regular array that includes the grow() and shrink() operations that are used when it increase/decrease the number of elements by a factor (if the factor is 2, it means it will double the size when it gets full or shrink to half of the size when it gets half empty). It makes the ADTs implemented by using arrays as their underlying data structure more flexible as they wouldn't need to know the number of elements in advance. However, the grow() and shrink() operations have linear time complexity O(N), so if there will be lots of rezising due to variable number of elements and you don't need array indices like in Queues and Stacks, it's better to use a Linked List.
+A Dynamic Array is an regular array that includes the `grow()` and `shrink()` operations that are used when it increase/decrease the number of elements by a factor (if the factor is 2, it means it will double the size when it gets full or shrink to half of the size when it gets half empty). It makes the ADTs implemented by using arrays as their underlying data structure more flexible as they wouldn't need to know the number of elements in advance. However, the grow() and shrink() operations have linear time complexity O(N), so if there will be lots of rezising due to variable number of elements and you don't need array indices like in Queues and Stacks, it's better to use a Linked List.
 
-## Variation: Circular Array (Circular Buffer)
+## Circular Array (Circular Buffer)
 
-A Circular Array has two pointers (start and end), which makes it suitable for both add() and remove() operations at both ends of the array. So, it's excellent for implementing Queue, Stack and Deque - all of them in constant time complexity O(1).
+A [Circular Array](https://en.wikipedia.org/wiki/Circular_buffer) has two pointers (start and end), which makes it suitable for both add() and remove() operations at both ends of the array. So, it's excellent for implementing Queue, Stack and Deque - all of them in constant time complexity O(1).
 
-## Variation: Dynamic Circular Array
+## Dynamic Circular Array
+
+This is exactly the same as the Circular Array, but it provides the additional features of grow() and shrink().
 
 # Singly Linked List (Data Structure)
 
 ## Head Reference
 
-## Head and Tail References
+## Singly Circular Linked List (Head and Tail references)
 
 The typical defition of a Singly Linked List just have a pointer to the head, which allows adding and removing operations at the beginning of the list in O(1) but at the end in O(N). If our implementation adds a pointer to the tail, we can make the add operation O(1) at the end of the list (the remove operation would still be O(N) because it needs the reference to the previous node of the tail, which is not possible to obtain by using the tail but only traversing the entire list starting from the head), which allows the implementation of a Queue in O(1).
 
