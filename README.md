@@ -38,9 +38,11 @@ Bottom line: Singly Linked List with head and tail references allows to implemen
 
 In order to implement all stack operations in constant time complexity O(1), you would have to use one of the options below:
 
-- Regular Array
+- Array
 - Singly Linked List
 - Doubly Linked List (too much)
+
+Note that the Array could either be dynamic or a fixed one - it doesn't matter.
 
 # Queue (Abstract Data Type)
 
@@ -51,9 +53,11 @@ In order to implement all queue operations in constant time complexity O(1), you
 - Singly Circular Linked Lists
 - Doubly Linked List (too much)
 
+Note that the Circular Array could either be dynamic or a fixed one - it doesn't matter.
+
 # Deque: **D**ouble-**E**nded **Que**ue (Abstract Data Type)
 
-There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Circular Array`, `Doubly Linked List`, `Doubly Circular Linked List`.
+There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Circular Array`, `Doubly Linked List` or `Doubly Circular Linked List`.
 
 Circular Singly Linked List is not suitable for implementing a Deque because removeBack() would still cost linear time complexity O(n) to traverse the list and get the reference to previous node of the node being removed.
 
