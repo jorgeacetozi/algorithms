@@ -26,15 +26,17 @@ This is exactly the same as the Circular Array, but it provides the additional f
 
 # Singly Linked List (Data Structure)
 
-A Singly Linked List 
+By definition, a Singly Linked List has a pointer to the head of the list and each element has the data and a pointer to the next element. Having just a pointer to the head, a Singly Linked List would just allow constant time O(1) operations for add() and remove() from the beggining of the list (head), which means it is only optimal for implementing a Stack.
 
 ## Singly Linked List (Head and Tail references)
 
-The typical defition of a Singly Linked List just have a pointer to the head, which allows adding and removing operations at the beginning of the list in O(1) but at the end in O(N). If our implementation adds a pointer to the tail, we can make the add operation O(1) at the end of the list (the remove operation would still be O(N) because it needs the reference to the previous node of the tail, which is not possible to obtain by using the tail but only traversing the entire list starting from the head), which allows the implementation of a Queue in O(1).
+Again, the typical defition of a Singly Linked List just have a pointer to the head, which allows add() and remove() operations at the beginning of the list in O(1) but at the end in linear time complexity O(n). However, if we add a pointer to the tail in your implementation, we can make the add() operation at the end of the list (tail) in constant time complexity O(1) (the remove() at the end of the list would still be linear O(n) because it needs the tail's reference of the previous node, which is not possible to obtain by using the tail itself but only traversing the entire list starting from the head), which allows optimal implementation for a Queue with all operations in constant time O(1).
 
-Bottom line: Singly Linked List with head and tail references allows to implement both Queue and Stack in O(1), but adding a pointer to the tails is an implementation trick, it's not the default definition of a Singly Linked List.
+Bottom line: Singly Linked List with head and tail references also allows to implement a Queue in O(1), but note that this is not the default definition of Singly Linked Lists in the books.
 
 ## Singly Circular Linked List
+
+This is very similar to the Singly Linked List with head and tail references. However, the Singly Circular Linked List has the tail always pointing to the head instead of null. The benefit of it over the Singly Linked List with head and tail references is that you wouldn't need to keep the head reference, as you could always obtain it with `tail.next`. As it's pretty much the same as the Singly Linked List with head and tail references, it also allows to implement a Queue in O(1) for all operations.
 
 # Stack (Abstract Data Type)
 
@@ -42,11 +44,15 @@ Insert and remove from the same end (LIFO).
 
 In order to implement all stack operations in constant time complexity O(1), you would have to use one of the options below:
 
-- Array
-- Singly Linked List
-- Doubly Linked List (too much)
+- **Array** (either Dynamic of fixed)
+- **Singly Linked List**
 
-Note that the Array could either be dynamic or a fixed one - it doesn't matter.
+Of course you could also implement it in constant time using more complexes data structures as well, but you don't need them. Examples:
+
+- Circular Array (you would't be using one of the pointers, so this is just a overhead)
+- Singly Circular Linked List (a Singly Linked List is enough - the tail reference would just be an overhead)
+- Singly Linked List with head and tail references (a Singly Linked List is enough - the tail reference would just be an overhead)
+- Doubly Linked List (that's too much for a simple Stack)
 
 # Queue (Abstract Data Type)
 
@@ -54,24 +60,26 @@ Insert at one end and remove from another (FIFO).
 
 In order to implement all queue operations in constant time complexity O(1), you would have to use one of the options below:
 
-- Circular Array
-- Singly Linked Lists with head and tail references
-- Singly Circular Linked Lists
-- Doubly Linked List (too much)
+- **Circular Array** (either Dynamic of fixed)
+- **Singly Circular Linked Lists** or Singly Linked Lists with head and tail references (well, this is just a special case of the Singly Circular Linked Lists)
 
-Note that the Circular Array could either be dynamic or a fixed one - it doesn't matter.
+Of course you could also implement it in constant time using more complexes data structures as well, but you don't need them. Examples:
+
+- Doubly Linked List (that's too much for a simple Queue)
 
 # Deque: **D**ouble-**E**nded **Que**ue (Abstract Data Type)
 
-There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Circular Array`, `Doubly Linked List` or `Doubly Circular Linked List`.
+There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like:
 
-Circular Singly Linked List is not suitable for implementing a Deque because removeBack() would still cost linear time complexity O(n) to traverse the list and get the reference to previous node of the node being removed.
+- Circular Array
+- Doubly Linked List
+- Doubly Circular Linked List
 
-[Python Deque implementation](https://hg.python.org/cpython/file/3.5/Modules/_collectionsmodule.c) uses a `Doubly Linked List`.
+A Singly Linked List or a Circular Singly Linked List would not be suitable for implementing a Deque because the `removeBack()` would still cost linear time complexity O(n) to traverse the list and get the reference to previous node of the node being removed.
+
+[Python Deque implementation](https://hg.python.org/cpython/file/3.5/Modules/_collectionsmodule.c) uses a Doubly Linked List.
 
 # Binary Search vs Binary Tree vs Binary Search Tree
-
-
 
 # Binary Search Tree (Data Structure)
 
