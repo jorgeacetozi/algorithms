@@ -89,6 +89,8 @@ A Singly Linked List or a Circular Singly Linked List would not be suitable for 
 
 # Binary Search Tree (Data Structure)
 
+Traversing a BST (in-order, for example) is just a simplified case of traversing general tree, which in turn is a simplified case of traversing a graph that might contain cycles with Depth-First Search. In DFS and BFS algorithms for graphs, we have to set the node to visited, and as we add its neighbors with a for loop we also set them as visited to avoid cycles. As BST or a general tree don't contain cycles by definition, you don't have to set them as visited.
+
 # Self-balancing Binary Search Tree: AVL Tree (Data Structure)
 
 # Self-balancing Binary Search Tree: Red-Black Tree (Data Structure)
