@@ -38,6 +38,13 @@ Bottom line: Singly Linked List with head and tail references allows to implemen
 
 # Queue (Abstract Data Type)
 
+In order to implement all queue operations in constant time complexity O(1), you would have to use one of the options below:
+
+- Circular Array
+- Singly Linked Lists with head and tail references
+- Singly Circular Linked Lists
+- Dooubly Linked List
+
 # Deque: **D**ouble-**E**nded **Que**ue (Abstract Data Type)
 
 There are many data structures that make it possible to efficiently (O(1) for `addFront(item)`, `addBack(item)`, `removeFront()`, `removeBack()`, `front()` and `back()`) implement a Deque, like a `Circular Array`, `Doubly Linked List`, `Doubly Circular Linked List`.
