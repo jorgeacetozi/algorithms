@@ -3,13 +3,13 @@ package com.jorgeacetozi.algorithms.dijkstra;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex {
+class Vertex {
   String name;
   Integer minDistance;
   Vertex predecessor;
   List<Edge> edges;
 
-  public Vertex(String name) {
+  Vertex(String name) {
     this.name = name;
     this.edges = new ArrayList<>();
   }

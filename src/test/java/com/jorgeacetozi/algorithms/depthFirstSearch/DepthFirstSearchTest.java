@@ -1,28 +1,35 @@
-package com.jorgeacetozi.algorithms.breadthFirstSearch;
+package com.jorgeacetozi.algorithms.depthFirstSearch;
 
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
+import com.jorgeacetozi.algorithms.depthFirstSearch.Vertex;
 
-public class BreadthFirstSearchTest {
-  
-  BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch();
-  
-  @Test
-  public void shouldTraverseGraphUsingBFS(){
+public class DepthFirstSearchTest {
+
+  DepthFirstSearch depthFirstSearch = new DepthFirstSearch();
+  Vertex root;
+
+  @Before
+  public void createGraph() {
     Vertex vertexA = new Vertex("A");
     Vertex vertexB = new Vertex("B");
     Vertex vertexC = new Vertex("C");
     Vertex vertexD = new Vertex("D");
     Vertex vertexE = new Vertex("E");
     Vertex vertexF = new Vertex("F");
-    
+
     vertexA.neighbors.addAll(Arrays.asList(vertexB, vertexC));
     vertexB.neighbors.addAll(Arrays.asList(vertexA, vertexC, vertexE));
     vertexC.neighbors.addAll(Arrays.asList(vertexA, vertexB, vertexD, vertexF));
     vertexD.neighbors.addAll(Arrays.asList(vertexC, vertexE, vertexF));
     vertexE.neighbors.addAll(Arrays.asList(vertexB, vertexD));
     vertexF.neighbors.addAll(Arrays.asList(vertexC, vertexD));
-    
-    breadthFirstSearch.bfs(vertexA);
+    root = vertexA;
+  }
+
+  @Test
+  public void iterativeBFSTest() {
+    depthFirstSearch.iterativeDFS(root);
   }
 }

@@ -203,3 +203,9 @@ A) No. Consider the following counter example:
 ![Spanning Tree but not Hamiltonian Path](resources/images/spanning_tree_not_hamiltonian_path.png)
 
 The blue colored edges form a spanning tree but not a hamiltonian path.
+
+
+
+The Travelling Salesman Problem is about going to each city exactly once while returning to the original city (thus walking along a Hamiltonian cycle) and also taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). Finding such a cycle, perforce finding the possibly unique optimal cycle with the shortest distance, is "hard".
+
+The Chinese Postman Problem or Route Inspection Problem is about visiting each route between cities at least once while returning to the original city and taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). A solution that takes each route exactly once is automatically optimal and called an Eulerian Cycle. Finding such a cycle is "feasible".

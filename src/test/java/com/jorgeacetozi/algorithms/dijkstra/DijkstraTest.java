@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class DijkstraTest {
-  private Dijkstra dijkstra = new Dijkstra();
-  private List<Vertex> vertices;
+  
+  Dijkstra dijkstra = new Dijkstra();
+  List<Vertex> vertices;
   
   @Before
   public void initGraph(){

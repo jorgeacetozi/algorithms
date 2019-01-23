@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 class Dijkstra {
 
-  public List<Vertex> shortestPathTree(List<Vertex> vertexList, Vertex source) {
+  List<Vertex> shortestPathTree(List<Vertex> vertexList, Vertex source) {
     // init phase
     PriorityQueue<Vertex> minHeap = new PriorityQueue<>(Comparator.comparingInt(v -> v.minDistance));
     for (Vertex vertex : vertexList) {
@@ -36,7 +36,7 @@ class Dijkstra {
     return vertexList;
   }
 
-  public String getShortestPathTo(Vertex vertex, String path) {
+  String getShortestPathTo(Vertex vertex, String path) {
     if (vertex == null) {
       return path;
     }
