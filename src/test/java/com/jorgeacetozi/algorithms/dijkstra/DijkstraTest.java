@@ -4,63 +4,86 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
 import org.junit.Test;
 
 public class DijkstraTest {
-  
+
   Dijkstra dijkstra = new Dijkstra();
   List<Vertex> vertices;
-  
-  @Before
-  public void initGraph(){
-    Vertex vertexA = new Vertex("A");
-    Vertex vertexB = new Vertex("B");
-    Vertex vertexC = new Vertex("C");
-    Vertex vertexD = new Vertex("D");
-    Vertex vertexE = new Vertex("E");
-    Vertex vertexF = new Vertex("F");
-    Vertex vertexG = new Vertex("G");
-    Vertex vertexH = new Vertex("H");
 
-    Edge edgeAB = new Edge(vertexA, vertexB, 5);
-    Edge edgeAH = new Edge(vertexA, vertexH, 8);
-    Edge edgeAE = new Edge(vertexA, vertexE, 9);
-    vertexA.edges.addAll(Arrays.asList(edgeAB, edgeAH, edgeAE));
-
-    Edge edgeBH = new Edge(vertexB, vertexH, 4);
-    Edge edgeBC = new Edge(vertexB, vertexC, 12);
-    Edge edgeBD = new Edge(vertexB, vertexD, 15);
-    vertexB.edges.addAll(Arrays.asList(edgeBH, edgeBC, edgeBD));
-
-    Edge edgeCD = new Edge(vertexC, vertexD, 3);
-    Edge edgeCG = new Edge(vertexC, vertexG, 11);
-    vertexC.edges.addAll(Arrays.asList(edgeCD, edgeCG));
-
-    Edge edgeDG = new Edge(vertexD, vertexG, 9);
-    vertexD.edges.add(edgeDG);
-
-    Edge edgeEH = new Edge(vertexE, vertexH, 5);
-    Edge edgeEF = new Edge(vertexE, vertexF, 4);
-    Edge edgeEG = new Edge(vertexE, vertexG, 20);
-    vertexE.edges.addAll(Arrays.asList(edgeEG, edgeEF, edgeEH));
-
-    Edge edgeFC = new Edge(vertexF, vertexC, 1);
-    Edge edgeFG = new Edge(vertexF, vertexG, 13);
-    vertexF.edges.addAll(Arrays.asList(edgeFC, edgeFG));
-
-    Edge edgeHC = new Edge(vertexH, vertexC, 7);
-    Edge edgeHF = new Edge(vertexH, vertexF, 6);
-    vertexH.edges.addAll(Arrays.asList(edgeHC, edgeHF));
-    
-    vertices = Arrays.asList(vertexA, vertexB, vertexC, vertexD, vertexE, vertexF, vertexG, vertexH);
-  }
-  
   @Test
-  public void shouldReturnShortestPathFromAToG(){
-    Vertex vertexA = vertices.get(vertices.indexOf(new Vertex("A")));
-    List<Vertex> shortestPathTree = dijkstra.shortestPathTree(vertices, vertexA);
+  public void shouldReturnShortestPathFromAToG() {
+    Vertex a = new Vertex("A");
+    Vertex b = new Vertex("B");
+    Vertex c = new Vertex("C");
+    Vertex d = new Vertex("D");
+    Vertex e = new Vertex("E");
+    Vertex f = new Vertex("F");
+    Vertex g = new Vertex("G");
+    Vertex h = new Vertex("H");
+
+    Edge ab = new Edge(a, b, 5);
+    Edge ah = new Edge(a, h, 8);
+    Edge ae = new Edge(a, e, 9);
+    a.edges.addAll(Arrays.asList(ab, ah, ae));
+
+    Edge bh = new Edge(b, h, 4);
+    Edge bc = new Edge(b, c, 12);
+    Edge bd = new Edge(b, d, 15);
+    b.edges.addAll(Arrays.asList(bh, bc, bd));
+
+    Edge cd = new Edge(c, d, 3);
+    Edge cg = new Edge(c, g, 11);
+    c.edges.addAll(Arrays.asList(cd, cg));
+
+    Edge dg = new Edge(d, g, 9);
+    d.edges.add(dg);
+
+    Edge eh = new Edge(e, h, 5);
+    Edge ef = new Edge(e, f, 4);
+    Edge eg = new Edge(e, g, 20);
+    e.edges.addAll(Arrays.asList(eg, ef, eh));
+
+    Edge fc = new Edge(f, c, 1);
+    Edge fg = new Edge(f, g, 13);
+    f.edges.addAll(Arrays.asList(fc, fg));
+
+    Edge hc = new Edge(h, c, 7);
+    Edge hf = new Edge(h, f, 6);
+    h.edges.addAll(Arrays.asList(hc, hf));
+
+    vertices = Arrays.asList(a, b, c, d, e, f, g, h);
+
+    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))).minDistance, is(25));
-    assertThat(dijkstra.getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))), ""), is("AEFCG"));
+
+    String shortestPathFromAToG = dijkstra
+        .getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))), "");
+    assertThat(shortestPathFromAToG, is("AEFCG"));
+  }
+
+  @Test
+  public void shouldReturnShortestPathFromAToD() {
+    Vertex a = new Vertex("A");
+    Vertex b = new Vertex("B");
+    Vertex c = new Vertex("C");
+    Vertex d = new Vertex("D");
+    Edge ab = new Edge(a, b, 1);
+    Edge ac = new Edge(a, c, 5);
+    Edge bc = new Edge(b, c, 2);
+    Edge bd = new Edge(b, d, 4);
+    Edge cb = new Edge(c, b, 3);
+    Edge cd = new Edge(c, d, 3);
+
+    a.edges.addAll(Arrays.asList(ab, ac));
+    b.edges.addAll(Arrays.asList(bc, bd));
+    c.edges.addAll(Arrays.asList(cb, cd));
+
+    List<Vertex> vertices = Arrays.asList(a, b, c, d);
+    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
+    assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("D"))).minDistance, is(5));
+
+    String shortestPathFromAToD = dijkstra.getShortestPathTo(d, "");
+    assertThat(shortestPathFromAToD, is("ABD"));
   }
 }

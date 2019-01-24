@@ -5,13 +5,15 @@ import java.util.List;
 
 class Vertex {
   String name;
-  Integer minDistance;
+  int minDistance;
   Vertex predecessor;
   List<Edge> edges;
+  boolean visited;
 
   Vertex(String name) {
     this.name = name;
     this.edges = new ArrayList<>();
+    visited = false;
   }
 
   @Override

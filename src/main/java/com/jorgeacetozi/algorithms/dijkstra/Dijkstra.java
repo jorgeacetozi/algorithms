@@ -6,9 +6,16 @@ import java.util.PriorityQueue;
 
 class Dijkstra {
 
-  List<Vertex> shortestPathTree(List<Vertex> vertexList, Vertex source) {
+  // The Eager Dijkstra implementation does not insert vertices to heap whenever
+  // a smaller distance is found. Instead, it updates the existing vertices in the
+  // Priority Queue. In order to do that in O(log(n)), an IndexPriorityQueue would be
+  // necessary, so let's just remove and insert the vertice again in O(n) when a smaller
+  // distance is found to make it simpler
+  List<Vertex> eagerDijkstraShortestPath(List<Vertex> vertexList, Vertex source) {
     // init phase
-    PriorityQueue<Vertex> minHeap = new PriorityQueue<>(Comparator.comparingInt(v -> v.minDistance));
+    PriorityQueue<Vertex> minHeap =
+        new PriorityQueue<>(Comparator.comparingInt(v -> v.minDistance));
+
     for (Vertex vertex : vertexList) {
       if (vertex.equals(source)) {
         vertex.minDistance = 0;
@@ -20,10 +27,16 @@ class Dijkstra {
 
     while (!minHeap.isEmpty()) {
       Vertex currentVertex = minHeap.poll();
+      currentVertex.visited = true;
 
       // relaxing edges phase
       for (Edge edge : currentVertex.edges) {
         Vertex neighborVertex = edge.to;
+
+        // Visiting a node which was already visited is a cycle, which always increase
+        // the minDistance as all edges are positive in Dijkstra, so just skip visiting it again
+        if (neighborVertex.visited == true)
+          continue;
 
         if (currentVertex.minDistance + edge.weight < neighborVertex.minDistance) {
           minHeap.remove(neighborVertex); // takes O(n)
