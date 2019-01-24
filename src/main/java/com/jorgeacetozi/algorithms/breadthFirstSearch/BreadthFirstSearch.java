@@ -17,7 +17,8 @@ class BreadthFirstSearch {
       for (Vertex neighbor : currentVertex.neighbors) {
         if (neighbor.visited == false) { // avoid infinite loop due to cycles by visiting each
                                          // vertex only once
-          neighbor.visited = true;
+          neighbor.visited = true; // mark the neighbor as visited, although we have not visited it yet
+                                   // this + the if above avoid considering a node twice when traversing the graph
           System.out.print(neighbor.name);
           queue.add(neighbor);
         }
