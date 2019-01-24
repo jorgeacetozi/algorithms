@@ -15,10 +15,14 @@ class BreadthFirstSearch {
       Vertex currentVertex = queue.poll();
 
       for (Vertex neighbor : currentVertex.neighbors) {
-        if (neighbor.visited == false) { // avoid infinite loop due to cycles by visiting each
-                                         // vertex only once
-          neighbor.visited = true; // mark the neighbor as visited, although we have not visited it yet
-                                   // this + the if above avoid considering a node twice when traversing the graph
+        // avoid infinite loop due to cycles by visiting each vertex only once
+        if (neighbor.visited == false) {
+          /*
+           * Mark the neighbor as visited, although we have not actually visited it yet. This plus
+           * the if above avoid considering (printing, for example) a node twice when traversing the
+           * graph. In BFS and DFS, visited = true actually means visited + beingVisited = true
+           */
+          neighbor.visited = true;
           System.out.print(neighbor.name);
           queue.add(neighbor);
         }
