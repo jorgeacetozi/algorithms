@@ -6,8 +6,11 @@ class DepthFirstSearch {
 
   void iterativeDFS(Vertex vertex) {
     Stack<Vertex> stack = new Stack<>();
+    
+    // Visit vertex (mark + print)
     vertex.visited = true;
     System.out.print(vertex);
+    
     stack.push(vertex);
 
     while (!stack.isEmpty()) {
@@ -25,6 +28,17 @@ class DepthFirstSearch {
           System.out.print(neighbor);
           stack.push(neighbor);
         }
+      }
+    }
+  }
+
+  void recursiveDFS(Vertex vertex) {
+    System.out.print(vertex);
+    vertex.visited = true;
+
+    for (Vertex neighbor : vertex.neighbors) {
+      if (neighbor.visited == false) {
+        recursiveDFS(neighbor);
       }
     }
   }
