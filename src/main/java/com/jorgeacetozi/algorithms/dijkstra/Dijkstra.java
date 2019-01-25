@@ -49,10 +49,14 @@ class Dijkstra {
     return vertexList;
   }
 
-  String getShortestPathTo(Vertex vertex, String path) {
+  String getShortestPathTo(Vertex vertex) {
+    return getShortestPathRecursive(vertex, "");
+  }
+
+  private String getShortestPathRecursive(Vertex vertex, String path) {
     if (vertex == null) {
       return path;
     }
-    return getShortestPathTo(vertex.predecessor, vertex.name + path);
+    return getShortestPathRecursive(vertex.predecessor, vertex.name + path);
   }
 }

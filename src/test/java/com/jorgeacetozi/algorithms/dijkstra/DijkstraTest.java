@@ -58,7 +58,7 @@ public class DijkstraTest {
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))).minDistance, is(25));
 
     String shortestPathFromAToG = dijkstra
-        .getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))), "");
+        .getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))));
     assertThat(shortestPathFromAToG, is("AEFCG"));
   }
 
@@ -83,7 +83,7 @@ public class DijkstraTest {
     List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("D"))).minDistance, is(5));
 
-    String shortestPathFromAToD = dijkstra.getShortestPathTo(d, "");
+    String shortestPathFromAToD = dijkstra.getShortestPathTo(d);
     assertThat(shortestPathFromAToD, is("ABD"));
   }
 }
