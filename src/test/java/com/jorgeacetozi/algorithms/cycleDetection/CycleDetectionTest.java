@@ -1,5 +1,6 @@
 package com.jorgeacetozi.algorithms.cycleDetection;
 
+import static org.junit.Assert.*;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -18,7 +19,20 @@ public class CycleDetectionTest {
     b.neighbors = Arrays.asList(d, a);
     c.neighbors = Arrays.asList(b);
     
-    System.out.println(cycleDetection.detectWithDFS(a));
+    assertTrue(cycleDetection.detectWithDFS(a));
   }
-
+  
+  @Test
+  public void shouldNotDetectCycle(){
+    Vertex a = new Vertex("A");
+    Vertex b = new Vertex("B");
+    Vertex c = new Vertex("C");
+    Vertex d = new Vertex("D");
+    
+    a.neighbors = Arrays.asList(c);
+    b.neighbors = Arrays.asList(d);
+    c.neighbors = Arrays.asList(b);
+    
+    assertFalse(cycleDetection.detectWithDFS(a));
+  }
 }
