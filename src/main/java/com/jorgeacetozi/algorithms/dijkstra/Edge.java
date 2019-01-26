@@ -1,13 +1,13 @@
 package com.jorgeacetozi.algorithms.dijkstra;
 
 class Edge {
-  Vertex from;
-  Vertex to;
+  Vertex start;
+  Vertex end;
   Integer weight;
 
-  Edge(Vertex from, Vertex to, Integer weight) {
-    this.from = from;
-    this.to = to;
+  Edge(Vertex start, Vertex end, Integer weight) {
+    this.start = start;
+    this.end = end;
     this.weight = weight;
   }
 }

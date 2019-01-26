@@ -31,7 +31,7 @@ class Dijkstra {
 
       // relaxing edges phase
       for (Edge edge : currentVertex.edges) {
-        Vertex neighborVertex = edge.to;
+        Vertex neighborVertex = edge.end;
 
         // Visiting a node which was already visited is a cycle, which always increase
         // the minDistance as all edges are positive in Dijkstra, so just skip visiting it again
