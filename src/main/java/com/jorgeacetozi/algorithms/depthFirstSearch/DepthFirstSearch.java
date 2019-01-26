@@ -5,9 +5,10 @@ import java.util.Stack;
 class DepthFirstSearch {
 
   /*
-   * This implementation simply: - Add the initial node to the stack; - While the stack is not
-   * empty, it pops an Vertex - If this vertex wasn't visited, then visit it and adds all its
-   * neighbors to the stack
+   * This implementation simply: 
+   * 1) Add the initial node to the stack; 
+   * 2) While the stack is not empty, it pops out a Vertex
+   * 3) If this vertex isn't visited, then visit it and adds all of its neighbors to the stack
    * 
    * Note that it only visits the currentVertex per iteration, which makes sense conceptually (if
    * are in A, why would you be visiting A, B and C instead of only A?) but is less optimized than
