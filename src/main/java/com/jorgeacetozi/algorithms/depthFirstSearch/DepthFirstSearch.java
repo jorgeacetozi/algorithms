@@ -4,18 +4,46 @@ import java.util.Stack;
 
 class DepthFirstSearch {
 
+  /*
+   * This implementation simply: - Add the initial node to the stack; - While the stack is not
+   * empty, it pops an Vertex - If this vertex wasn't visited, then visit it and adds all its
+   * neighbors to the stack
+   * 
+   * Note that it only visits the currentVertex per iteration, which makes sense conceptually (if
+   * are in A, why would you be visiting A, B and C instead of only A?) but is less optimized than
+   * the implementation below, which visits the neighbors before actually iterating over them.
+   */
   void iterativeDFS(Vertex vertex) {
     Stack<Vertex> stack = new Stack<>();
-    
+    stack.push(vertex);
+    while (!stack.isEmpty()) {
+      Vertex currentVertex = stack.pop();
+      if (currentVertex.visited == false) {
+        currentVertex.visited = true;
+        System.out.print(currentVertex);
+        for (Vertex neighbor : currentVertex.neighbors) {
+          stack.push(neighbor);
+        }
+      }
+    }
+  }
+
+  /*
+   * This implementation is more optimized than the above because it visits the currentVertex's
+   * neighbors before actually iterating over them. This avoids adding duplicates to the Stack and
+   * therefore is more optimized, but (IMHO) is conceptually weird since you are visiting a node
+   * before actually iterate over it.
+   */
+  void iterativeDFSOptimized(Vertex vertex) {
+    Stack<Vertex> stack = new Stack<>();
+
     // Visit vertex (mark + print)
     vertex.visited = true;
     System.out.print(vertex);
-    
-    stack.push(vertex);
 
+    stack.push(vertex);
     while (!stack.isEmpty()) {
       Vertex currentVertex = stack.pop();
-
       for (Vertex neighbor : currentVertex.neighbors) {
         // avoid infinite loop due to cycles by visiting each vertex only once
         if (neighbor.visited == false) {
@@ -32,6 +60,9 @@ class DepthFirstSearch {
     }
   }
 
+  /*
+   * This is the traditional recursive implementation for DFS.
+   */
   void recursiveDFS(Vertex vertex) {
     System.out.print(vertex);
     vertex.visited = true;
