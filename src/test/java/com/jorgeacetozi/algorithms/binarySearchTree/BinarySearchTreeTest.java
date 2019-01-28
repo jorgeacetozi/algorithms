@@ -81,4 +81,17 @@ public class BinarySearchTreeTest {
     assertThat(min.key, is(3));
     assertThat(min.value, is("Minimum"));
   }
+  
+  @Test
+  public void shouldFindMaximumKey() {
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Jorge");
+    bst.insert(15, "Xuxa");
+    bst.insert(12, "Cobra");
+    bst.insert(7, "Hello");
+    bst.insert(3, "Minimum");
+    Node max = bst.findMax();
+    assertThat(max.key, is(15));
+    assertThat(max.value, is("Xuxa"));
+  }
 }
