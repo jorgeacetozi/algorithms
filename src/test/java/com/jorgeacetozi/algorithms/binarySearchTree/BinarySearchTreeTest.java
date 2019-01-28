@@ -48,4 +48,13 @@ public class BinarySearchTreeTest {
     assertThat(bst.root.rightChild.leftChild.key, is(12));
     assertThat(bst.root.rightChild.leftChild.value, is("Cobra"));
   }
+  
+  @Test
+  public void shouldUpdateValueWhenInsertingExistingKey(){
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Jorge");
+    bst.insert(15, "Xuxa");
+    bst.insert(15, "Cobra");
+    assertThat(bst.root.rightChild.value, is("Cobra"));
+  }
 }

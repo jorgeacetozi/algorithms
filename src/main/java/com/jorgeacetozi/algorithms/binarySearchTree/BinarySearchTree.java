@@ -21,6 +21,8 @@ class BinarySearchTree {
       currentNode.leftChild = insertRecursive(currentNode.leftChild, key, value);
     } else if (key > currentNode.key) {
       currentNode.rightChild = insertRecursive(currentNode.rightChild, key, value);
+    } else {
+      currentNode.value = value;
     }
     return currentNode;
   }
