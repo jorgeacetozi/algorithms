@@ -68,4 +68,17 @@ public class BinarySearchTreeTest {
     assertThat(cobra.key, is(12));
     assertThat(cobra.value, is("Cobra"));
   }
+  
+  @Test
+  public void shouldFindMinimumKey() {
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Jorge");
+    bst.insert(15, "Xuxa");
+    bst.insert(12, "Cobra");
+    bst.insert(7, "Hello");
+    bst.insert(3, "Minimum");
+    Node min = bst.findMin();
+    assertThat(min.key, is(3));
+    assertThat(min.value, is("Minimum"));
+  }
 }

@@ -43,4 +43,15 @@ class BinarySearchTree {
       return findRecursive(currentNode.rightChild, key);
     }
   }
+  
+  Node findMin() {
+    return this.findMinRecursive(this.root);
+  }
+  
+  private Node findMinRecursive(Node currentNode) {
+    if (currentNode.leftChild == null) {
+      return currentNode;
+    }
+    return findMinRecursive(currentNode.leftChild);
+  }
 }
