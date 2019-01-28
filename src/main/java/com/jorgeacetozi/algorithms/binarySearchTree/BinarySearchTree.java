@@ -27,4 +27,20 @@ class BinarySearchTree {
     return currentNode;
   }
 
+  Node find(int key) {
+    return this.findRecursive(this.root, key);
+  }
+
+  private Node findRecursive(Node currentNode, int key) {
+    if (currentNode == null) {
+      return null;
+    }
+    if (currentNode.key == key) {
+      return currentNode;
+    } else if (key < currentNode.key) {
+      return findRecursive(currentNode.leftChild, key);
+    } else {
+      return findRecursive(currentNode.rightChild, key);
+    }
+  }
 }
