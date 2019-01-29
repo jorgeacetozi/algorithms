@@ -65,4 +65,22 @@ class BinarySearchTree {
     }
     return findMaxRecursive(currentNode.rightChild);
   }
+
+  Node delete(int key) {
+    return this.deleteRecursive(this.root, key);
+  }
+
+  private Node deleteRecursive(Node currentNode, int key) {
+    if (key == currentNode.key) {
+      if (currentNode.leftChild == null && currentNode.rightChild == null) {
+        return null;
+      }
+    } else if (key < currentNode.key) {
+      currentNode.leftChild = deleteRecursive(currentNode.leftChild, key);
+    } else {
+      currentNode.rightChild = deleteRecursive(currentNode.rightChild, key);
+    }
+    return currentNode;
+  }
+
 }

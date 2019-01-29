@@ -68,7 +68,7 @@ public class BinarySearchTreeTest {
     assertThat(cobra.key, is(12));
     assertThat(cobra.value, is("Cobra"));
   }
-  
+
   @Test
   public void shouldFindMinimumKey() {
     BinarySearchTree bst = new BinarySearchTree();
@@ -81,7 +81,7 @@ public class BinarySearchTreeTest {
     assertThat(min.key, is(3));
     assertThat(min.value, is("Minimum"));
   }
-  
+
   @Test
   public void shouldFindMaximumKey() {
     BinarySearchTree bst = new BinarySearchTree();
@@ -93,5 +93,15 @@ public class BinarySearchTreeTest {
     Node max = bst.findMax();
     assertThat(max.key, is(15));
     assertThat(max.value, is("Xuxa"));
+  }
+
+  @Test
+  public void shouldDeleteNodeNoChildren() {
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Jorge");
+    bst.insert(5, "Xuxa");
+    assertNotNull(bst.root.leftChild);
+    bst.delete(5);
+    assertNull(bst.root.leftChild);
   }
 }
