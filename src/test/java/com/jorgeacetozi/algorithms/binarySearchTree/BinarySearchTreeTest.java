@@ -104,4 +104,37 @@ public class BinarySearchTreeTest {
     bst.delete(5);
     assertNull(bst.root.leftChild);
   }
+
+  @Test
+  public void shouldDeleteNodeOneChild() {
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Jorge");
+    bst.insert(5, "Xuxa");
+    bst.insert(3, "Cobra");
+
+    assertThat(bst.root.leftChild.key, is(5));
+    bst.delete(5);
+    assertThat(bst.root.leftChild.key, is(3));
+    assertNull(bst.find(5));
+  }
+
+  @Test
+  public void shouldDeleteNodeTwoChildren() {
+    BinarySearchTree bst = new BinarySearchTree();
+    bst.insert(10, "Xuxa10");
+    bst.insert(5, "Xuxa5");
+    bst.insert(3, "Xuxa3");
+    bst.insert(1, "Xuxa1");
+    bst.insert(4, "Xuxa4");
+    bst.insert(9, "Xuxa9");
+    bst.insert(7, "Xuxa7");
+    bst.insert(8, "Xuxa8");
+    bst.insert(20, "Xuxa20");
+
+    assertThat(bst.root.leftChild.key, is(5));
+    bst.delete(5);
+    assertThat(bst.root.leftChild.key, is(4));
+    assertThat(bst.root.leftChild.value, is("Xuxa4"));
+    assertNull(bst.find(5));
+  }
 }

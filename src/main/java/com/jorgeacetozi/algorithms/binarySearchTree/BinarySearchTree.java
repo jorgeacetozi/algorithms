@@ -70,10 +70,31 @@ class BinarySearchTree {
     return this.deleteRecursive(this.root, key);
   }
 
-  private Node deleteRecursive(Node currentNode, int key) {
+  private Node deleteRecursive(Node currentNode, int key) { // FUMA PRO PAPAI FUMA MENINA!!!!!!
     if (key == currentNode.key) {
+      // case 1 - no children
       if (currentNode.leftChild == null && currentNode.rightChild == null) {
         return null;
+      }
+      // case 2 - one child
+      if (currentNode.leftChild != null && currentNode.rightChild == null) {
+        return currentNode.leftChild;
+      }
+      if (currentNode.leftChild == null && currentNode.rightChild != null) {
+        return currentNode.rightChild;
+      }
+      // case 3 - two children
+      if (currentNode.leftChild != null && currentNode.rightChild != null) {
+        Node predecessor = findPredecessor(currentNode);
+        int tempKey = currentNode.key;
+        Object tempValue = currentNode.value;
+        currentNode.key = predecessor.key;
+        currentNode.value = predecessor.value;
+        predecessor.key = tempKey;
+        predecessor.value = tempValue;
+        this.deleteRecursive(currentNode.leftChild, tempKey); // Note that this call is on the left
+                                                              // subtree!
+        return currentNode;
       }
     } else if (key < currentNode.key) {
       currentNode.leftChild = deleteRecursive(currentNode.leftChild, key);
@@ -83,4 +104,8 @@ class BinarySearchTree {
     return currentNode;
   }
 
+  // The predecessor is the maximum key in the left subtree of the currentNode
+  private Node findPredecessor(Node currentNode) {
+    return this.findMaxRecursive(currentNode.leftChild);
+  }
 }
