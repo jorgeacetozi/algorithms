@@ -8,7 +8,7 @@ class Vertex {
   int minDistance;
   Vertex predecessor;
   List<Edge> edges;
-  boolean visited;
+  boolean visited; // unnecessary
 
   Vertex(String name) {
     this.name = name;

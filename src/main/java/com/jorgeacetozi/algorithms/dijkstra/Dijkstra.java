@@ -6,6 +6,37 @@ import java.util.PriorityQueue;
 
 class Dijkstra {
 
+  List<Vertex> lazyDijkstraShortestPath(List<Vertex> vertexList, Vertex source) {
+    PriorityQueue<Vertex> minHeap =
+        new PriorityQueue<>(Comparator.comparingInt(v -> v.minDistance));
+
+    for (Vertex vertex : vertexList) {
+      if (vertex.equals(source)) {
+        vertex.minDistance = 0;
+      } else {
+        vertex.minDistance = Integer.MAX_VALUE;
+      }
+    }
+    minHeap.add(source);
+
+    while (!minHeap.isEmpty()) {
+      Vertex currentVertex = minHeap.poll();
+      // Unlike BFS, there is not need to check if the vertex is visited because 
+      // the if below ensures that already visited nodes can't be updated with a smaller distance
+      for (Edge edge : currentVertex.edges) {
+        Vertex targetVertex = edge.end;
+
+        if (currentVertex.minDistance + edge.weight < targetVertex.minDistance) {
+          targetVertex.minDistance = currentVertex.minDistance + edge.weight;
+          targetVertex.predecessor = currentVertex;
+          minHeap.add(targetVertex);
+        }
+      }
+    }
+    return vertexList;
+  }
+
+
   // The Eager Dijkstra implementation does not insert vertices to heap whenever
   // a smaller distance is found. Instead, it updates the existing vertices in the
   // Priority Queue. In order to do that in O(log(n)), an IndexPriorityQueue would be

@@ -54,7 +54,7 @@ public class DijkstraTest {
 
     vertices = Arrays.asList(a, b, c, d, e, f, g, h);
 
-    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
+    List<Vertex> shortestPathTree = dijkstra.lazyDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))).minDistance, is(25));
 
     String shortestPathFromAToG = dijkstra
@@ -80,7 +80,7 @@ public class DijkstraTest {
     c.edges.addAll(Arrays.asList(cb, cd));
 
     List<Vertex> vertices = Arrays.asList(a, b, c, d);
-    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
+    List<Vertex> shortestPathTree = dijkstra.lazyDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("D"))).minDistance, is(5));
 
     String shortestPathFromAToD = dijkstra.getShortestPathTo(d);
