@@ -5,10 +5,9 @@ import java.util.Stack;
 class DepthFirstSearch {
 
   /*
-   * This implementation simply: 
-   * 1) Add the initial node to the stack; 
-   * 2) While the stack is not empty, it pops out a Vertex
-   * 3) If this vertex isn't visited, then visit it and adds all of its neighbors to the stack
+   * This implementation simply: 1) Add the initial node to the stack; 2) While the stack is not
+   * empty, it pops out a Vertex 3) If this vertex isn't visited, then visit it and adds all of its
+   * neighbors to the stack
    * 
    * Note that it only visits the currentVertex per iteration, which makes sense conceptually (if
    * are in A, why would you be visiting A, B and C instead of only A?) but is less optimized than
@@ -25,6 +24,17 @@ class DepthFirstSearch {
         for (Vertex neighbor : currentVertex.neighbors) {
           stack.push(neighbor);
         }
+      }
+    }
+  }
+
+  // Note this is the exact same piece of code as above, just without the stack declaration
+  void recursiveDFS(Vertex vertex) {
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      System.out.print(vertex);
+      for (Vertex neighbor : vertex.neighbors) {
+        recursiveDFS(neighbor);
       }
     }
   }
@@ -62,15 +72,15 @@ class DepthFirstSearch {
   }
 
   /*
-   * This is the traditional recursive implementation for DFS.
+   * Traditional recursive implementation for DFS found in books out there.
    */
-  void recursiveDFS(Vertex vertex) {
+  void traditionalRecursiveDFS(Vertex vertex) {
     System.out.print(vertex);
     vertex.visited = true;
 
     for (Vertex neighbor : vertex.neighbors) {
       if (neighbor.visited == false) {
-        recursiveDFS(neighbor);
+        traditionalRecursiveDFS(neighbor);
       }
     }
   }

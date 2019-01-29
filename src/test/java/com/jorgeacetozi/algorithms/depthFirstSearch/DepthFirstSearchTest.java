@@ -32,14 +32,19 @@ public class DepthFirstSearchTest {
   public void iterativeDFSTest() {
     depthFirstSearch.iterativeDFS(root);
   }
-  
+
+  @Test
+  public void recursiveDFSTest() {
+    depthFirstSearch.recursiveDFS(root);
+  }
+
   @Test
   public void iterativeDFSOptimizedTest() {
     depthFirstSearch.iterativeDFSOptimized(root);
   }
 
   @Test
-  public void recursiveDFSTest() {
-    depthFirstSearch.recursiveDFS(root);
+  public void traditionalRecursiveDFSTest() {
+    depthFirstSearch.traditionalRecursiveDFS(root);
   }
 }
