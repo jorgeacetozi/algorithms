@@ -5,9 +5,9 @@ import java.util.List;
 class Connectivity {
 
   /*
-   * Checks whether an UNDIRECTED graph is connected or not by simply running a DFS on a random vertex
-   * and then verifying if there is still a vertex that hasn't been visited. If there is, that's
-   * because this vertex is not connected to the rest of the graph
+   * Checks whether an UNDIRECTED graph is connected or not by simply running a DFS on a random
+   * vertex and then verifying if there is still a vertex that hasn't been visited. If there is,
+   * that's because this vertex is not connected to the rest of the graph
    */
   boolean isConnected(List<Vertex> vertices) {
     dfs(vertices.get(0));
@@ -21,9 +21,9 @@ class Connectivity {
   }
 
   private void dfs(Vertex vertex) {
-    vertex.visited = true;
-    for (Vertex neighbor : vertex.neighbors) {
-      if (neighbor.visited == false) {
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      for (Vertex neighbor : vertex.neighbors) {
         dfs(neighbor);
       }
     }
