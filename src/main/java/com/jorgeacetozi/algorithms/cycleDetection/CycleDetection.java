@@ -8,11 +8,14 @@ class CycleDetection {
       this.found = true;
       return this.found;
     }
-    vertex.visited = false;
-    vertex.beingVisited = true;
-    for (Vertex neighbor : vertex.neighbors) {
-      if (neighbor.visited == false) {
-        neighbor.predecessor = vertex;
+
+    if (vertex.visited == false) {
+      vertex.visited = false;
+      vertex.beingVisited = true;
+      for (Vertex neighbor : vertex.neighbors) {
+        neighbor.predecessor = vertex; // using the predecessor allows to print the vertices in the
+                                       // cycle, but you don't need it if you don't want to print
+                                       // the cycle
         detectWithDFS(neighbor);
       }
     }
