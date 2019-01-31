@@ -105,7 +105,7 @@ public class DijkstraTest {
     Edge ce = new Edge(c, e, 4);
     Edge de = new Edge(d, e, 1);
     Edge df = new Edge(d, f, 3);
-    Edge ef = new Edge(c, d, 3);
+    Edge ef = new Edge(e, f, 3);
 
     a.edges.addAll(Arrays.asList(ab, ac));
     b.edges.addAll(Arrays.asList(bc, bd));

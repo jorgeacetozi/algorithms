@@ -32,6 +32,8 @@ class Dijkstra {
       for (Edge edge : currentVertex.edges) {
         Vertex neighborVertex = edge.end;
 
+        // Dijkstra doesn't need to verify if the neighbor is already visited because this condition
+        // is enough
         if (currentVertex.minDistance + edge.weight < neighborVertex.minDistance) {
           minHeap.remove(neighborVertex); // takes O(n)
           neighborVertex.minDistance = currentVertex.minDistance + edge.weight;
