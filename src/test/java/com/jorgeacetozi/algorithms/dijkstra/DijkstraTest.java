@@ -2,6 +2,7 @@ package com.jorgeacetozi.algorithms.dijkstra;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -54,11 +55,11 @@ public class DijkstraTest {
 
     vertices = Arrays.asList(a, b, c, d, e, f, g, h);
 
-    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
-    assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))).minDistance, is(25));
+    dijkstra.eagerDijkstraShortestPath(vertices, a);
+    assertThat(vertices.get(vertices.indexOf(new Vertex("G"))).minDistance, is(25));
 
     String shortestPathFromAToG =
-        dijkstra.getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))));
+        dijkstra.getShortestPathTo(vertices.get(vertices.indexOf(new Vertex("G"))));
     assertThat(shortestPathFromAToG, is("AEFCG"));
   }
 
@@ -80,8 +81,8 @@ public class DijkstraTest {
     c.edges.addAll(Arrays.asList(cb, cd));
 
     List<Vertex> vertices = Arrays.asList(a, b, c, d);
-    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
-    assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("D"))).minDistance, is(5));
+    dijkstra.eagerDijkstraShortestPath(vertices, a);
+    assertThat(vertices.get(vertices.indexOf(new Vertex("D"))).minDistance, is(5));
 
     String shortestPathFromAToD = dijkstra.getShortestPathTo(d);
     assertThat(shortestPathFromAToD, is("ABD"));
@@ -113,8 +114,8 @@ public class DijkstraTest {
     e.edges.addAll(Arrays.asList(ef));
 
     List<Vertex> vertices = Arrays.asList(a, b, c, d, e, f);
-    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
-    assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("F"))).minDistance, is(13));
+    dijkstra.eagerDijkstraShortestPath(new ArrayList<>(vertices), a);
+    assertThat(vertices.get(vertices.indexOf(new Vertex("F"))).minDistance, is(13));
 
     String shortestPathFromAToF = dijkstra.getShortestPathTo(f);
     assertThat(shortestPathFromAToF, is("ABDF"));

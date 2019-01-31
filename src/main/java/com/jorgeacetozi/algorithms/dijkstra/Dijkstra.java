@@ -11,7 +11,7 @@ class Dijkstra {
   // Priority Queue. In order to do that in O(log(n)), an IndexedPriorityQueue would be
   // necessary, so let's just remove and insert the vertice again in O(n) when a smaller
   // distance is found to make it simpler
-  List<Vertex> eagerDijkstraShortestPath(List<Vertex> vertexList, Vertex source) {
+  void eagerDijkstraShortestPath(List<Vertex> vertexList, Vertex source) {
     // init phase
     PriorityQueue<Vertex> minHeap =
         new PriorityQueue<>(Comparator.comparingInt(v -> v.minDistance));
@@ -40,7 +40,6 @@ class Dijkstra {
         }
       }
     }
-    return vertexList;
   }
 
   String getShortestPathTo(Vertex vertex) {
