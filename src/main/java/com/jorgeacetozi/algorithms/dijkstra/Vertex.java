@@ -8,12 +8,10 @@ class Vertex {
   int minDistance;
   Vertex predecessor;
   List<Edge> edges;
-  boolean visited; // unnecessary
 
   Vertex(String name) {
     this.name = name;
     this.edges = new ArrayList<>();
-    visited = false;
   }
 
   @Override

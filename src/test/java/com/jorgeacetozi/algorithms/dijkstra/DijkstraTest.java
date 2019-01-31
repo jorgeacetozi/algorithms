@@ -54,11 +54,11 @@ public class DijkstraTest {
 
     vertices = Arrays.asList(a, b, c, d, e, f, g, h);
 
-    List<Vertex> shortestPathTree = dijkstra.lazyDijkstraShortestPath(vertices, a);
+    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))).minDistance, is(25));
 
-    String shortestPathFromAToG = dijkstra
-        .getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))));
+    String shortestPathFromAToG =
+        dijkstra.getShortestPathTo(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("G"))));
     assertThat(shortestPathFromAToG, is("AEFCG"));
   }
 
@@ -80,10 +80,43 @@ public class DijkstraTest {
     c.edges.addAll(Arrays.asList(cb, cd));
 
     List<Vertex> vertices = Arrays.asList(a, b, c, d);
-    List<Vertex> shortestPathTree = dijkstra.lazyDijkstraShortestPath(vertices, a);
+    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
     assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("D"))).minDistance, is(5));
 
     String shortestPathFromAToD = dijkstra.getShortestPathTo(d);
     assertThat(shortestPathFromAToD, is("ABD"));
+  }
+
+
+  @Test
+  public void shouldReturnShortestPathFromAToF() {
+    Vertex a = new Vertex("A");
+    Vertex b = new Vertex("B");
+    Vertex c = new Vertex("C");
+    Vertex d = new Vertex("D");
+    Vertex e = new Vertex("E");
+    Vertex f = new Vertex("F");
+    Edge ab = new Edge(a, b, 1);
+    Edge ac = new Edge(a, c, 8);
+    Edge bc = new Edge(b, c, 6);
+    Edge bd = new Edge(b, d, 9);
+    Edge cd = new Edge(c, d, 5);
+    Edge ce = new Edge(c, e, 4);
+    Edge de = new Edge(d, e, 1);
+    Edge df = new Edge(d, f, 3);
+    Edge ef = new Edge(c, d, 3);
+
+    a.edges.addAll(Arrays.asList(ab, ac));
+    b.edges.addAll(Arrays.asList(bc, bd));
+    c.edges.addAll(Arrays.asList(cd, ce));
+    d.edges.addAll(Arrays.asList(de, df));
+    e.edges.addAll(Arrays.asList(ef));
+
+    List<Vertex> vertices = Arrays.asList(a, b, c, d, e, f);
+    List<Vertex> shortestPathTree = dijkstra.eagerDijkstraShortestPath(vertices, a);
+    assertThat(shortestPathTree.get(shortestPathTree.indexOf(new Vertex("F"))).minDistance, is(13));
+
+    String shortestPathFromAToF = dijkstra.getShortestPathTo(f);
+    assertThat(shortestPathFromAToF, is("ABDF"));
   }
 }
