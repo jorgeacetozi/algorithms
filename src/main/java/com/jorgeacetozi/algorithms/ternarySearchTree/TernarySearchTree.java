@@ -37,7 +37,6 @@ class TernarySearchTree {
     return currentNode;
   }
 
-
   List<Node> findPartials(String prefix) {
     this.partials = new ArrayList<>();
     return autocomplete(this.root, prefix, 0);
