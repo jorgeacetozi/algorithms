@@ -2,6 +2,7 @@ package com.jorgeacetozi.algorithms.ternarySearchTree;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
@@ -48,5 +49,19 @@ public class TernarySearchTreeTest {
     assertThat(partials.get(1).value, equalTo("catarro"));
     assertThat(partials.get(2).value, equalTo("catolico"));
     assertThat(partials.get(3).value, equalTo("catra"));
+  }
+
+  @Test
+  public void shouldFindLongestCommonPrefixWhenThereIsNoLeftOrRightChild() {
+    String longestCommonPrefix =
+        ternarySearchTree.longestCommonPrefix(Arrays.asList("jor", "jorge", "jorgetest"));
+    assertThat(longestCommonPrefix, equalTo("jor"));
+  }
+
+  @Test
+  public void shouldFindLongestCommonPrefixCaseWhenThereIsLeftOrRightChild() {
+    String longestCommonPrefix =
+        ternarySearchTree.longestCommonPrefix(Arrays.asList("jor", "jorge", "job", "jjj"));
+    assertThat(longestCommonPrefix, equalTo("j"));
   }
 }
