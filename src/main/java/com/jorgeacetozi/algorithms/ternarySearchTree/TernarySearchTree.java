@@ -15,26 +15,20 @@ class TernarySearchTree {
   }
 
   private Node putRecursive(Node currentNode, String key, Object value, int i) {
-    // stop condition
-    if (i == key.length()) {
-      return currentNode;
-    }
-
     char currentCharacterFromKey = key.charAt(i);
 
     if (currentNode == null) {
       currentNode = new Node(currentCharacterFromKey);
     }
 
-    if (currentCharacterFromKey == currentNode.character) {
-      if (key.length() - 1 == i) {
-        currentNode.value = value;
-      }
-      currentNode.middleChild = putRecursive(currentNode.middleChild, key, value, ++i);
-    } else if (currentCharacterFromKey < currentNode.character) {
+    if (currentCharacterFromKey < currentNode.character) {
       currentNode.leftChild = putRecursive(currentNode.leftChild, key, value, i);
     } else if (currentCharacterFromKey > currentNode.character) {
       currentNode.rightChild = putRecursive(currentNode.rightChild, key, value, i);
+    } else if (i < key.length() - 1) {
+      currentNode.middleChild = putRecursive(currentNode.middleChild, key, value, i + 1);
+    } else if (i == key.length() - 1) {
+      currentNode.value = value;
     }
     return currentNode;
   }
@@ -56,7 +50,7 @@ class TernarySearchTree {
     char currentCharacterFromPrefix = prefix.charAt(i);
 
     if (currentCharacterFromPrefix == currentNode.character) {
-      autocomplete(currentNode.middleChild, prefix, ++i);
+      autocomplete(currentNode.middleChild, prefix, i + 1);
     } else if (currentCharacterFromPrefix < currentNode.character) {
       autocomplete(currentNode.leftChild, prefix, i);
     } else if (currentCharacterFromPrefix > currentNode.character) {
