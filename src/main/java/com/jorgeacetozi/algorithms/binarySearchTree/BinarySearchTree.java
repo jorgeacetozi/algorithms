@@ -5,12 +5,7 @@ class BinarySearchTree {
   Node root;
 
   void insert(int key, String value) {
-    if (root == null) {
-      this.root = new Node(key, value);
-      return;
-    } else {
-      insertRecursive(this.root, key, value);
-    }
+    this.root = insertRecursive(this.root, key, value);
   }
 
   private Node insertRecursive(Node currentNode, int key, String value) {
