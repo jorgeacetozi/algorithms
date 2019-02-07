@@ -45,9 +45,26 @@ public class SinglyLinkedListTest {
   }
 
   @Test
-  public void shouldDeleteHead() {
+  public void shouldDeleteHeadUsingRemoveItem() {
     linkedList.insertEnd(10);
     linkedList.removeItem(10);
     assertNull(linkedList.head);
   }
+  
+  @Test
+  public void shouldDeleteHeadUsingRemoveEnd() {
+    linkedList.insertEnd(10);
+    linkedList.removeEnd();
+    assertNull(linkedList.head);
+  }
+  
+  @Test
+  public void shouldDeleteLastItemUsingRemoveEnd() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.removeEnd();
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.next);
+  }
+  
 }

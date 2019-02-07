@@ -50,4 +50,16 @@ class SinglyLinkedList {
     return currentNode;
   }
 
+  void removeEnd() {
+    head = this.removeEnd(this.head);
+  }
+
+  private Node removeEnd(Node currentNode) {
+    if (currentNode.next == null) {
+      return null;
+    }
+    currentNode.next = removeEnd(currentNode.next);
+    return currentNode;
+  }
+
 }
