@@ -37,6 +37,7 @@ class SinglyLinkedList {
     this.head = this.removeItem(this.head, value);
   }
 
+  // O(N)
   private Node removeItem(Node currentNode, int value) {
     if (currentNode == null) {
       return null;
@@ -54,6 +55,7 @@ class SinglyLinkedList {
     head = this.removeEnd(this.head);
   }
 
+  // O(N)
   private Node removeEnd(Node currentNode) {
     if (currentNode.next == null) {
       return null;
@@ -66,6 +68,7 @@ class SinglyLinkedList {
     head = this.removeStart(this.head);
   }
 
+  // O(1)
   private Node removeStart(Node currentNode) {
     return currentNode.next;
   }
