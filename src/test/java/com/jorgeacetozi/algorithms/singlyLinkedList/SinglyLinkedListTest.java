@@ -32,4 +32,15 @@ public class SinglyLinkedListTest {
     assertThat(linkedList.head.next.value, equalTo(11));
     assertNull(linkedList.head.next.next);
   }
+
+  @Test
+  public void shouldDeleteGivenElement() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    linkedList.remove(11);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next.value, equalTo(12));
+    assertNull(linkedList.head.next.next);
+  }
 }

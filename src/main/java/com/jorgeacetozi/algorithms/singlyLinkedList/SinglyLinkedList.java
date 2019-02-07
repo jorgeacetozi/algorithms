@@ -32,4 +32,22 @@ class SinglyLinkedList {
     currentNode.next = insertEnd(currentNode.next, value);
     return currentNode;
   }
+
+  Node remove(int value) {
+    return this.remove(this.head, value);
+  }
+
+  private Node remove(Node currentNode, int value) {
+    if (currentNode == null) {
+      return null;
+    }
+
+    if (currentNode.value == value) {
+      return currentNode.next;
+    }
+
+    currentNode.next = remove(currentNode.next, value);
+    return currentNode;
+  }
+
 }
