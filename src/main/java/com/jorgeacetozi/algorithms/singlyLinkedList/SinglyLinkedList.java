@@ -73,4 +73,19 @@ class SinglyLinkedList {
     return currentNode.next;
   }
 
+  Node find(int value) {
+    return this.find(this.head, value);
+  }
+
+  // O(N)
+  private Node find(Node currentNode, int value) {
+    if (currentNode == null) { // element not found
+      return null;
+    }
+    if (currentNode.value == value) {
+      return currentNode;
+    }
+    return find(currentNode.next, value);
+  }
+
 }

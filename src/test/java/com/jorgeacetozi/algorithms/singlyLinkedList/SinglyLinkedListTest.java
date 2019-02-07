@@ -83,4 +83,22 @@ public class SinglyLinkedListTest {
     assertNull(linkedList.head.next);
   }
 
+  @Test
+  public void shouldNotFindItem() {
+    assertNull(linkedList.find(10));
+  }
+
+  @Test
+  public void shouldFindHeadItem() {
+    linkedList.insertEnd(10);
+    assertThat(linkedList.find(10).value, equalTo(10));
+  }
+
+  @Test
+  public void shouldFindMiddleItem() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    assertThat(linkedList.find(11).value, equalTo(11));
+  }
 }
