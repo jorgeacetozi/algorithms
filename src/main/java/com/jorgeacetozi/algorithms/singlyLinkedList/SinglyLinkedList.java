@@ -33,11 +33,11 @@ class SinglyLinkedList {
     return currentNode;
   }
 
-  Node remove(int value) {
-    return this.remove(this.head, value);
+  void removeItem(int value) {
+    this.head = this.removeItem(this.head, value);
   }
 
-  private Node remove(Node currentNode, int value) {
+  private Node removeItem(Node currentNode, int value) {
     if (currentNode == null) {
       return null;
     }
@@ -46,7 +46,7 @@ class SinglyLinkedList {
       return currentNode.next;
     }
 
-    currentNode.next = remove(currentNode.next, value);
+    currentNode.next = removeItem(currentNode.next, value);
     return currentNode;
   }
 
