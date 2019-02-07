@@ -62,4 +62,12 @@ class SinglyLinkedList {
     return currentNode;
   }
 
+  void removeStart() {
+    head = this.removeStart(this.head);
+  }
+
+  private Node removeStart(Node currentNode) {
+    return currentNode.next;
+  }
+
 }
