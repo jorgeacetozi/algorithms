@@ -21,4 +21,15 @@ public class SinglyLinkedListTest {
     assertNull(linkedList.head.next.next);
   }
 
+  @Test
+  public void shouldInsertAtEnd() {
+    linkedList.insertEnd(10);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.next);
+
+    linkedList.insertEnd(11);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next.value, equalTo(11));
+    assertNull(linkedList.head.next.next);
+  }
 }
