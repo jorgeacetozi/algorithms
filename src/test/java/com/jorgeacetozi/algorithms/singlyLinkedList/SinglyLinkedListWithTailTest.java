@@ -21,5 +21,19 @@ public class SinglyLinkedListWithTailTest {
     assertNull(linkedList.tail.next);
     assertNotEquals(linkedList.head, linkedList.tail);
   }
+  
+  @Test
+  public void shouldInsertAtEnd() {
+    linkedList.insertEnd(10);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head, equalTo(linkedList.tail));
+    
+    linkedList.insertEnd(11);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+    assertThat(linkedList.tail.value, equalTo(11));
+    assertNull(linkedList.tail.next);
+    assertNotEquals(linkedList.head, linkedList.tail);
+  }
 
 }
