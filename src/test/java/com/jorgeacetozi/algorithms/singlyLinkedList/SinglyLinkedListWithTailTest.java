@@ -65,4 +65,45 @@ public class SinglyLinkedListWithTailTest {
     assertNull(linkedList.head);
     assertNull(linkedList.tail);
   }
+  
+  @Test
+  public void shouldDeleteGivenItem() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    linkedList.removeItem(11);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next.value, equalTo(12));
+    assertThat(linkedList.tail.value, equalTo(12));
+    assertNull(linkedList.head.next.next);
+  }
+
+  @Test
+  public void shouldDeleteHeadUsingRemoveItem() {
+    linkedList.insertEnd(10);
+    assertNotNull(linkedList.head);
+    assertNotNull(linkedList.tail);
+    linkedList.removeItem(10);
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
+  }
+
+  @Test
+  public void shouldDeleteLastItemUsingRemoveItem() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    linkedList.removeItem(11);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.tail.value, equalTo(12));
+    
+    linkedList.removeItem(12);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.next);
+    assertThat(linkedList.head, equalTo(linkedList.tail));
+    
+    linkedList.removeItem(10);
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
+  }
 }
