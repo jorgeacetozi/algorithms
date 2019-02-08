@@ -21,13 +21,13 @@ public class SinglyLinkedListWithTailTest {
     assertNull(linkedList.tail.next);
     assertNotEquals(linkedList.head, linkedList.tail);
   }
-  
+
   @Test
   public void shouldInsertAtEnd() {
     linkedList.insertEnd(10);
     assertThat(linkedList.head.value, equalTo(10));
     assertThat(linkedList.head, equalTo(linkedList.tail));
-    
+
     linkedList.insertEnd(11);
     assertThat(linkedList.head.value, equalTo(10));
     assertThat(linkedList.head.next, equalTo(linkedList.tail));
@@ -36,4 +36,18 @@ public class SinglyLinkedListWithTailTest {
     assertNotEquals(linkedList.head, linkedList.tail);
   }
 
+  @Test
+  public void shouldRemoveFromStart() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    
+    linkedList.removeStart();
+    assertThat(linkedList.head, equalTo(linkedList.tail));
+    assertThat(linkedList.head.value, equalTo(11));
+    assertNull(linkedList.head.next);
+    
+    linkedList.removeStart();
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
+  }
 }

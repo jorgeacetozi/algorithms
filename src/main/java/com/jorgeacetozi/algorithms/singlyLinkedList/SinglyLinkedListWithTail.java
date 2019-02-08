@@ -26,4 +26,12 @@ class SinglyLinkedListWithTail {
     }
   }
 
+  // O(1), just update some references
+  void removeStart() {
+    if (this.head == this.tail) {
+      this.head = this.tail = null;
+    } else {
+      this.head = this.head.next;
+    }
+  }
 }
