@@ -7,9 +7,9 @@ class SinglyLinkedListWithTail {
   // O(1), just update some references
   void insertStart(int value) {
     Node newNode = new Node(value);
-    if (head == null) { // case 1: there is only one node
+    if (head == null) { // case 1: the list is empty
       this.head = this.tail = newNode;
-    } else { // case 2: there are two or more nodes
+    } else { // case 2: the list is not empty
       newNode.next = this.head;
       this.head = newNode;
     }
@@ -18,9 +18,9 @@ class SinglyLinkedListWithTail {
   // O(1), just update some references
   void insertEnd(int value) {
     Node newNode = new Node(value);
-    if (this.head == null) { // case 1: there is only one node
+    if (this.head == null) { // case 1: the list is empty
       this.head = this.tail = newNode;
-    } else { // case 2: there are two or more nodes
+    } else { // case 2: the list is not empty
       this.tail.next = newNode;
       this.tail = newNode;
     }
@@ -28,18 +28,24 @@ class SinglyLinkedListWithTail {
 
   // O(1), just update some references
   void removeStart() {
-    if (this.head == this.tail) { // case 1: there is only one node
+    if (this.head == null) { // case 1: the list is empty
+      throw new RuntimeException();
+    }
+    if (this.head == this.tail) { // case 2: there is only one node
       this.head = this.tail = null;
     } else {
-      this.head = this.head.next; // case 2: there are two or more nodes
+      this.head = this.head.next; // case 3: there are two or more nodes
     }
   }
 
   // O(N), we have to move towards the end of the list with two pointers
   void removeEnd() {
-    if (head == tail) { // case 1: there is only one node
+    if (head == null) {
+      throw new RuntimeException(); // the list is empty
+    }
+    if (head == tail) { // case 2: there is only one node
       head = tail = null;
-    } else { // case 2: there are two or more nodes
+    } else { // case 3: there are two or more nodes
       Node previousNode = this.head;
       Node currentNode = this.head.next;
 
