@@ -4,19 +4,14 @@ class SinglyLinkedList {
 
   Node head;
 
+  // O(1), just update some references
   void insertStart(int value) {
-    head = this.insertStart(this.head, value);
-  }
-
-  // O(1)
-  private Node insertStart(Node currentNode, int value) {
-    if (currentNode == null) {
-      return new Node(value);
+    Node newNode = new Node(value);
+    if (this.head == null) {
+      this.head = newNode;
     } else {
-      Node newNode = new Node(value);
-      newNode.next = currentNode;
-      currentNode = newNode;
-      return newNode;
+      newNode.next = this.head;
+      this.head = newNode;
     }
   }
 
