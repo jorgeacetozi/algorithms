@@ -59,13 +59,9 @@ class SinglyLinkedList {
     return currentNode;
   }
 
+  // O(1), just update some references
   void removeStart() {
-    head = this.removeStart(this.head);
-  }
-
-  // O(1)
-  private Node removeStart(Node currentNode) {
-    return currentNode.next;
+    this.head = this.head.next;
   }
 
   Node find(int value) {
@@ -82,5 +78,4 @@ class SinglyLinkedList {
     }
     return find(currentNode.next, value);
   }
-
 }
