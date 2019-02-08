@@ -1,6 +1,6 @@
 package com.jorgeacetozi.algorithms.singlyLinkedList;
 
-class SinglyLinkedList {
+class RecursiveSinglyLinkedList {
 
   Node head;
 

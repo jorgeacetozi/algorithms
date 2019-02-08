@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class SinglyLinkedListTest {
+public class RecursiveSinglyLinkedListTest {
 
-  SinglyLinkedList linkedList = new SinglyLinkedList();
+  RecursiveSinglyLinkedList linkedList = new RecursiveSinglyLinkedList();
 
   @Test
   public void shouldInsertAtStart() {
