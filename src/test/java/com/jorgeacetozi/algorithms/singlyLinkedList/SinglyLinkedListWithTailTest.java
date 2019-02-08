@@ -40,13 +40,28 @@ public class SinglyLinkedListWithTailTest {
   public void shouldRemoveFromStart() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
-    
+
     linkedList.removeStart();
     assertThat(linkedList.head, equalTo(linkedList.tail));
     assertThat(linkedList.head.value, equalTo(11));
     assertNull(linkedList.head.next);
-    
+
     linkedList.removeStart();
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
+  }
+  
+  @Test
+  public void shouldRemoveFromEnd() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+
+    linkedList.removeEnd();
+    assertThat(linkedList.head, equalTo(linkedList.tail));
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.next);
+
+    linkedList.removeEnd();
     assertNull(linkedList.head);
     assertNull(linkedList.tail);
   }
