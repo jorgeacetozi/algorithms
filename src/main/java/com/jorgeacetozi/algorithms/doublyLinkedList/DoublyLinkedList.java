@@ -86,17 +86,13 @@ class DoublyLinkedList {
 
   // O(N)
   boolean find(int value) {
-    if (head == null) { // case 1: empty list
-      throw new RuntimeException("The list is empty");
-    } else {
-      Node currentNode = head;
-      while (currentNode != null) {
-        if (currentNode.value == value) {
-          return true;
-        }
-        currentNode = currentNode.next;
+    Node currentNode = head;
+    while (currentNode != null) {
+      if (currentNode.value == value) {
+        return true;
       }
-      return false;
+      currentNode = currentNode.next;
     }
+    return false;
   }
 }
