@@ -62,19 +62,32 @@ public class DoublyLinkedListTest {
     assertNull(linkedList.tail.next);
   }
 
-  @Test
+  @Test(expected = RuntimeException.class)
   public void shouldRemoveFromStartWithEmptyList() {
-
+    linkedList.removeStart();
   }
 
   @Test
   public void shouldRemoveFromStartWithOneNode() {
-
+    linkedList.insertStart(10);
+    linkedList.removeStart();
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
   }
 
   @Test
   public void shouldRemoveFromWithTwoOrMoreNodes() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    linkedList.removeStart();
 
+    assertThat(linkedList.head.value, equalTo(11));
+    assertNull(linkedList.head.previous);
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+
+    linkedList.removeStart();
+    assertThat(linkedList.head, equalTo(linkedList.tail));
   }
 
   @Test

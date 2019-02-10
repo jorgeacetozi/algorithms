@@ -27,4 +27,16 @@ class DoublyLinkedList {
       tail = newNode;
     }
   }
+
+  void removeStart() {
+    if (head == null) {
+      throw new RuntimeException("The list is empty"); // case 1: empty list
+    } else if (head == tail) { // case 2: the list has one element
+      head = tail = null;
+    } else { // case 3: the list has two or more nodes
+      head = head.next;
+      head.previous = null;
+    }
+  }
+
 }
