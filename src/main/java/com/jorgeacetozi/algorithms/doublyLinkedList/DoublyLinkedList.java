@@ -39,4 +39,15 @@ class DoublyLinkedList {
     }
   }
 
+  void removeEnd() {
+    if (head == null) {
+      throw new RuntimeException("The list is empty"); // case 1: empty list
+    } else if (head == tail) {
+      head = tail = null;
+    } else {
+      tail = tail.previous;
+      tail.next = null;
+    }
+  }
+
 }

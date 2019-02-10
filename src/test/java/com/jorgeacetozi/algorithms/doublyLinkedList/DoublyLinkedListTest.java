@@ -90,19 +90,37 @@ public class DoublyLinkedListTest {
     assertThat(linkedList.head, equalTo(linkedList.tail));
   }
 
-  @Test
+  @Test(expected = RuntimeException.class)
   public void shouldRemoveFromEndWithEmptyList() {
-
+    linkedList.removeEnd();
   }
 
   @Test
   public void shouldRemoveFromEndWithOneNode() {
-
+    linkedList.insertStart(10);
+    linkedList.removeEnd();
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
   }
 
   @Test
   public void shouldRemoveFromEndWithTwoOrMoreNodes() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    linkedList.removeEnd();
 
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.previous);
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+    assertThat(linkedList.tail.value, equalTo(11));
+    assertThat(linkedList.tail.previous, equalTo(linkedList.head));
+    assertNull(linkedList.tail.next);
+
+    linkedList.removeEnd();
+
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head, equalTo(linkedList.tail));
   }
 
   @Test
