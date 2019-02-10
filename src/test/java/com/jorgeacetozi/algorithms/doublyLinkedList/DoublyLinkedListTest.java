@@ -9,20 +9,18 @@ public class DoublyLinkedListTest {
   DoublyLinkedList linkedList = new DoublyLinkedList();
 
   @Test
-  public void shouldInsertAtStartEmptyList() {
+  public void shouldInsertAtStartWithEmptyList() {
     linkedList.insertStart(10);
     assertNotNull(linkedList.head);
     assertNotNull(linkedList.tail);
-    assertThat(linkedList.head, equalTo(linkedList.tail));
     assertThat(linkedList.head.value, equalTo(10));
     assertNull(linkedList.head.previous);
     assertNull(linkedList.head.next);
-    assertNull(linkedList.tail.previous);
-    assertNull(linkedList.tail.next);
+    assertThat(linkedList.head, equalTo(linkedList.tail));
   }
 
   @Test
-  public void shouldInsertAtStartNotEmptyList() {
+  public void shouldInsertAtStartWithNotEmptyList() {
     linkedList.insertStart(10);
     linkedList.insertStart(11);
     linkedList.insertStart(12);
@@ -39,8 +37,29 @@ public class DoublyLinkedListTest {
   }
 
   @Test
-  public void shouldInsertAtEnd() {
+  public void shouldInsertAtEndWithEmptyList() {
+    linkedList.insertEnd(10);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.previous);
+    assertNull(linkedList.head.next);
+    assertThat(linkedList.head, equalTo(linkedList.tail));
+  }
 
+  @Test
+  public void shouldInsertAtEndWithNotEmptyList() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.previous);
+
+    assertThat(linkedList.head.next.value, equalTo(11));
+    assertThat(linkedList.head.next.previous, equalTo(linkedList.head));
+    assertThat(linkedList.head.next.next, equalTo(linkedList.tail));
+
+    assertThat(linkedList.tail.value, equalTo(12));
+    assertThat(linkedList.tail.previous.value, equalTo(11));
+    assertNull(linkedList.tail.next);
   }
 
   @Test
