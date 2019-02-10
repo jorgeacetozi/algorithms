@@ -1,8 +1,11 @@
 package com.jorgeacetozi.algorithms.doublyLinkedList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class DoublyLinkedListTest {
@@ -182,6 +185,17 @@ public class DoublyLinkedListTest {
 
   @Test
   public void shouldFindItem() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    assertTrue(linkedList.find(11));
+  }
 
+  @Test
+  public void shouldNotFindItem() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    assertFalse(linkedList.find(13));
   }
 }

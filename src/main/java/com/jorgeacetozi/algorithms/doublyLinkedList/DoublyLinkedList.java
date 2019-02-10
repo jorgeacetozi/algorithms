@@ -28,6 +28,7 @@ class DoublyLinkedList {
     }
   }
 
+  // O(1)
   void removeStart() {
     if (head == null) {
       throw new RuntimeException("The list is empty"); // case 1: empty list
@@ -39,6 +40,7 @@ class DoublyLinkedList {
     }
   }
 
+  // O(1)
   void removeEnd() {
     if (head == null) {
       throw new RuntimeException("The list is empty"); // case 1: empty list
@@ -50,7 +52,7 @@ class DoublyLinkedList {
     }
   }
 
-
+  // O(N)
   boolean removeItem(int value) {
     if (head == null) { // case 1: empty list
       throw new RuntimeException("The list is empty");
@@ -76,6 +78,22 @@ class DoublyLinkedList {
           return true;
         }
         previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+      return false;
+    }
+  }
+
+  // O(N)
+  boolean find(int value) {
+    if (head == null) { // case 1: empty list
+      throw new RuntimeException("The list is empty");
+    } else {
+      Node currentNode = head;
+      while (currentNode != null) {
+        if (currentNode.value == value) {
+          return true;
+        }
         currentNode = currentNode.next;
       }
       return false;
