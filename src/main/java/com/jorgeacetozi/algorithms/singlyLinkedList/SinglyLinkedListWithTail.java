@@ -91,4 +91,15 @@ class SinglyLinkedListWithTail {
       return false;
     }
   }
+
+  boolean find(int value) {
+    Node currentNode = head;
+    while (currentNode != null) {
+      if (currentNode.value == value) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+    return false;
+  }
 }
