@@ -44,7 +44,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test(expected = RuntimeException.class)
-  public void shouldRemoveFromStartWithEmptyList() {
+  public void shouldThrowExceptionWhenRemoveFromStartWithEmptyList() {
     linkedList.removeStart();
   }
 
@@ -56,7 +56,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test
-  public void shouldRemoveFromWithTwoOrMoreNodes() {
+  public void shouldRemoveFromStartWithTwoOrMoreNodes() {
     linkedList.insertStart(10);
     linkedList.insertStart(11);
     linkedList.insertStart(12);
@@ -67,7 +67,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test(expected = RuntimeException.class)
-  public void shouldRemoveFromEndWithEmptyList() {
+  public void shouldThrowExceptionWhenRemoveFromEndWithEmptyList() {
     linkedList.removeEnd();
   }
 
@@ -88,12 +88,12 @@ public class SinglyLinkedListTest {
   }
 
   @Test(expected = RuntimeException.class)
-  public void shouldRemoveGivenNodeByReferenceWithEmptyList() {
+  public void shouldThrowExceptionWhenRemoveGivenItemByValueWithEmptyList() {
     linkedList.removeItem(10);
   }
 
   @Test
-  public void shouldRemoveGivenNodeByReferenceWithOneNode() {
+  public void shouldRemoveGivenItemByValueWithOneNode() {
     linkedList.insertEnd(10);
 
     boolean isRemoved = linkedList.removeItem(10);
@@ -103,7 +103,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test
-  public void shouldRemoveGivenNodeByReferenceWithTwoOrMoreNodesButNotTheLastOne() {
+  public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesButNotTheLastOne() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
@@ -117,7 +117,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test
-  public void shouldRemoveGivenNodeByReferenceWithTwoOrMoreNodesAndItsTheLastOne() {
+  public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheLastOne() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
@@ -131,7 +131,7 @@ public class SinglyLinkedListTest {
   }
 
   @Test
-  public void shouldNotRemoveGivenNodeByReferenceWhenItsNotInTheList() {
+  public void shouldNotRemoveGivenItemByValueWhenItsNotInTheList() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
