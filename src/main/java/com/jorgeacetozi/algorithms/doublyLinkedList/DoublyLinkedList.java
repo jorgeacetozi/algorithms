@@ -50,4 +50,35 @@ class DoublyLinkedList {
     }
   }
 
+
+  boolean removeItem(int value) {
+    if (head == null) { // case 1: empty list
+      throw new RuntimeException("The list is empty");
+    } else if (head == tail) { // case 2: only one element
+      if (head.value == value) {
+        head = tail = null;
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      Node previousNode = head;
+      Node currentNode = head.next;
+
+      while (currentNode != null) {
+        if (currentNode.value == value) {
+          if (currentNode == tail) { // case 3: the item is the last element in the list
+            removeEnd();
+          } else { // case 4: it's an element after the head and before the tail
+            previousNode.next = currentNode.next;
+            currentNode.next.previous = previousNode;
+          }
+          return true;
+        }
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+      return false;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 package com.jorgeacetozi.algorithms.doublyLinkedList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -123,24 +124,60 @@ public class DoublyLinkedListTest {
     assertThat(linkedList.head, equalTo(linkedList.tail));
   }
 
-  @Test
+  @Test(expected = RuntimeException.class)
   public void shouldRemoveGivenNodeByReferenceWithEmptyList() {
-
+    linkedList.removeItem(10);
   }
 
   @Test
   public void shouldRemoveGivenNodeByReferenceWithOneNode() {
-
+    linkedList.insertEnd(10);
+    boolean isRemoved = linkedList.removeItem(10);
+    assertTrue(isRemoved);
+    assertNull(linkedList.head);
+    assertNull(linkedList.tail);
   }
 
   @Test
   public void shouldRemoveGivenNodeByReferenceWithTwoOrMoreNodesButNotTheLastOne() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    boolean isRemoved = linkedList.removeItem(11);
+    assertTrue(isRemoved);
+    assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+    assertNull(linkedList.head.previous);
 
+    assertThat(linkedList.tail.value, equalTo(12));
+    assertThat(linkedList.tail.previous, equalTo(linkedList.head));
+    assertNull(linkedList.tail.next);
   }
 
   @Test
-  public void shouldRemoveGivenNodeByReferenceWithTwoOrMoreNodesTheLastOne() {
+  public void shouldRemoveGivenNodeByReferenceWithTwoOrMoreNodesAndItsTheLastOne() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    boolean isRemoved = linkedList.removeItem(12);
+    assertTrue(isRemoved);
 
+    assertThat(linkedList.head.value, equalTo(10));
+    assertNull(linkedList.head.previous);
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+
+    assertThat(linkedList.tail.value, equalTo(11));
+    assertThat(linkedList.tail.previous, equalTo(linkedList.head));
+    assertNull(linkedList.tail.next);
+  }
+
+  @Test
+  public void shouldNotRemoveGivenNodeByReferenceWhenItsNotInTheList() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    boolean isRemoved = linkedList.removeItem(13);
+    assertFalse(isRemoved);
   }
 
   @Test
