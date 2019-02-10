@@ -86,14 +86,14 @@ class SinglyLinkedList {
   }
 
   // O(N)
-  Node find(int value) {
+  boolean find(int value) {
     Node currentNode = this.head;
     while (currentNode != null) {
       if (currentNode.value == value) {
-        return currentNode;
+        return true;
       }
       currentNode = currentNode.next;
     }
-    return null;
+    return false;
   }
 }
