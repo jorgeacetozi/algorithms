@@ -20,7 +20,7 @@ class SinglyLinkedList {
     Node newNode = new Node(value);
     if (this.head == null) { // case 1: the list is empty
       this.head = newNode;
-    } else { // case 1: the list is not empty
+    } else { // case 2: the list is not empty
       Node currentNode = this.head;
       while (currentNode.next != null) {
         currentNode = currentNode.next;
@@ -42,9 +42,9 @@ class SinglyLinkedList {
     if (this.head == null) { // case 1: the list is empty
       throw new RuntimeException("The list is empty");
     }
-    if (this.head.next == null) { // case 1: there is only one node
+    if (this.head.next == null) { // case 2: there is only one node
       this.head = null;
-    } else { // case 2: there are at least two nodes
+    } else { // case 3: there are at least two nodes
       Node previousNode = this.head;
       Node currentNode = this.head.next;
       

@@ -60,7 +60,7 @@ class SinglyLinkedListWithTail {
     }
   }
 
-  // O(N). This is more tricky because the element being removed might be the last one
+  // O(N). This is trickier because the element being removed might be the last one
   // Fortunately, this isn't much used as linked lists are mainly used for stacks and (with tail or
   // circular) queues
   boolean removeItem(int value) {
