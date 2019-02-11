@@ -35,4 +35,11 @@ public class HashTableChainingTest {
     assertTrue(optional.isPresent());
     assertThat(optional.get(), equalTo(30));
   }
+
+  @Test
+  public void shouldReturnEmptyWhenThereIsNoItemWithTheGivenKey() {
+    hashTable.put("Jorge", 30);
+    Optional<Integer> optional = hashTable.get("Cobra");
+    assertFalse(optional.isPresent());
+  }
 }
