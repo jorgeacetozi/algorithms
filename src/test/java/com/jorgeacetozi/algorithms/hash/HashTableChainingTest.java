@@ -1,7 +1,8 @@
 package com.jorgeacetozi.algorithms.hash;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
+import java.util.Optional;
 import org.junit.Test;
 
 public class HashTableChainingTest {
@@ -16,4 +17,22 @@ public class HashTableChainingTest {
     assertThat(hashTable.table[3].next.value, equalTo(30));
   }
 
+  @Test
+  public void shouldGetItemWhenThereIsNoColision() {
+    hashTable.put("Jorge", 30);
+    Optional<Integer> optional = hashTable.get("Jorge");
+
+    assertTrue(optional.isPresent());
+    assertThat(optional.get(), equalTo(30));
+  }
+
+  @Test
+  public void shouldGetItemWhenThereIsColision() {
+    hashTable.put("Jorge", 30);
+    hashTable.put("Xuxinha", 35);
+    Optional<Integer> optional = hashTable.get("Jorge");
+
+    assertTrue(optional.isPresent());
+    assertThat(optional.get(), equalTo(30));
+  }
 }
