@@ -1,9 +1,10 @@
-package com.jorgeacetozi.algorithms.hash;
+package com.jorgeacetozi.algorithms.hash.chaining;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 import java.util.Optional;
 import org.junit.Test;
+import com.jorgeacetozi.algorithms.hash.chaining.HashTableChaining;
 
 public class HashTableChainingTest {
 

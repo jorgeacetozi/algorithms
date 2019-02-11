@@ -1,4 +1,4 @@
-package com.jorgeacetozi.algorithms.hash;
+package com.jorgeacetozi.algorithms.hash.chaining;
 
 import java.util.Optional;
 
