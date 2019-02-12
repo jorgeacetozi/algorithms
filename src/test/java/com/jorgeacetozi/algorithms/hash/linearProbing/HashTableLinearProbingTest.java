@@ -54,4 +54,17 @@ public class HashTableLinearProbingTest {
     assertTrue(optionalXuxinha.isPresent());
     assertThat(optionalXuxinha.get(), equalTo(35));
   }
+
+  @Test
+  public void shouldResizeTableWhenLoadFactorIsGreaterThan75Percent() {
+    hashTable.put("a", 1);
+    hashTable.put("b", 2);
+    hashTable.put("c", 3);
+    assertThat(hashTable.table.length, equalTo(5));
+    assertThat(hashTable.size, equalTo(3));
+
+    hashTable.put("Xuxinha", 4); // This causes a collision with c in the oldTable
+    assertThat(hashTable.table.length, equalTo(10));
+    assertThat(hashTable.size, equalTo(4));
+  }
 }

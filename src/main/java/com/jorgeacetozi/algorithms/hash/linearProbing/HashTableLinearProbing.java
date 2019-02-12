@@ -6,11 +6,13 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
 
   HashItem<K, V>[] table;
   int capacity, size;
+  double loadFactor;
 
   @SuppressWarnings("unchecked")
   HashTableLinearProbing(int capacity) {
     table = (HashItem<K, V>[]) new HashItem[capacity];
     this.capacity = capacity;
+    loadFactor = 0.75;
   }
 
   void put(K key, V value) {
@@ -27,6 +29,23 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
           break;
         }
       } while (table[index] != null);
+    }
+    resize();
+  }
+
+  @SuppressWarnings("unchecked")
+  private void resize() {
+    if ((double) size / capacity > loadFactor) {
+      capacity = capacity * 2;
+      size = 0;
+      HashItem<K, V>[] oldTable = table;
+      table = (HashItem<K, V>[]) new HashItem[capacity];
+
+      for (int i = 0; i < oldTable.length; i++) {
+        if (oldTable[i] != null) {
+          put(oldTable[i].key, oldTable[i].value);
+        }
+      }
     }
   }
 
