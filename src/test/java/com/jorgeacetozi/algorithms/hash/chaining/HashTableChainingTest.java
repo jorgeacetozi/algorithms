@@ -11,7 +11,7 @@ public class HashTableChainingTest {
   HashTableChaining<String, Integer> hashTable = new HashTableChaining<>(5);
 
   @Test
-  public void shouldInsertToLinkedListWhenThereIsAColision() {
+  public void shouldInsertToLinkedListWhenThereIsCollision() {
     hashTable.put("Jorge", 30);
     hashTable.put("Jorge", 35);
     assertThat(hashTable.table[3].value, equalTo(35));
@@ -19,7 +19,7 @@ public class HashTableChainingTest {
   }
 
   @Test
-  public void shouldGetItemWhenThereIsNoColision() {
+  public void shouldGetItemWhenThereIsNoCollision() {
     hashTable.put("Jorge", 30);
     Optional<Integer> optional = hashTable.get("Jorge");
 
@@ -28,7 +28,7 @@ public class HashTableChainingTest {
   }
 
   @Test
-  public void shouldGetItemWhenThereIsColision() {
+  public void shouldGetItemWhenThereIsCollision() {
     hashTable.put("Jorge", 30);
     hashTable.put("Xuxinha", 35);
     Optional<Integer> optional = hashTable.get("Jorge");

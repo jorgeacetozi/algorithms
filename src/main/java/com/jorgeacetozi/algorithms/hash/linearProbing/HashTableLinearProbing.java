@@ -18,7 +18,7 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
       size++;
     } else {
       do {
-        index++;
+        index = (index + 1) % capacity;
         if (table[index] == null) {
           table[index] = new HashItem<K, V>(key, value);
           size++;

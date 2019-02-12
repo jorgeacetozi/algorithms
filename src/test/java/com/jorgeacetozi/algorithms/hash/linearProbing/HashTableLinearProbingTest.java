@@ -15,4 +15,14 @@ public class HashTableLinearProbingTest {
     assertThat(hashTable.table[3].value, equalTo(30));
   }
 
+  @Test
+  public void shouldInsertItemWhenThereIsCollision() {
+    hashTable.put("Jorge", 30);
+    hashTable.put("Jorge", 35);
+    hashTable.put("Jorge", 40);
+    assertThat(hashTable.size, equalTo(3));
+    assertThat(hashTable.table[3].value, equalTo(30));
+    assertThat(hashTable.table[4].value, equalTo(35));
+    assertThat(hashTable.table[0].value, equalTo(40));
+  }
 }
