@@ -1,5 +1,7 @@
 package com.jorgeacetozi.algorithms.hash.linearProbing;
 
+import java.util.Optional;
+
 class HashTableLinearProbing<K extends Comparable<K>, V> {
 
   HashItem<K, V>[] table;
@@ -26,6 +28,22 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
         }
       } while (table[index] != null);
     }
+  }
+
+  Optional<V> get(K key) {
+    int index = hashFunction(key);
+    if (table[index] == null) {
+      return Optional.empty();
+    } else {
+      while (table[index] != null) {
+        if (table[index].key.equals(key)) {
+          return Optional.of(table[index].value);
+        } else {
+          index = (index + 1) % capacity;
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   private int hashFunction(K key) {
