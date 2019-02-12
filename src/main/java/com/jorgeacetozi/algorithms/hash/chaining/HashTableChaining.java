@@ -33,6 +33,7 @@ class HashTableChaining<K extends Comparable<K>, V> {
     resize();
   }
 
+  @SuppressWarnings("unchecked")
   private void resize() {
     if ((double) size / capacity > loadFactor) {
       capacity = capacity * 2;
@@ -42,10 +43,9 @@ class HashTableChaining<K extends Comparable<K>, V> {
 
       for (int i = 0; i < oldTable.length; i++) {
         if (oldTable[i] != null) {
-          HashItem<K, V> tempItem = oldTable[i];
-          while (tempItem != null) {
-            put(tempItem.key, tempItem.value);
-            tempItem = tempItem.next;
+          while (oldTable[i] != null) {
+            put(oldTable[i].key, oldTable[i].value);
+            oldTable[i] = oldTable[i].next;
           }
         }
       }
