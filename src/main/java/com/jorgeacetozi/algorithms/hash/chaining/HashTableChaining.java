@@ -1,6 +1,5 @@
 package com.jorgeacetozi.algorithms.hash.chaining;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 class HashTableChaining<K extends Comparable<K>, V> {
