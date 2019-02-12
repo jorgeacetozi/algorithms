@@ -43,4 +43,18 @@ public class HashTableChainingTest {
     Optional<Integer> optional = hashTable.get("Cobra");
     assertFalse(optional.isPresent());
   }
+
+  @Test
+  public void shouldResizeTableWhenLoadFactorIsGreaterThan75Percent() {
+    hashTable.put("a", 1);
+    hashTable.put("b", 2);
+    hashTable.put("c", 3);
+    assertThat(hashTable.table.length, equalTo(5));
+    assertThat(hashTable.size, equalTo(3));
+
+    hashTable.put("Xuxinha", 4); // This causes a collision with c in the oldTable, so we have to
+                                 // copy all elements in the bucket (linked list) too
+    assertThat(hashTable.table.length, equalTo(10));
+    assertThat(hashTable.size, equalTo(4));
+  }
 }

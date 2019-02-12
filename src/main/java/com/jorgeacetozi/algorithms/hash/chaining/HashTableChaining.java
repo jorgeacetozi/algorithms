@@ -1,17 +1,20 @@
 package com.jorgeacetozi.algorithms.hash.chaining;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 class HashTableChaining<K extends Comparable<K>, V> {
 
   HashItem<K, V>[] table;
-  int capacity;
-  int size;
+  int capacity, size;
+  double loadFactor;
 
   @SuppressWarnings("unchecked")
   HashTableChaining(int capacity) {
     table = (HashItem<K, V>[]) new HashItem[capacity];
     this.capacity = capacity;
+    loadFactor = 0.75;
+    size = 0;
   }
 
   // O(1) because we add to the head of the Singly Linked List
@@ -26,8 +29,29 @@ class HashTableChaining<K extends Comparable<K>, V> {
       table[index] = newItem;
     }
     size++;
+
+    resize();
   }
-  
+
+  private void resize() {
+    if ((double) size / capacity > loadFactor) {
+      capacity = capacity * 2;
+      size = 0;
+      HashItem<K, V>[] oldTable = table;
+      table = (HashItem<K, V>[]) new HashItem[capacity];
+
+      for (int i = 0; i < oldTable.length; i++) {
+        if (oldTable[i] != null) {
+          HashItem<K, V> tempItem = oldTable[i];
+          while (tempItem != null) {
+            put(tempItem.key, tempItem.value);
+            tempItem = tempItem.next;
+          }
+        }
+      }
+    }
+  }
+
   // O(N) because we have to iterate over the list and check the key
   Optional<V> get(K key) {
     int index = hashFunction(key);
@@ -36,7 +60,7 @@ class HashTableChaining<K extends Comparable<K>, V> {
       return Optional.empty();
     } else {
       HashItem<K, V> currentItem = table[index];
-      
+
       while (currentItem != null) {
         if (currentItem.key.equals(key)) {
           return Optional.of(currentItem.value);
