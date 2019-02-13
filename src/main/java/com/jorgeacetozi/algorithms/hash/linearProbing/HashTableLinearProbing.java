@@ -2,7 +2,7 @@ package com.jorgeacetozi.algorithms.hash.linearProbing;
 
 import java.util.Optional;
 
-class HashTableLinearProbing<K extends Comparable<K>, V> {
+class HashTableLinearProbing<K, V> {
 
   HashItem<K, V>[] table;
   int capacity, size;
@@ -10,7 +10,7 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
 
   @SuppressWarnings("unchecked")
   HashTableLinearProbing(int capacity) {
-    table = (HashItem<K, V>[]) new HashItem[capacity];
+    table = new HashItem[capacity];
     this.capacity = capacity;
     loadFactor = 0.75;
   }
@@ -39,7 +39,7 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
       capacity = capacity * 2;
       size = 0;
       HashItem<K, V>[] oldTable = table;
-      table = (HashItem<K, V>[]) new HashItem[capacity];
+      table = new HashItem[capacity];
 
       for (int i = 0; i < oldTable.length; i++) {
         if (oldTable[i] != null) {
@@ -68,5 +68,4 @@ class HashTableLinearProbing<K extends Comparable<K>, V> {
   private int hashFunction(K key) {
     return Math.abs(key.hashCode() % capacity);
   }
-
 }

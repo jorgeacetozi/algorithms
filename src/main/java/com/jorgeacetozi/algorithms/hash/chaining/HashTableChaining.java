@@ -2,7 +2,7 @@ package com.jorgeacetozi.algorithms.hash.chaining;
 
 import java.util.Optional;
 
-class HashTableChaining<K extends Comparable<K>, V> {
+class HashTableChaining<K, V> {
 
   HashItem<K, V>[] table;
   int capacity, size;
@@ -10,7 +10,7 @@ class HashTableChaining<K extends Comparable<K>, V> {
 
   @SuppressWarnings("unchecked")
   HashTableChaining(int capacity) {
-    table = (HashItem<K, V>[]) new HashItem[capacity];
+    table = new HashItem[capacity];
     this.capacity = capacity;
     loadFactor = 0.75;
     size = 0;

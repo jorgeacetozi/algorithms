@@ -13,6 +13,6 @@ class HashItem<K, V> {
 
   @Override
   public String toString() {
-    return this.key.toString();
+    return String.format("%s -> %s", this.key, this.value);
   }
 }
