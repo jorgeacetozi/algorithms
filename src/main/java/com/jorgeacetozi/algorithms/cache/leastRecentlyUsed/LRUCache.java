@@ -8,8 +8,8 @@ import com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.hashTable.HashTable;
 
 class LRUCache<K, V> {
 
-  private HashTable<K, Node<V>> hashTable;
-  private DoublyLinkedList<V> doublyLinkedList;
+  private HashTable<K, Node<K, V>> hashTable;
+  private DoublyLinkedList<K, V> doublyLinkedList;
   private int capacity;
 
   public LRUCache(int capacity) {
@@ -19,10 +19,10 @@ class LRUCache<K, V> {
   }
 
   public Optional<V> get(K key) {
-    Optional<Node<V>> optionalNode = hashTable.get(key);
+    Optional<Node<K, V>> optionalNode = hashTable.get(key);
 
     if (optionalNode.isPresent()) {
-      Node<V> node = optionalNode.get();
+      Node<K, V> node = optionalNode.get();
       updateRecentlyUsed(node);
       return Optional.of(node.getValue());
     } else {
@@ -31,22 +31,22 @@ class LRUCache<K, V> {
   }
 
   public void put(K key, V value) {
-    Optional<Node<V>> nodeOptional = hashTable.get(key);
+    Optional<Node<K, V>> nodeOptional = hashTable.get(key);
 
     if (!nodeOptional.isPresent()) {
-      if (isCacheFull()) {
-        evict(key);
+      if (isFull()) {
+        evict();
       }
       insert(key, value);
     } else {
-      Node<V> node = nodeOptional.get();
+      Node<K, V> node = nodeOptional.get();
       node.setValue(value);
       updateRecentlyUsed(node);
     }
   }
 
-  public List<V> getCurrentOrder() {
-    return doublyLinkedList.toList();
+  public List<K> getLRUKeys() {
+    return doublyLinkedList.getKeys();
   }
 
   public void print() {
@@ -57,27 +57,27 @@ class LRUCache<K, V> {
     return hashTable.getSize();
   }
 
-  private void evict(K key) {
-    doublyLinkedList.removeEnd();
-    hashTable.remove(key);
+  public boolean isFull() {
+    return this.capacity == hashTable.getSize();
+  }
+
+  public K getNextKeyToBeEvicted() {
+    return doublyLinkedList.getTailKey();
+  }
+
+  private void evict() {
+    Node<K, V> tail = doublyLinkedList.removeEnd();
+    hashTable.remove(tail.getKey());
   }
 
   private void insert(K key, V value) {
-    Node<V> newNode = new Node<>(value);
+    Node<K, V> newNode = new Node<>(key, value);
     doublyLinkedList.insertStart(newNode);
     hashTable.put(key, newNode);
   }
 
-  private void updateRecentlyUsed(Node<V> node) {
+  private void updateRecentlyUsed(Node<K, V> node) {
     doublyLinkedList.remove(node);
     doublyLinkedList.insertStart(node);
-  }
-
-  private boolean isCacheFull() {
-    return this.capacity == hashTable.getSize();
-  }
-
-  public V getNextItemToBeEvicted() {
-    return doublyLinkedList.getTailValue();
   }
 }

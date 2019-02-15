@@ -25,15 +25,15 @@ public class LRUTestCache {
     cache.put("jorge1", 1);
     cache.put("jorge2", 2);
     assertThat(cache.getSize(), equalTo(2));
-    assertThat(cache.getCurrentOrder().get(0), equalTo(2));
-    assertThat(cache.getCurrentOrder().get(1), equalTo(1));
-    assertThat(cache.getNextItemToBeEvicted(), equalTo(1));
+    assertThat(cache.getLRUKeys().get(0), equalTo("jorge2"));
+    assertThat(cache.getLRUKeys().get(1), equalTo("jorge1"));
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge1"));
 
     cache.put("jorge2", 3);
     assertThat(cache.getSize(), equalTo(2));
-    assertThat(cache.getCurrentOrder().get(0), equalTo(3));
-    assertThat(cache.getCurrentOrder().get(1), equalTo(1));
-    assertThat(cache.getNextItemToBeEvicted(), equalTo(1));
+    assertThat(cache.getLRUKeys().get(0), equalTo("jorge2"));
+    assertThat(cache.getLRUKeys().get(1), equalTo("jorge1"));
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge1"));
 
     Optional<Integer> optional = cache.get("jorge2");
     assertTrue(optional.isPresent());
@@ -46,20 +46,38 @@ public class LRUTestCache {
     cache.put("jorge2", 2);
     cache.put("jorge3", 3);
     assertThat(cache.getSize(), equalTo(3));
-    assertThat(cache.getCurrentOrder().get(0), equalTo(3));
-    assertThat(cache.getCurrentOrder().get(1), equalTo(2));
-    assertThat(cache.getCurrentOrder().get(2), equalTo(1));
-    assertThat(cache.getNextItemToBeEvicted(), equalTo(1));
+    assertThat(cache.getLRUKeys().get(0), equalTo("jorge3"));
+    assertThat(cache.getLRUKeys().get(1), equalTo("jorge2"));
+    assertThat(cache.getLRUKeys().get(2), equalTo("jorge1"));
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge1"));
 
     cache.put("jorge3", 4);
     assertThat(cache.getSize(), equalTo(3));
-    assertThat(cache.getCurrentOrder().get(0), equalTo(4));
-    assertThat(cache.getCurrentOrder().get(1), equalTo(2));
-    assertThat(cache.getCurrentOrder().get(2), equalTo(1));
-    assertThat(cache.getNextItemToBeEvicted(), equalTo(1));
+    assertThat(cache.getLRUKeys().get(0), equalTo("jorge3"));
+    assertThat(cache.getLRUKeys().get(1), equalTo("jorge2"));
+    assertThat(cache.getLRUKeys().get(2), equalTo("jorge1"));
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge1"));
 
     Optional<Integer> optional = cache.get("jorge3");
     assertTrue(optional.isPresent());
     assertThat(optional.get(), equalTo(4));
+  }
+
+  @Test
+  public void shouldEvictLeastRecentlyUsedItemWhenPuttingNewItemAndTheCacheIsFull() {
+    cache.put("jorge1", 1);
+    cache.put("jorge2", 2);
+    cache.put("jorge3", 3);
+    assertThat(cache.getSize(), equalTo(3));
+    assertTrue(cache.isFull());
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge1"));
+
+    cache.put("dog", 10);
+    Optional<Integer> optional = cache.get("jorge1");
+    assertFalse(optional.isPresent());
+    assertThat(cache.getLRUKeys().get(0), equalTo("dog"));
+    assertThat(cache.getLRUKeys().get(1), equalTo("jorge3"));
+    assertThat(cache.getLRUKeys().get(2), equalTo("jorge2"));
+    assertThat(cache.getNextKeyToBeEvicted(), equalTo("jorge2"));
   }
 }

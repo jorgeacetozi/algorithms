@@ -3,12 +3,12 @@ package com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.doublyLinkedList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoublyLinkedList<V> {
+public class DoublyLinkedList<K, V> {
 
-  private Node<V> head, tail;
+  private Node<K, V> head, tail;
   private int size;
 
-  public void insertStart(Node<V> node) {
+  public void insertStart(Node<K, V> node) {
     if (head == null) {
       head = tail = node;
     } else {
@@ -20,7 +20,7 @@ public class DoublyLinkedList<V> {
     size++;
   }
 
-  public void remove(Node<V> node) {
+  public void remove(Node<K, V> node) {
     if (head == null) { // empty list
       throw new IllegalStateException("The list is empty");
     }
@@ -33,15 +33,16 @@ public class DoublyLinkedList<V> {
       tail = tail.getPrevious();
       tail.setNext(null);
     } else { // two or more elements and the node is neither the head nor the tail
-      Node<V> previous = node.getPrevious();
-      Node<V> next = node.getNext();
+      Node<K, V> previous = node.getPrevious();
+      Node<K, V> next = node.getNext();
       previous.setNext(next);
       next.setPrevious(previous);
     }
     size--;
   }
 
-  public void removeEnd() {
+  public Node<K, V> removeEnd() {
+    Node<K, V> lastItem = tail;
     if (head == null) {
       throw new IllegalStateException("The list is empty");
     } else if (head == tail) {
@@ -51,6 +52,7 @@ public class DoublyLinkedList<V> {
       tail.setNext(null);
     }
     size--;
+    return lastItem;
   }
 
   public int getSize() {
@@ -58,7 +60,7 @@ public class DoublyLinkedList<V> {
   }
 
   public void print() {
-    Node<V> currentNode = head;
+    Node<K, V> currentNode = head;
     while (currentNode != null) {
       System.out.print(currentNode + " ");
       currentNode = currentNode.getNext();
@@ -66,20 +68,20 @@ public class DoublyLinkedList<V> {
     System.out.println();
   }
 
-  public List<V> toList() {
-    Node<V> currentNode = head;
-    List<V> nodes = new ArrayList<>();
+  public List<K> getKeys() {
+    Node<K, V> currentNode = head;
+    List<K> keys = new ArrayList<>();
     while (currentNode != null) {
-      nodes.add(currentNode.getValue());
+      keys.add(currentNode.getKey());
       currentNode = currentNode.getNext();
     }
-    return nodes;
+    return keys;
   }
 
-  public V getTailValue() {
+  public K getTailKey() {
     if (tail == null) {
       throw new IllegalStateException("The list is empty");
     }
-    return tail.getValue();
+    return tail.getKey();
   }
 }
