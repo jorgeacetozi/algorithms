@@ -47,6 +47,10 @@ class LRUCache<K, V> {
   public void print() {
     doublyLinkedList.print();
   }
+  
+  public int getSize() {
+    return hashTable.getSize();
+  }
 
   private void evict(K key) {
     doublyLinkedList.removeEnd();
