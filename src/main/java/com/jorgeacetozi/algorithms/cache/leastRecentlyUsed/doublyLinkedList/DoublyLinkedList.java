@@ -1,5 +1,8 @@
 package com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.doublyLinkedList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DoublyLinkedList<V> {
 
   private Node<V> head, tail;
@@ -61,5 +64,22 @@ public class DoublyLinkedList<V> {
       currentNode = currentNode.getNext();
     }
     System.out.println();
+  }
+
+  public List<V> toList() {
+    Node<V> currentNode = head;
+    List<V> nodes = new ArrayList<>();
+    while (currentNode != null) {
+      nodes.add(currentNode.getValue());
+      currentNode = currentNode.getNext();
+    }
+    return nodes;
+  }
+
+  public V getTailValue() {
+    if (tail == null) {
+      throw new IllegalStateException("The list is empty");
+    }
+    return tail.getValue();
   }
 }

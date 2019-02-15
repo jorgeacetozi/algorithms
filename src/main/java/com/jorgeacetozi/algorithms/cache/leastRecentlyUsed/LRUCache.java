@@ -1,5 +1,6 @@
 package com.jorgeacetozi.algorithms.cache.leastRecentlyUsed;
 
+import java.util.List;
 import java.util.Optional;
 import com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.doublyLinkedList.DoublyLinkedList;
 import com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.doublyLinkedList.Node;
@@ -44,10 +45,14 @@ class LRUCache<K, V> {
     }
   }
 
+  public List<V> getCurrentOrder() {
+    return doublyLinkedList.toList();
+  }
+
   public void print() {
     doublyLinkedList.print();
   }
-  
+
   public int getSize() {
     return hashTable.getSize();
   }
@@ -70,5 +75,9 @@ class LRUCache<K, V> {
 
   private boolean isCacheFull() {
     return this.capacity == hashTable.getSize();
+  }
+
+  public V getNextItemToBeEvicted() {
+    return doublyLinkedList.getTailValue();
   }
 }
