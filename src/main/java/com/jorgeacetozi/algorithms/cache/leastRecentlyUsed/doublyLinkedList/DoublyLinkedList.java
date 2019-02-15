@@ -11,6 +11,7 @@ public class DoublyLinkedList<V> {
     } else {
       head.setPrevious(node);
       node.setNext(head);
+      node.setPrevious(null);
       head = node;
     }
     size++;
@@ -20,11 +21,15 @@ public class DoublyLinkedList<V> {
     if (head == null) { // empty list
       throw new IllegalStateException("The list is empty");
     }
-    if (node.getPrevious() == null) { // the node is the head
-      head.setNext(head.getNext());
-    } else if (node.getNext() == null) {
-      tail.setPrevious(tail.getPrevious());
-    } else {
+    if (node.getPrevious() == null && node.getNext() == null) { // only one element in the list
+      head = tail = null;
+    } else if (node.getPrevious() == null) { // two or more elements and the node is the head
+      head = head.getNext();
+      head.setPrevious(null);
+    } else if (node.getNext() == null) { // two or more elements and the node is the tail
+      tail = tail.getPrevious();
+      tail.setNext(null);
+    } else { // two or more elements and the node is neither the head nor the tail
       Node<V> previous = node.getPrevious();
       Node<V> next = node.getNext();
       previous.setNext(next);

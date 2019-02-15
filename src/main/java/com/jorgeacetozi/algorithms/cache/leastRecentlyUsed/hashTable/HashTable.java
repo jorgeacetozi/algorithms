@@ -64,11 +64,12 @@ public class HashTable<K, V> {
       return Optional.empty();
     }
   }
-  
+
   public int getSize() {
     return this.size;
   }
 
+  @SuppressWarnings("unchecked")
   private void resize() {
     if ((double) size / capacity > loadFactor) {
       capacity = capacity * 2;
