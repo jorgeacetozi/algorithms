@@ -19,4 +19,18 @@ public class LRUTestCache {
     assertTrue(optional.isPresent());
     assertThat(optional.get(), equalTo(32));
   }
+  
+  @Test
+  public void shouldUpdateCacheItemWhenThereAreTwoItemsInIt() {
+    cache.put("jorge1", 31);
+    cache.put("jorge2", 32);
+    assertThat(cache.getSize(), equalTo(2));
+    
+    cache.put("jorge2", 33);
+    assertThat(cache.getSize(), equalTo(2));
+    
+    Optional<Integer> optional = cache.get("jorge2");
+    assertTrue(optional.isPresent());
+    assertThat(optional.get(), equalTo(33));
+  }
 }
