@@ -48,10 +48,6 @@ public class LFUCache<K, V> {
     heap.print();
   }
 
-  private void evict() {
-    Node<K, V> leastFrequentlyUsed = heap.remove();
-    hashTable.remove(leastFrequentlyUsed.getKey());
-  }
 
   private void insert(K key, V value) {
     Node<K, V> newNode = new Node<>(key, value);
@@ -61,5 +57,14 @@ public class LFUCache<K, V> {
 
   public boolean isFull() {
     return this.capacity == hashTable.getSize();
+  }
+
+  public K getNextItemToBeEvicted() {
+    return heap.getMin();
+  }
+  
+  private void evict() {
+    Node<K, V> leastFrequentlyUsed = heap.remove();
+    hashTable.remove(leastFrequentlyUsed.getKey());
   }
 }

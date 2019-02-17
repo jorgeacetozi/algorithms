@@ -89,4 +89,8 @@ public class MinHeap<K, V> {
     }
     System.out.println();
   }
+
+  public K getMin() {
+    return heap[0].getKey();
+  }
 }
