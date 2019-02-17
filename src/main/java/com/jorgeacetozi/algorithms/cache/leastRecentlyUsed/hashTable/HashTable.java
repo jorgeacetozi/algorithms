@@ -21,12 +21,13 @@ public class HashTable<K, V> {
     if (table[index] == null) {
       table[index] = new HashItem<>(key, value);
     } else {
-      while (table[index] != null) {
-        index++;
+      do {
+        index = (index + 1) % capacity;
         if (table[index] == null) {
           table[index] = new HashItem<>(key, value);
+          break;
         }
-      }
+      } while (table[index] != null);
     }
     size++;
     resize();
