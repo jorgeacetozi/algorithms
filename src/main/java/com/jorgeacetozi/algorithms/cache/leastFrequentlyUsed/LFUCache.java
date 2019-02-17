@@ -34,7 +34,7 @@ public class LFUCache<K, V> {
 
   public Optional<V> get(K key) {
     Optional<Node<K, V>> nodeOptional = hashTable.get(key);
-    
+
     if (nodeOptional.isPresent()) {
       Node<K, V> node = nodeOptional.get();
       heap.updateFrequency(node);
@@ -44,15 +44,8 @@ public class LFUCache<K, V> {
     }
   }
 
-  public void print() {
-    heap.print();
-  }
-
-
-  private void insert(K key, V value) {
-    Node<K, V> newNode = new Node<>(key, value);
-    heap.insert(newNode);
-    hashTable.put(key, newNode);
+  public void printHeap() {
+    heap.printHeap();
   }
 
   public boolean isFull() {
@@ -62,7 +55,13 @@ public class LFUCache<K, V> {
   public K getNextItemToBeEvicted() {
     return heap.getMin();
   }
-  
+
+  private void insert(K key, V value) {
+    Node<K, V> newNode = new Node<>(key, value);
+    heap.insert(newNode);
+    hashTable.put(key, newNode);
+  }
+
   private void evict() {
     Node<K, V> leastFrequentlyUsed = heap.remove();
     hashTable.remove(leastFrequentlyUsed.getKey());

@@ -36,19 +36,19 @@ public class LFUCacheTest {
     cache.put("jorge2", 2);
     cache.put("jorge3", 3);
     assertTrue(cache.isFull());
-    
+
     cache.get("jorge3");
     cache.get("jorge3");
     cache.get("jorge3");
     cache.get("jorge2");
     cache.get("jorge2");
     cache.get("jorge1");
-    
+
     String nextItemToBeEvicted = cache.getNextItemToBeEvicted();
     assertThat(nextItemToBeEvicted, equalTo("jorge1"));
-    
+
     cache.put("xuxa", 5);
-    
+
     Optional<Integer> jorge1 = cache.get("jorge1");
     assertFalse(jorge1.isPresent());
     assertThat(cache.getNextItemToBeEvicted(), equalTo("xuxa"));

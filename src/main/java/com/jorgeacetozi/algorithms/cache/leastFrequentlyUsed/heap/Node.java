@@ -1,17 +1,17 @@
 package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.heap;
 
-public class Node<K, V> implements Comparable<Node<K, V>>{
+public class Node<K, V> implements Comparable<Node<K, V>> {
 
   private K key;
   private V value;
   private Integer frequency;
-  
+
   public Node(K key, V value) {
     this.key = key;
     this.value = value;
     this.frequency = 0;
   }
-  
+
   @Override
   public int compareTo(Node<K, V> another) {
     return this.frequency.compareTo(another.getFrequency());
@@ -40,7 +40,7 @@ public class Node<K, V> implements Comparable<Node<K, V>>{
   public void setFrequency(Integer frequency) {
     this.frequency = frequency;
   }
-  
+
   @Override
   public String toString() {
     return String.format("%s %s %d", this.key, this.value, this.frequency);
