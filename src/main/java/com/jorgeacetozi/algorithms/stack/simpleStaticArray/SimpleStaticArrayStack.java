@@ -1,5 +1,6 @@
 package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
 
+import java.util.EmptyStackException;
 import com.jorgeacetozi.algorithms.stack.Stack;
 
 class SimpleStaticArrayStack<T> implements Stack<T> {
@@ -24,7 +25,7 @@ class SimpleStaticArrayStack<T> implements Stack<T> {
   @Override
   public T pop() {
     if (size == 0) {
-      throw new RuntimeException("The stack is empty");
+      throw new EmptyStackException();
     }
     return array[--size];
   }
@@ -32,7 +33,7 @@ class SimpleStaticArrayStack<T> implements Stack<T> {
   @Override
   public T peek() {
     if (size == 0) {
-      throw new RuntimeException("The stack is empty");
+      throw new EmptyStackException();
     }
     return array[size - 1];
   }

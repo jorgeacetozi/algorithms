@@ -1,13 +1,13 @@
-package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
+package com.jorgeacetozi.algorithms.stack.singlyLinkedList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.EmptyStackException;
 import org.junit.Test;
 
-public class SimpleStaticArrayStackTest {
+public class SinglyLinkedListStackTest {
 
-  SimpleStaticArrayStack<String> stack = new SimpleStaticArrayStack<>(3);
+  SinglyLinkedListStack<String> stack = new SinglyLinkedListStack<>();
 
   @Test
   public void shouldPushItemsIntoStack() {
@@ -15,14 +15,6 @@ public class SimpleStaticArrayStackTest {
     stack.push("xuxa");
     stack.push("cobra");
     assertThat(stack.size, equalTo(3));
-  }
-
-  @Test(expected = RuntimeException.class)
-  public void shouldThrowExceptionWhenPushingItemsIntoFullStack() {
-    stack.push("jorge");
-    stack.push("xuxa");
-    stack.push("cobra");
-    stack.push("sorry, stack is full");
   }
 
   @Test
@@ -54,7 +46,7 @@ public class SimpleStaticArrayStackTest {
     assertThat(stack.peek(), equalTo("jorge"));
   }
   
-  @Test(expected = RuntimeException.class)
+  @Test(expected = EmptyStackException.class)
   public void shouldThrowExceptionWhenReturningPeekItemFromEmptyList() {
     stack.peek();
   }
