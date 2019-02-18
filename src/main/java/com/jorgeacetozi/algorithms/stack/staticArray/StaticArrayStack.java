@@ -1,15 +1,15 @@
-package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
+package com.jorgeacetozi.algorithms.stack.staticArray;
 
 import java.util.EmptyStackException;
 import com.jorgeacetozi.algorithms.stack.Stack;
 
-class SimpleStaticArrayStack<T> implements Stack<T> {
+class StaticArrayStack<T> implements Stack<T> {
 
   T[] array;
   int size, capacity;
 
   @SuppressWarnings("unchecked")
-  SimpleStaticArrayStack(int capacity) {
+  StaticArrayStack(int capacity) {
     array = (T[]) new Object[capacity];
     this.capacity = capacity;
   }

@@ -1,12 +1,13 @@
-package com.jorgeacetozi.algorithms.stack.simpleDynamicArray;
+package com.jorgeacetozi.algorithms.stack.dynamicArray;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.EmptyStackException;
 import org.junit.Test;
+import com.jorgeacetozi.algorithms.stack.dynamicArray.DynamicArrayStack;
 
-public class SimpleDynamicArrayStackTest {
-  SimpleDynamicArrayStack<String> stack = new SimpleDynamicArrayStack<>(3);
+public class DynamicArrayStackTest {
+  DynamicArrayStack<String> stack = new DynamicArrayStack<>(3);
 
   @Test
   public void shouldPushItemsIntoStack() {

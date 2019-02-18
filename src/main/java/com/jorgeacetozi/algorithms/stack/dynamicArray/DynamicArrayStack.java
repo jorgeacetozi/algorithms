@@ -1,15 +1,15 @@
-package com.jorgeacetozi.algorithms.stack.simpleDynamicArray;
+package com.jorgeacetozi.algorithms.stack.dynamicArray;
 
 import java.util.EmptyStackException;
 import com.jorgeacetozi.algorithms.stack.Stack;
 
-class SimpleDynamicArrayStack<T> implements Stack<T> {
+class DynamicArrayStack<T> implements Stack<T> {
 
   T[] array;
   int size, capacity;
 
   @SuppressWarnings("unchecked")
-  SimpleDynamicArrayStack(int initialCapacity) {
+  DynamicArrayStack(int initialCapacity) {
     array = (T[]) new Object[initialCapacity];
     this.capacity = initialCapacity;
   }

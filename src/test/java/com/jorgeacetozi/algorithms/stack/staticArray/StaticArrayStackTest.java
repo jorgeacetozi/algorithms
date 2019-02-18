@@ -1,13 +1,14 @@
-package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
+package com.jorgeacetozi.algorithms.stack.staticArray;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.EmptyStackException;
 import org.junit.Test;
+import com.jorgeacetozi.algorithms.stack.staticArray.StaticArrayStack;
 
-public class SimpleStaticArrayStackTest {
+public class StaticArrayStackTest {
 
-  SimpleStaticArrayStack<String> stack = new SimpleStaticArrayStack<>(3);
+  StaticArrayStack<String> stack = new StaticArrayStack<>(3);
 
   @Test
   public void shouldPushItemsIntoStack() {
