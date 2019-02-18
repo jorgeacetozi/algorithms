@@ -1,7 +1,5 @@
 package com.jorgeacetozi.algorithms.heap;
 
-import java.util.Arrays;
-
 class GenericMinHeap<T extends Comparable<T>> {
 
   T[] heap;
@@ -10,7 +8,6 @@ class GenericMinHeap<T extends Comparable<T>> {
   @SuppressWarnings("unchecked")
   GenericMinHeap() {
     this.heap = (T[]) new Comparable[10];
-    Arrays.fill(this.heap, -1);
     this.heapSize = 0;
   }
 
@@ -20,27 +17,27 @@ class GenericMinHeap<T extends Comparable<T>> {
   }
 
   private void heapifyUp(int currentNodeIndex) {
-    if (currentNodeIndex == 0) { // we reached to the root node
-      return;
-    }
+    if (currentNodeIndex != 0) {
+      int parentIndex = (currentNodeIndex - 1) / 2;
 
-    int parentIndex = (currentNodeIndex - 1) / 2;
-
-    if (heap[parentIndex].compareTo(heap[currentNodeIndex]) > 0) {
-      T temp = heap[parentIndex];
-      heap[parentIndex] = heap[currentNodeIndex];
-      heap[currentNodeIndex] = temp;
-      heapifyUp(parentIndex);
+      if (heap[parentIndex].compareTo(heap[currentNodeIndex]) > 0) {
+        swap(currentNodeIndex, parentIndex);
+        heapifyUp(parentIndex);
+      }
     }
+  }
+
+  private void swap(int currentNodeIndex, int newPosition) {
+    T temp = heap[newPosition];
+    heap[newPosition] = heap[currentNodeIndex];
+    heap[currentNodeIndex] = temp;
   }
 
   T remove() {
     T rootElement = heap[0];
-
-    heap[0] = heap[heapSize - 1];
-    heap[heapSize - 1] = null;
     heapSize--;
-
+    heap[0] = heap[heapSize];
+    heap[heapSize] = null;
     heapifyDown(0);
     return rootElement;
   }
@@ -56,21 +53,15 @@ class GenericMinHeap<T extends Comparable<T>> {
       return;
     } else if (hasLeftChild && !hasRightChild) { // there is only the left child
       if (heap[currentNodeIndex].compareTo(heap[leftChildIndex]) > 0) {
-        T temp = heap[currentNodeIndex];
-        heap[currentNodeIndex] = heap[leftChildIndex];
-        heap[leftChildIndex] = temp;
+        swap(currentNodeIndex, leftChildIndex);
         heapifyDown(leftChildIndex);
       }
     } else { // the node contains left and right child
       if (heap[leftChildIndex].compareTo(heap[rightChildIndex]) < 0) {
-        T temp = heap[currentNodeIndex];
-        heap[currentNodeIndex] = heap[leftChildIndex];
-        heap[leftChildIndex] = temp;
+        swap(currentNodeIndex, leftChildIndex);
         heapifyDown(leftChildIndex);
       } else {
-        T temp = heap[currentNodeIndex];
-        heap[currentNodeIndex] = heap[rightChildIndex];
-        heap[rightChildIndex] = temp;
+        swap(currentNodeIndex, rightChildIndex);
         heapifyDown(rightChildIndex);
       }
     }
