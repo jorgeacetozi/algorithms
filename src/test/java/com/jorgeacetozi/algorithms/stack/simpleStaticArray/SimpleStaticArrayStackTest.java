@@ -1,12 +1,12 @@
-package com.jorgeacetozi.algorithms.stack;
+package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class SimpleArrayStackTest {
+public class SimpleStaticArrayStackTest {
 
-  SimpleArrayStack<String> stack = new SimpleArrayStack<>(3);
+  SimpleStaticArrayStack<String> stack = new SimpleStaticArrayStack<>(3);
 
   @Test
   public void shouldPushItemsIntoStack() {

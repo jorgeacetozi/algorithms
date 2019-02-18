@@ -1,12 +1,14 @@
-package com.jorgeacetozi.algorithms.stack;
+package com.jorgeacetozi.algorithms.stack.simpleStaticArray;
 
-class SimpleArrayStack<T> implements Stack<T> {
+import com.jorgeacetozi.algorithms.stack.Stack;
+
+class SimpleStaticArrayStack<T> implements Stack<T> {
 
   T[] array;
   int size, capacity;
 
   @SuppressWarnings("unchecked")
-  SimpleArrayStack(int capacity) {
+  SimpleStaticArrayStack(int capacity) {
     array = (T[]) new Object[capacity];
     this.capacity = capacity;
   }

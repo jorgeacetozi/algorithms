@@ -1,6 +1,6 @@
 package com.jorgeacetozi.algorithms.stack;
 
-interface Stack<T> {
+public interface Stack<T> {
   
   void push(T item);
   T pop();
