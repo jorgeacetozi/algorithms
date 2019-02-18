@@ -1,4 +1,4 @@
-package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.heap;
+package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.minIndexedHeap;
 
 public class Node<K, V> implements Comparable<Node<K, V>> {
 

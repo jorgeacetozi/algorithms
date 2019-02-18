@@ -1,16 +1,16 @@
-package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.heap;
+package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.minIndexedHeap;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MinHeap<K, V> {
+public class MinIndexedHeap<K, V> {
 
   private Node<K, V>[] heap;
   private Map<Node<K, V>, Integer> nodeIndexes;
   private int size;
 
   @SuppressWarnings("unchecked")
-  public MinHeap(int capacity) {
+  public MinIndexedHeap(int capacity) {
     heap = new Node[capacity];
     nodeIndexes = new HashMap<>();
   }

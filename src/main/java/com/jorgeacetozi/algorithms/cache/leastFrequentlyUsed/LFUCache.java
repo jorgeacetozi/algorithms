@@ -1,19 +1,19 @@
 package com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed;
 
 import java.util.Optional;
-import com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.heap.MinHeap;
-import com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.heap.Node;
+import com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.minIndexedHeap.MinIndexedHeap;
+import com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.minIndexedHeap.Node;
 import com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.hashTable.HashTable;
 
 public class LFUCache<K, V> {
 
   private HashTable<K, Node<K, V>> hashTable;
-  private MinHeap<K, V> heap;
+  private MinIndexedHeap<K, V> heap;
   private int capacity;
 
   public LFUCache(int capacity) {
     hashTable = new HashTable<>(capacity);
-    heap = new MinHeap<K, V>(capacity);
+    heap = new MinIndexedHeap<K, V>(capacity);
     this.capacity = capacity;
   }
 
