@@ -53,4 +53,18 @@ public class LFUCacheTest {
     assertFalse(jorge1.isPresent());
     assertThat(cache.getNextItemToBeEvicted(), equalTo("xuxa"));
   }
+  
+  @Test
+  public void shouldUpdateItemFromTheCache() {
+    cache.put("jorge1", 1);
+    cache.put("jorge2", 2);
+    cache.put("jorge3", 3);
+    
+    Optional<Integer> beforeUpdate = cache.get("jorge1");
+    assertThat(beforeUpdate.get(), equalTo(1));
+    
+    cache.put("jorge1", 2);
+    Optional<Integer> afterUpdate = cache.get("jorge1");
+    assertThat(afterUpdate.get(), equalTo(2));
+  }
 }
