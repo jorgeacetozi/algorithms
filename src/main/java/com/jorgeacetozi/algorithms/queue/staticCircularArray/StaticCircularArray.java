@@ -3,7 +3,7 @@ package com.jorgeacetozi.algorithms.queue.staticCircularArray;
 import java.util.Optional;
 
 class StaticCircularArray<T> {
-
+ 
   T[] array;
   int start, end;
   int size, capacity;
