@@ -65,7 +65,7 @@ class BinarySearchTree {
     return this.deleteRecursive(this.root, key);
   }
 
-  private Node deleteRecursive(Node currentNode, int key) { // FUMA PRO PAPAI FUMA MENINA!!!!!!
+  private Node deleteRecursive(Node currentNode, int key) {
     if (key == currentNode.key) {
       // case 1 - no children
       if (currentNode.leftChild == null && currentNode.rightChild == null) {
