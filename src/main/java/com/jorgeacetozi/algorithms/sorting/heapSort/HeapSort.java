@@ -1,27 +1,19 @@
-package com.jorgeacetozi.algorithms.sorting.heapSort;
+package com.jorgeacetozi.algorithms.sorting.heapsort;
 
-import java.util.ArrayList;
 import java.util.List;
 
-class HeapSort<T extends Comparable<T>> {
+class Heapsort {
 
-  MinHeap<T> heap;
-  int capacity;
+  <T extends Comparable<T>> void heapsort(List<T> list) {
+    MinHeap<T> heap = new MinHeap<>(list.size());
 
-  HeapSort(int capacity) {
-    heap = new MinHeap<>(capacity);
-    this.capacity = capacity;
-  }
-
-  List<T> sort(List<T> input) {
-    for (T value : input) {
+    for (T value : list) {
       heap.put(value);
     }
 
-    List<T> sortedList = new ArrayList<>(capacity);
+    list.clear();
     while (heap.size > 0) {
-      sortedList.add(heap.remove());
+      list.add(heap.remove());
     }
-    return sortedList;
   }
 }

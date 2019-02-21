@@ -1,4 +1,4 @@
-package com.jorgeacetozi.algorithms.sorting.heapSort;
+package com.jorgeacetozi.algorithms.sorting.heapsort;
 
 class MinHeap<T extends Comparable<T>> {
 
