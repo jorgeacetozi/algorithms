@@ -3,6 +3,7 @@ package com.jorgeacetozi.algorithms.ternarySearchTree;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 class TernarySearchTree {
 
@@ -30,6 +31,30 @@ class TernarySearchTree {
       currentNode.value = value;
     }
     return currentNode;
+  }
+
+  Optional<Object> get(String key) {
+    return get(root, key, 0);
+  }
+
+  private Optional<Object> get(Node currentNode, String key, int i) {
+    if (currentNode == null) {
+      return Optional.empty();
+    }
+
+    char currentChar = key.charAt(i);
+    
+    if (currentChar < currentNode.character) {
+      return get(currentNode.leftChild, key, i);
+    } else if (currentChar > currentNode.character) {
+      return get(currentNode.rightChild, key, i);
+    } else if (i < key.length() - 1) {
+      return get(currentNode.middleChild, key, i + 1);
+    } else if (i == key.length() - 1) {
+      return Optional.of(currentNode.value);
+    }
+
+    return Optional.empty();
   }
 
   List<String> findPartials(String prefix) {

@@ -1,9 +1,10 @@
 package com.jorgeacetozi.algorithms.ternarySearchTree;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 
 public class TernarySearchTreeTest {
@@ -32,6 +33,15 @@ public class TernarySearchTreeTest {
     assertThat(ternarySearchTree.root.leftChild.value, equalTo(25));
     assertThat(ternarySearchTree.root.leftChild.middleChild.value, equalTo(30));
     assertThat(ternarySearchTree.root.rightChild.value, equalTo(35));
+  }
+  
+  @Test
+  public void shouldGetFromTST() {
+    ternarySearchTree.put("jorge", "algorithms");
+    Optional<Object> optional = ternarySearchTree.get("jorge");
+    
+    assertTrue(optional.isPresent());
+    assertThat(optional.get(), equalTo("algorithms"));
   }
 
   @Test
