@@ -1,14 +1,12 @@
 package com.jorgeacetozi.algorithms.ternarySearchTree;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 class TernarySearchTree {
 
   Node root;
-  String longestCommonPrefix;
 
   void put(String key, Object value) {
     root = putRecursive(this.root, key, value, 0);
@@ -43,7 +41,7 @@ class TernarySearchTree {
     }
 
     char currentChar = key.charAt(i);
-    
+
     if (currentChar < currentNode.character) {
       return get(currentNode.leftChild, key, i);
     } else if (currentChar > currentNode.character) {
@@ -99,29 +97,23 @@ class TernarySearchTree {
     for (String s : strings) {
       this.put(s, s);
     }
-    String longest = findLongestCommonPrefix(this.root, 0, "");
-    if (longest != null) {
-      return longest;
-    } else {
-      // If there is no left or right child, we just return the smaller string in the list
-      // This covers the case of 'jor', 'jorge' and 'jorgetest'
-      return strings.stream().min(Comparator.naturalOrder()).get();
-    }
+    return findLongestCommonPrefix(this.root, 0, "", "");
   }
 
-  String findLongestCommonPrefix(Node currentNode, int i, String tempPrefix) {
+  String findLongestCommonPrefix(Node currentNode, int i, String tempPrefix,
+      String longestCommonPrefix) {
     if (currentNode == null) {
-      return this.longestCommonPrefix;
+      return longestCommonPrefix;
     }
 
     // If the currentNode has a left or right child, that means concatenation of the characters from
     // the root to its parent node is the longest common prefix
     if (currentNode.leftChild != null || currentNode.rightChild != null) {
-      this.longestCommonPrefix = tempPrefix;
-      return this.longestCommonPrefix;
-    } else {
-      return findLongestCommonPrefix(currentNode.middleChild, ++i,
-          tempPrefix + currentNode.character);
+      return tempPrefix;
+    } else if (currentNode.value != null && longestCommonPrefix.isEmpty()) { // covers the case jor, jorge, jorgetest
+      longestCommonPrefix = tempPrefix + currentNode.character;
     }
+    return findLongestCommonPrefix(currentNode.middleChild, i + 1,
+        tempPrefix + currentNode.character, longestCommonPrefix);
   }
 }
