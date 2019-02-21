@@ -61,8 +61,8 @@ class BinarySearchTree {
     return findMaxRecursive(currentNode.rightChild);
   }
 
-  Node delete(int key) {
-    return this.deleteRecursive(this.root, key);
+  void delete(int key) {
+    root = this.deleteRecursive(this.root, key);
   }
 
   private Node deleteRecursive(Node currentNode, int key) {

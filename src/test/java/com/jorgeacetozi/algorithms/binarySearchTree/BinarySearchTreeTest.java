@@ -8,9 +8,10 @@ import org.junit.Test;
 
 public class BinarySearchTreeTest {
 
+  BinarySearchTree bst = new BinarySearchTree();
+
   @Test
   public void shouldInsertRootNode() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     assertNotNull(bst.root);
     assertThat(bst.root.key, is(10));
@@ -19,7 +20,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldInsertLeftChildAndRightChild() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     assertNull(bst.root.leftChild);
     bst.insert(5, "Xuxa");
@@ -35,7 +35,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldInsertRightChildAndLeftChild() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     assertNull(bst.root.rightChild);
     bst.insert(15, "Xuxa");
@@ -51,7 +50,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldUpdateValueWhenInsertingExistingKey() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     bst.insert(15, "Xuxa");
     bst.insert(15, "Cobra");
@@ -60,7 +58,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldFindNodeByKey() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     bst.insert(15, "Xuxa");
     bst.insert(12, "Cobra");
@@ -71,7 +68,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldFindMinimumKey() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     bst.insert(15, "Xuxa");
     bst.insert(12, "Cobra");
@@ -84,7 +80,6 @@ public class BinarySearchTreeTest {
 
   @Test
   public void shouldFindMaximumKey() {
-    BinarySearchTree bst = new BinarySearchTree();
     bst.insert(10, "Jorge");
     bst.insert(15, "Xuxa");
     bst.insert(12, "Cobra");
@@ -94,10 +89,21 @@ public class BinarySearchTreeTest {
     assertThat(max.key, is(15));
     assertThat(max.value, is("Xuxa"));
   }
+  
+  @Test
+  public void shouldDeleteRoot() {
+    bst.insert(10, "Jorge");
+    bst.delete(10);
+    assertNull(bst.root);
+  }
+  
+  @Test(expected = RuntimeException.class)
+  public void shouldThrowExceptionWhenBSTIsEmpty() {
+    bst.delete(10);
+  }
 
   @Test
-  public void shouldDeleteNodeNoChildren() {
-    BinarySearchTree bst = new BinarySearchTree();
+  public void shouldDeleteNodeWithNoChildren() {
     bst.insert(10, "Jorge");
     bst.insert(5, "Xuxa");
     assertNotNull(bst.root.leftChild);
@@ -106,8 +112,7 @@ public class BinarySearchTreeTest {
   }
 
   @Test
-  public void shouldDeleteNodeOneChild() {
-    BinarySearchTree bst = new BinarySearchTree();
+  public void shouldDeleteNodeWithOneChild() {
     bst.insert(10, "Jorge");
     bst.insert(5, "Xuxa");
     bst.insert(3, "Cobra");
@@ -119,8 +124,7 @@ public class BinarySearchTreeTest {
   }
 
   @Test
-  public void shouldDeleteNodeTwoChildren() {
-    BinarySearchTree bst = new BinarySearchTree();
+  public void shouldDeleteNodeWithTwoChildren() {
     bst.insert(10, "Xuxa10");
     bst.insert(5, "Xuxa5");
     bst.insert(3, "Xuxa3");
