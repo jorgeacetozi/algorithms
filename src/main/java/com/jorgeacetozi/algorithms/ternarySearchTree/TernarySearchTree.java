@@ -7,7 +7,6 @@ import java.util.List;
 class TernarySearchTree {
 
   Node root;
-  List<Node> partials;
   String longestCommonPrefix;
 
   void put(String key, Object value) {
@@ -33,42 +32,41 @@ class TernarySearchTree {
     return currentNode;
   }
 
-  List<Node> findPartials(String prefix) {
-    this.partials = new ArrayList<>();
-    return autocomplete(this.root, prefix, 0);
+  List<String> findPartials(String prefix) {
+    return findPartials(this.root, prefix, 0, new ArrayList<>());
   }
 
-  List<Node> autocomplete(Node currentNode, String prefix, int i) {
+  List<String> findPartials(Node currentNode, String prefix, int i, List<String> partials) {
     if (currentNode == null) {
-      return this.partials;
-    }
-
-    if (i == prefix.length()) {
-      return traverse(currentNode);
+      return partials;
     }
 
     char currentCharacterFromPrefix = prefix.charAt(i);
 
-    if (currentCharacterFromPrefix == currentNode.character) {
-      autocomplete(currentNode.middleChild, prefix, i + 1);
-    } else if (currentCharacterFromPrefix < currentNode.character) {
-      autocomplete(currentNode.leftChild, prefix, i);
+    if (currentCharacterFromPrefix < currentNode.character) {
+      findPartials(currentNode.leftChild, prefix, i, partials);
     } else if (currentCharacterFromPrefix > currentNode.character) {
-      autocomplete(currentNode.rightChild, prefix, i);
+      findPartials(currentNode.rightChild, prefix, i, partials);
+    } else if (i < prefix.length() - 1) {
+      findPartials(currentNode.middleChild, prefix, i + 1, partials);
+    } else if (i == prefix.length() - 1) {
+      return traverse(currentNode.middleChild, partials);
     }
-    return this.partials;
+    return partials;
   }
 
-  private List<Node> traverse(Node currentNode) {
+  private List<String> traverse(Node currentNode, List<String> partials) {
     if (currentNode == null) {
-      return null;
+      return partials;
     }
 
-    traverse(currentNode.leftChild);
-    traverse(currentNode.middleChild);
-    traverse(currentNode.rightChild);
-    if (currentNode.value != null)
-      this.partials.add(currentNode);
+    traverse(currentNode.leftChild, partials);
+    traverse(currentNode.middleChild, partials);
+    traverse(currentNode.rightChild, partials);
+
+    if (currentNode.value != null) {
+      partials.add((String) currentNode.value);
+    }
     return partials;
   }
 

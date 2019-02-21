@@ -44,11 +44,11 @@ public class TernarySearchTreeTest {
     ternarySearchTree.put("dado", "dado");
     ternarySearchTree.put("zebra", "zebra");
 
-    List<Node> partials = ternarySearchTree.findPartials("cat");
-    assertThat(partials.get(0).value, equalTo("catapora"));
-    assertThat(partials.get(1).value, equalTo("catarro"));
-    assertThat(partials.get(2).value, equalTo("catolico"));
-    assertThat(partials.get(3).value, equalTo("catra"));
+    List<String> partials = ternarySearchTree.findPartials("cat");
+    assertThat(partials.get(0), equalTo("catapora"));
+    assertThat(partials.get(1), equalTo("catarro"));
+    assertThat(partials.get(2), equalTo("catolico"));
+    assertThat(partials.get(3), equalTo("catra"));
   }
 
   @Test
