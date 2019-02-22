@@ -19,4 +19,17 @@ class OptimizedConnectivity {
     }
     return count;
   }
+  
+  
+  private int AlternativeDFS(Vertex vertex) {
+    int count = 0;
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      count++;
+      for (Vertex neighbor : vertex.neighbors) {
+        count = count + AlternativeDFS(neighbor);
+      }
+    }
+    return count;
+  }
 }
