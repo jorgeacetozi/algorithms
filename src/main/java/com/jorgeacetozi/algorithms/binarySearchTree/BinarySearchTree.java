@@ -120,4 +120,15 @@ class BinarySearchTree {
 
     return Math.max(leftSubtreeHeight, rightSubtreeHeight);
   }
+
+  public int getSum() {
+    return getSum(root);
+  }
+
+  private int getSum(Node currentNode) {
+    if (currentNode == null) {
+      return 0;
+    }
+    return currentNode.key + getSum(currentNode.leftChild) + getSum(currentNode.rightChild);
+  }
 }

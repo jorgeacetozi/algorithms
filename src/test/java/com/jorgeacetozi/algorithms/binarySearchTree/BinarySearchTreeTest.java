@@ -157,4 +157,19 @@ public class BinarySearchTreeTest {
 
     assertThat(bst.getHeight(), equalTo(5));
   }
+  
+  @Test
+  public void shouldGetBSTSum() {
+    bst.insert(10, "Xuxa10");
+    bst.insert(5, "Xuxa5");
+    bst.insert(3, "Xuxa3");
+    bst.insert(1, "Xuxa1");
+    bst.insert(4, "Xuxa4");
+    bst.insert(9, "Xuxa9");
+    bst.insert(7, "Xuxa7");
+    bst.insert(8, "Xuxa8");
+    bst.insert(20, "Xuxa20");
+
+    assertThat(bst.getSum(), equalTo(67));
+  }
 }
