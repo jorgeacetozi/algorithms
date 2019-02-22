@@ -103,4 +103,21 @@ class BinarySearchTree {
   private Node findPredecessor(Node currentNode) {
     return this.findMaxRecursive(currentNode.leftChild);
   }
+
+  int getHeight() {
+    return getHeight(root);
+  }
+
+  private int getHeight(Node currentNode) {
+    if (currentNode == null) {
+      return 0;
+    }
+    int height = 0;
+    height++;
+
+    int leftSubtreeHeight = height + getHeight(currentNode.leftChild);
+    int rightSubtreeHeight = height + getHeight(currentNode.rightChild);
+
+    return Math.max(leftSubtreeHeight, rightSubtreeHeight);
+  }
 }

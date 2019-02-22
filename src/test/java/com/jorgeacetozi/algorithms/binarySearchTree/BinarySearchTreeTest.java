@@ -1,5 +1,6 @@
 package com.jorgeacetozi.algorithms.binarySearchTree;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -89,14 +90,14 @@ public class BinarySearchTreeTest {
     assertThat(max.key, is(15));
     assertThat(max.value, is("Xuxa"));
   }
-  
+
   @Test
   public void shouldDeleteRoot() {
     bst.insert(10, "Jorge");
     bst.delete(10);
     assertNull(bst.root);
   }
-  
+
   @Test(expected = RuntimeException.class)
   public void shouldThrowExceptionWhenBSTIsEmpty() {
     bst.delete(10);
@@ -140,5 +141,20 @@ public class BinarySearchTreeTest {
     assertThat(bst.root.leftChild.key, is(4));
     assertThat(bst.root.leftChild.value, is("Xuxa4"));
     assertNull(bst.find(5));
+  }
+
+  @Test
+  public void shouldGetBSTHeight() {
+    bst.insert(10, "Xuxa10");
+    bst.insert(5, "Xuxa5");
+    bst.insert(3, "Xuxa3");
+    bst.insert(1, "Xuxa1");
+    bst.insert(4, "Xuxa4");
+    bst.insert(9, "Xuxa9");
+    bst.insert(7, "Xuxa7");
+    bst.insert(8, "Xuxa8");
+    bst.insert(20, "Xuxa20");
+
+    assertThat(bst.getHeight(), equalTo(5));
   }
 }
