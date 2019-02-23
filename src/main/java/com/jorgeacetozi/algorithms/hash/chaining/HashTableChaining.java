@@ -16,7 +16,7 @@ class HashTableChaining<K, V> {
     size = 0;
   }
 
-  // O(1) because we add to the head of the Singly Linked List
+  // O(1) when there is no resize() because we just add the item to the head of the Linked List
   void put(K key, V value) {
     int index = hashFunction(key);
     HashItem<K, V> newItem = new HashItem<>(key, value);
@@ -27,18 +27,19 @@ class HashTableChaining<K, V> {
       newItem.next = table[index];
       table[index] = newItem;
     }
-    size++;
 
+    size++;
     resize();
   }
 
+  // O(N)
   @SuppressWarnings("unchecked")
   private void resize() {
     if ((double) size / capacity > loadFactor) {
       capacity = capacity * 2;
       size = 0;
       HashItem<K, V>[] oldTable = table;
-      table = (HashItem<K, V>[]) new HashItem[capacity];
+      table = new HashItem[capacity];
 
       for (int i = 0; i < oldTable.length; i++) {
         if (oldTable[i] != null) {
@@ -59,7 +60,6 @@ class HashTableChaining<K, V> {
       return Optional.empty();
     } else {
       HashItem<K, V> currentItem = table[index];
-
       while (currentItem != null) {
         if (currentItem.key.equals(key)) {
           return Optional.of(currentItem.value);
@@ -71,6 +71,6 @@ class HashTableChaining<K, V> {
   }
 
   private int hashFunction(K key) {
-    return Math.abs(key.hashCode() % capacity);
+    return Math.abs(key.hashCode() % capacity); // hashCode() can be negative
   }
 }
