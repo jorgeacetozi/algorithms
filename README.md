@@ -209,3 +209,160 @@ The blue colored edges form a spanning tree but not a hamiltonian path.
 The Travelling Salesman Problem is about going to each city exactly once while returning to the original city (thus walking along a Hamiltonian cycle) and also taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). Finding such a cycle, perforce finding the possibly unique optimal cycle with the shortest distance, is "hard".
 
 The Chinese Postman Problem or Route Inspection Problem is about visiting each route between cities at least once while returning to the original city and taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). A solution that takes each route exactly once is automatically optimal and called an Eulerian Cycle. Finding such a cycle is "feasible".
+
+
+
+Em Java, se vc precisa que uma recursão devolva algo, vc precisa passar este "algo" como parâmetro da recursão e fazer todos os "return" da função retornarem este "algo", tipo:
+
+```java
+List<T> findPartials(String str) {
+	return findPartials(root, str, i, new ArrayList<>());
+}
+
+List<T> findPartials(Node<T> currentNode, String str, int i, List<T> partials) {
+	
+	if (currentNode == null) {
+		return partials;
+	}
+
+	char currentChar = str.charAt(i);
+
+	if (currentChar < currentNode.value) {
+		findPartials(currentNode.leftChild, str, i, partials);
+	} else if (currentChar > currentNode.value) {
+		findPartials(currentNode.rightChild, str, i, partials);
+	} else if (i < str.length() - 1) {
+		findPartials(currentNode.middleChild, str, i + 1, partials);
+	} else if (i == str.length() - 1) {
+		return traverse(currentNode.middleChild, partials);
+	}
+	return partials;
+}
+
+List<T> traverse(Node<T> currentNode, List<T> partials) {
+	
+	if (currentNode == null) { 
+		return partials;
+	}
+
+	traverse(currentNode.leftChild, partials);
+	traverse(currentNode.middleChild, partials);
+	traverse(currentNode.rightChild, partials);
+
+	if (currentNode.value != null) {
+		partials.add(currentNode.value);
+	}
+	return partials;
+}
+```
+
+Se este "algo" for um objeto (Qlq Collection, array, Map, qlq objeto customizado, etc), vc não precisa fazer:
+
+partials = findPartials(currentNode.leftChild, str, i, partials);
+
+Porque uma alteração num objeto dentro da função reflete no objeto original (a cópia que é passada é a cópia da referência, e não do objeto em si: https://dzone.com/articles/java-pass-by-reference-or-pass-by-value). Caso vc faça isso, vai funcionar do mesmo jeito, mas seria uma atribuição desnecessária, tipo assim:
+
+```java
+  List<String> findPartials(String prefix) {
+    return findPartials(this.root, prefix, 0, new ArrayList<>());
+  }
+
+  List<String> findPartials(Node currentNode, String prefix, int i, List<String> partials) {
+    if (currentNode == null) {
+      return partials;
+    }
+
+    char currentCharacterFromPrefix = prefix.charAt(i);
+
+    if (currentCharacterFromPrefix < currentNode.character) {
+      partials = findPartials(currentNode.leftChild, prefix, i, partials); // é desnecessário o partials = 
+    } else if (currentCharacterFromPrefix > currentNode.character) {
+      partials = findPartials(currentNode.rightChild, prefix, i, partials); // é desnecessário o partials = 
+    } else if (i < prefix.length() - 1) {
+      partials = findPartials(currentNode.middleChild, prefix, i + 1, partials); // é desnecessário o partials = 
+    } else if (i == prefix.length() - 1) {
+      return traverse(currentNode.middleChild, partials);
+    }
+    return partials;
+  }
+```
+
+No entanto, se for um tipo primitivo ou seus wrappers (Integer), cada chamada possui uma cópia de verdade do valor, entao se vc não capturar o retorno da chamada recursiva, vc vai perder o valor calculado pela recursao, por exemplo:
+
+```java
+  boolean isConnected(List<Vertex> vertices) {
+    int numberOfVisitedNodes = DFS(vertices.get(0), 0);
+    return numberOfVisitedNodes == vertices.size();
+  }
+
+  private int DFS(Vertex vertex, int count) {
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      count++;
+      for (Vertex neighbor : vertex.neighbors) {
+        count = DFS(neighbor, count);
+      }
+    }
+    return count;
+  }
+```
+
+Sem o `count = DFS(neighbor, count);`, ou seja, se fosse somente `DFS(neighbor, count);`, o retorno final dessa função seria sempre 1 se o vertice nao tivesse visitado, ou 0 caso estivesse.
+
+
+Outra forma retornar valores em recursão é simplesmente não usar argumentos das funções, mas sim sempre adicionar os resultados da recursão:
+```java
+  private int DFS2(Vertex vertex) {
+    int count = 0;
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      count++;
+      for (Vertex neighbor : vertex.neighbors) {
+        count = count + DFS2(neighbor);
+      }
+    }
+    return count;
+  }
+```
+
+Ou:
+
+```java
+  private List<String> traverse(Node currentNode) {
+    List<String> partials = new ArrayList<>();
+    
+    if (currentNode == null) {
+      return partials;
+    }
+
+    if (currentNode.value != null) {
+      partials.add((String) currentNode.value);
+    }
+
+    partials.addAll(traverse(currentNode.leftChild));
+    partials.addAll(traverse(currentNode.middleChild));
+    partials.addAll(traverse(currentNode.rightChild));
+    return partials;
+  }
+```
+
+- - - - - - - -
+0 1 2 3 4 5 6
+
+
+linear probing tem o problema do clustering (mtos elementos juntos formando um cluster) mas nao acontece loop infinito na insercao se vc implementar rehashing quando ultrapassa o loadfactor. Já quadratic probing pode acontecer loop infinito, já que os numeros (casa da unidade) comecam a se repetir e se os slots ja tiverem sido ocupados, o while nao vai parar. O mesmo probelma vale pro double hashing (double hashing é uma tecnica de open addressing que usa uma segunda funcao para calcular o incremento (ao inveés de ser sempre linear, ou sempre quadratico)). Pra evitar este problema, parece que usar uma tabela cujo tamanhjo é um numero primo resolveria, mas nao sei.
+Ja o metodo chaining nao tem este problema, mas ocupa mais memoria. Lembrando que o chaning poderia nao ser uma linked list, mas sim uma BBST
+
+1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384
+
+
+first statistic order (1): greatest item or smallest item in the list
+second statistic order (2): second greatest item or second smallest item in the list
+
+
+TreeMap : Red-Black Tree. All operations in O(log(N))
+TreeSet : it is basically a TreeMap with additional behavior (of not allowing duplicates in), so Red-Black Tree again. All operations in O(log(N))
+HashMap : hashtable. All O(1)
+HashSet : it is basically a HashMap with additional behavior, so hashtable again. All O(1) 
+LinkedHashMap: a hashtable and a doubly linked list (that is used to keep the insertion order, like in LRU). All O(1)
+LinkedHashSet: a hashtable (with additional behavior of not allowing duplicates in) and a doubly linked list (that is used to keep the insertion order, like in LRU). All O(1)
