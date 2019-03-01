@@ -52,7 +52,9 @@ public class TernarySearchTreeTest {
     ternarySearchTree.put("catapora", "catapora");
     ternarySearchTree.put("cabra", "cabra");
     ternarySearchTree.put("dado", "dado");
+    ternarySearchTree.put("zanneti123", "zanneti123");
     ternarySearchTree.put("zebra", "zebra");
+    ternarySearchTree.put("bruna", "bruna");
 
     List<String> partials = ternarySearchTree.findPartials("cat");
     assertThat(partials.get(0), equalTo("catapora"));
