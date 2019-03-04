@@ -66,30 +66,30 @@ class SinglyLinkedListWithTail {
   boolean removeItem(int value) {
     if (head == null) { // case 1: the list is empty
       throw new RuntimeException("The list is empty");
-    } else if (head == tail) { // case 2: the list has only one node
-      if (head.value == value) {
-        head = tail = null;
-        return true;
-      } else {
-        return false;
-      }
-    } else { // case 3: the list has two or more nodes and the item is in the middle of the list
-      Node previousNode = this.head;
-      Node currentNode = this.head.next;
-
-      while (currentNode != null) {
-        if (currentNode.value == value) {
-          if (currentNode.next == null) { // case 4: the item is the last element of the list
-            this.tail = previousNode;
-          }
+    }
+    Node previousNode = null;
+    Node currentNode = head;
+    while (currentNode != null) { // first you find the node, then you treat each case separately
+      if (currentNode.value == value) {
+        if (head == tail) { // case 2: only one node
+          head = tail = null;
+          return true;
+        } else if (currentNode == head) { // case 3: two or more nodes and the item is the head
+          head = head.next;
+          return true;
+        } else if (currentNode == tail) { // case 4: two or more nodes and the item is the tail
+          tail = previousNode;
+          tail.next = null;
+          return true;
+        } else { // case 5: two or more nodes and the item is in between the head and the tail
           previousNode.next = currentNode.next;
           return true;
         }
-        previousNode = currentNode;
-        currentNode = currentNode.next;
       }
-      return false;
+      previousNode = currentNode;
+      currentNode = currentNode.next;
     }
+    return false;
   }
 
   boolean find(int value) {

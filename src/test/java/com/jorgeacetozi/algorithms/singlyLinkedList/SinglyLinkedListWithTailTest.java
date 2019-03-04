@@ -104,9 +104,9 @@ public class SinglyLinkedListWithTailTest {
   @Test
   public void shouldRemoveGivenItemByValueWithOneNode() {
     linkedList.insertEnd(10);
-    
+
     boolean isRemoved = linkedList.removeItem(10);
-    
+
     assertTrue(isRemoved);
     assertNull(linkedList.head);
     assertNull(linkedList.tail);
@@ -117,11 +117,26 @@ public class SinglyLinkedListWithTailTest {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
-    
+
     boolean isRemoved = linkedList.removeItem(11);
-    
+
     assertTrue(isRemoved);
     assertThat(linkedList.head.value, equalTo(10));
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+    assertThat(linkedList.tail.value, equalTo(12));
+    assertNull(linkedList.tail.next);
+  }
+
+  @Test
+  public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheFirstOne() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+
+    boolean isRemoved = linkedList.removeItem(10);
+
+    assertTrue(isRemoved);
+    assertThat(linkedList.head.value, equalTo(11));
     assertThat(linkedList.head.next, equalTo(linkedList.tail));
     assertThat(linkedList.tail.value, equalTo(12));
     assertNull(linkedList.tail.next);
@@ -132,9 +147,9 @@ public class SinglyLinkedListWithTailTest {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
-    
+
     boolean isRemoved = linkedList.removeItem(12);
-    
+
     assertTrue(isRemoved);
     assertThat(linkedList.head.value, equalTo(10));
     assertThat(linkedList.head.next, equalTo(linkedList.tail));
@@ -147,9 +162,9 @@ public class SinglyLinkedListWithTailTest {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
     linkedList.insertEnd(12);
-    
+
     boolean isRemoved = linkedList.removeItem(15);
-    
+
     assertFalse(isRemoved);
   }
 
