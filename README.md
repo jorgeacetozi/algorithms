@@ -89,6 +89,10 @@ A Singly Linked List or a Circular Singly Linked List would not be suitable for 
 
 # Binary Search vs Binary Tree vs Binary Search Tree
 
+- **Binary Search** is a search algorithm that allows to find an element in a sorted array in O(log(N)) time complexity.
+- **Binary Tree** is a tree in which every node can have only two children: a left and a right child. It doesn't matter whether the left child is smaller than the parent or the right child is greater than the parent.
+- **Binary Search Tree** is a Binary Tree in which all left child is smaller than its parent and the right child is greater than its parent.
+
 # Binary Search Tree (Data Structure)
 
 Traversing a BST (in-order, for example) is just a simplified case of traversing general tree, which in turn is a simplified case of traversing a graph that might contain cycles with Depth-First Search. In DFS and BFS algorithms for graphs, we have to set the node to visited, and as we add its neighbors with a for loop we also set them as visited to avoid cycles. As BST or a general tree don't contain cycles by definition, you don't have to set them as visited.
