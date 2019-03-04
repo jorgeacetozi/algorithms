@@ -363,9 +363,12 @@ Ja o metodo chaining nao tem este problema, mas ocupa mais memoria. Lembrando qu
 first statistic order (1): greatest item or smallest item in the list
 second statistic order (2): second greatest item or second smallest item in the list
 
-TreeMap : Red-Black Tree. All operations in O(log(N))
-TreeSet : it is basically a TreeMap with additional behavior (of not allowing duplicates in), so Red-Black Tree again. All operations in O(log(N))
-HashMap : hashtable. All O(1)
-HashSet : it is basically a HashMap with additional behavior, so hashtable again. All O(1) 
-LinkedHashMap: a hashtable and a doubly linked list (that is used to keep the insertion order, like in LRU). All O(1)
-LinkedHashSet: a hashtable (with additional behavior of not allowing duplicates in) and a doubly linked list (that is used to keep the insertion order, like in LRU). All O(1)
+# Java Collections
+- **ArrayList**: a Dynamic Array implementation
+- **LinkedList**: a Singly Linked List with head and tail references
+- **TreeMap**: Red-Black Tree (keeps elements sorted by the order established by a comparator). All operations in O(log(N))
+- **TreeSet** : it is basically a TreeMap with additional behavior (of not allowing duplicates in). So, a Red-Black Tree again. All operations in O(log(N))
+- **HashMap** : A hashtable implementation with load factor 0.75. `put` and `get` in O(1)
+- **HashSet** : it is basically a HashMap with additional behavior (of not allowing duplicate keys in), so hashtable again. 
+- **LinkedHashMap**: a hashtable and a doubly linked list (that is used to keep the insertion order, like in LRU cache). `put` and `get` in O(1)
+- **LinkedHashSet**: a hashtable (with additional behavior of not allowing duplicates keys in) and a doubly linked list (that is used to keep the insertion order, like in LRU cache). `put` and `get` in O(1)
