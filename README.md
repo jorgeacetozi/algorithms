@@ -4,11 +4,13 @@
 
 An array is a fundamental data structure that supports the getting and setting of values by index. The size of an array dictates how many values it can hold. An array of size n can hold n values. Arrays are distinguished by the fact that getting or setting any element in the array can be done in constant time if you know the index the element is, regardless of the size of the array.
 
+Arrays can be either fixed-sized (in general, this is the built-in implementation in most programming languages) or dynamic. 
+
 ## Fixed-sized Regular Arrays
 
-Fixed-sized regular arrays are excelent for implementing:
+Fixed-sized array are instantiated by defining an initial size. Fixed-sized regular arrays are excelent for implementing:
 
-- Stack with fixed amount of elements because you can insert and remove at the end of the array in constant time complexity O(1) 
+- Stack with fixed amount of elements because you can insert and remove at the end of the array in constant time complexity O(1)
 - Heap with fixed amount of nodes
 - Hash tables for inserting and getting elements in constant time (nearly for get). However, the typical implementations perform a resizing operation on it when it's around 75% full (load factor = 0.75) to avoid having too much colisions
 
@@ -24,11 +26,11 @@ Bottom line: useful for implementing Queue and Deque (for a Stack, just replace 
 
 ## Dynamic Circular Array
 
-This is exactly the same as the Circular Array, but it provides the additional features of grow() and shrink().
+This is exactly the same as Circular Array, but implemented with a Dynamic Array (that is, it's able to be resized as the amount of elements increase/decrease).
 
 # Singly Linked List (Data Structure)
 
-By definition, a Singly Linked List has a pointer to the head of the list and each element has the data and a pointer to the next element. Having just a pointer to the head, a Singly Linked List would just allow constant time O(1) operations for add() and remove() from the beggining of the list (head), which means it is only optimal for implementing a Stack.
+By definition, a Singly Linked List has a pointer to the head of the list and each element has the data and a pointer to the next element. Having just a pointer to the head, a Singly Linked List would just allow constant time O(1) operations for addStart() and removeStart(), which means it is optimal for implementing a Stack but not a Queue.
 
 Bottom line: useful for implementing a Stack with flexible number of elements.
 
