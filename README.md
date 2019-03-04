@@ -97,9 +97,9 @@ A Singly Linked List or a Circular Singly Linked List would not be suitable for 
 
 Traversing a BST (in-order, for example) is just a simplified case of traversing general tree, which in turn is a simplified case of traversing a graph that might contain cycles with Depth-First Search. In DFS and BFS algorithms for graphs, we have to set the node to visited, and as we add its neighbors with a for loop we also set them as visited to avoid cycles. As BST or a general tree don't contain cycles by definition, you don't have to set them as visited.
 
-# Self-balancing Binary Search Tree: AVL Tree (Data Structure)
+# Self-balancing Binary Search Trees: AVL and Red-Black Trees
 
-# Self-balancing Binary Search Tree: Red-Black Tree (Data Structure)
+They are used in the exact same way as regular BSTs, with the difference that they can provide guaranteed O(log(N)) time complexity for all operations by performing rotations on each insertion in order to keep the tree balanced.
 
 # Priority Queue (Abstract Data Type)
 
@@ -107,9 +107,7 @@ It's possible to implement Priority Queue ADT using different data structures, l
 
 1. Binary Search Tree (BST)
 2. Self-balancing BST (Red-Black Tree, AVL Tree, etc)
-3. **Heap**. Generally, it's implemented by using the Heap data structure because it can perform lookups for the minimum item (Minimum Heap) or maximum item (Maximum Heap) in O(1) (which is what we are after on a Priority Queue, the next item with the lowest or the highest priority), whereas BST would perform in O(N) and Self-balancing BSTs in O(log n).
-
-## Double-ended Priority Queue (Abstract Data Type)
+3. **Heap**. Generally, it's implemented by using the Binary Heap data structure because it can perform lookups for the minimum item (Minimum Heap) or maximum item (Maximum Heap) in O(1) (which is what we are after on a Priority Queue, the next item with the lowest or the highest priority), whereas BST would perform in O(N) and Self-balancing BSTs in O(log(N)). Note, however, that a binary heap has the same time complexity as Self-balanced BSTs for inserting and removing, which is O(log(N)). This happens because of the heapifyUp and heapifyDown operations when inserting and removing items from a heap. Searching on a binary heap, however, takes O(N), as a heap doesn't care for a left child being smaller than the right child. However, you can reduce the searching complexity to O(1) by using an Indexed Binary Heap, which keeps a hashtable with the nodes as keys and their indices in the heap array as values. Using a Indexed Heap, updating the priority of an item can be done in O(log(N)) (which is great for Dijkstra, for example) by taking O(1) for searching the element + O(log(N)) for heapifyingUp (or Down, depending on whether it's a min or max heap) the item after the priority has changed (well, we need to make sure that the updated item still respects the heap properties).
 
 # Associative Array / Map / Dictionary (Abstract Data Type)
 
@@ -364,7 +362,6 @@ Ja o metodo chaining nao tem este problema, mas ocupa mais memoria. Lembrando qu
 
 first statistic order (1): greatest item or smallest item in the list
 second statistic order (2): second greatest item or second smallest item in the list
-
 
 TreeMap : Red-Black Tree. All operations in O(log(N))
 TreeSet : it is basically a TreeMap with additional behavior (of not allowing duplicates in), so Red-Black Tree again. All operations in O(log(N))
