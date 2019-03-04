@@ -2,10 +2,9 @@ package com.jorgeacetozi.algorithms.binarySearchTree;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 
 public class BinarySearchTreeTest {
@@ -63,7 +62,11 @@ public class BinarySearchTreeTest {
     bst.insert(10, "Jorge");
     bst.insert(15, "Xuxa");
     bst.insert(12, "Cobra");
-    Node cobra = bst.find(12);
+    Optional<Node> nodeOptional = bst.find(12);
+
+    assertTrue(nodeOptional.isPresent());
+
+    Node cobra = nodeOptional.get();
     assertThat(cobra.key, is(12));
     assertThat(cobra.value, is("Cobra"));
   }
@@ -99,6 +102,13 @@ public class BinarySearchTreeTest {
     assertNull(bst.root);
   }
 
+  @Test
+  public void shouldDoNothingWhenDeletingItemThatIsNotInTheBST() {
+    bst.insert(10, "Jorge");
+    bst.delete(11);
+    assertThat(bst.root.key, equalTo(10));
+  }
+
   @Test(expected = RuntimeException.class)
   public void shouldThrowExceptionWhenBSTIsEmpty() {
     bst.delete(10);
@@ -122,7 +132,7 @@ public class BinarySearchTreeTest {
     assertThat(bst.root.leftChild.key, is(5));
     bst.delete(5);
     assertThat(bst.root.leftChild.key, is(3));
-    assertNull(bst.find(5));
+    assertFalse(bst.find(5).isPresent());
   }
 
   @Test
@@ -141,7 +151,7 @@ public class BinarySearchTreeTest {
     bst.delete(5);
     assertThat(bst.root.leftChild.key, is(4));
     assertThat(bst.root.leftChild.value, is("Xuxa4"));
-    assertNull(bst.find(5));
+    assertFalse(bst.find(5).isPresent());
   }
 
   @Test

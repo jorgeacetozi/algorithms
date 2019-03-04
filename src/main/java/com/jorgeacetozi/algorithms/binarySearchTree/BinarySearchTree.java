@@ -2,6 +2,7 @@ package com.jorgeacetozi.algorithms.binarySearchTree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class BinarySearchTree {
 
@@ -25,20 +26,20 @@ class BinarySearchTree {
     return currentNode;
   }
 
-  Node find(int key) {
-    return this.findRecursive(this.root, key);
+  Optional<Node> find(int key) {
+    return findRecursive(this.root, key);
   }
 
-  private Node findRecursive(Node currentNode, int key) {
+  private Optional<Node> findRecursive(Node currentNode, int key) {
     if (currentNode == null) {
-      return null;
+      return Optional.empty();
     }
-    if (currentNode.key == key) {
-      return currentNode;
-    } else if (key < currentNode.key) {
+    if (key < currentNode.key) {
       return findRecursive(currentNode.leftChild, key);
-    } else {
+    } else if (key > currentNode.key) {
       return findRecursive(currentNode.rightChild, key);
+    } else { // item found!
+      return Optional.of(currentNode);
     }
   }
 
@@ -65,11 +66,23 @@ class BinarySearchTree {
   }
 
   void delete(int key) {
-    root = this.deleteRecursive(this.root, key);
+    if (root == null) {
+      throw new RuntimeException("BST is empty");
+    } else {
+      root = this.deleteRecursive(this.root, key);
+    }
   }
 
   private Node deleteRecursive(Node currentNode, int key) {
-    if (key == currentNode.key) {
+    if (currentNode == null) {
+      return null;
+    }
+
+    if (key < currentNode.key) {
+      currentNode.leftChild = deleteRecursive(currentNode.leftChild, key);
+    } else if (key > currentNode.key) {
+      currentNode.rightChild = deleteRecursive(currentNode.rightChild, key);
+    } else { // we found the item to be deleted
       // case 1 - no children
       if (currentNode.leftChild == null && currentNode.rightChild == null) {
         return null;
@@ -94,10 +107,6 @@ class BinarySearchTree {
                                                               // subtree!
         return currentNode;
       }
-    } else if (key < currentNode.key) {
-      currentNode.leftChild = deleteRecursive(currentNode.leftChild, key);
-    } else {
-      currentNode.rightChild = deleteRecursive(currentNode.rightChild, key);
     }
     return currentNode;
   }
