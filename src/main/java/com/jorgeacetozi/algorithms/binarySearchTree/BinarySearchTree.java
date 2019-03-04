@@ -164,4 +164,19 @@ class BinarySearchTree {
     list.addAll(preorderTraversal(currentNode.rightChild));
     return list;
   }
+
+  public List<Node> postorderTraversal() {
+    return postorderTraversal(root);
+  }
+
+  private List<Node> postorderTraversal(Node currentNode) {
+    List<Node> list = new ArrayList<>();
+    if (currentNode == null) {
+      return list;
+    }
+    list.addAll(postorderTraversal(currentNode.leftChild));
+    list.addAll(postorderTraversal(currentNode.rightChild));
+    list.add(currentNode);
+    return list;
+  }
 }

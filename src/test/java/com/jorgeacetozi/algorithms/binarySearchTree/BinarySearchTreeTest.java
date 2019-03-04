@@ -215,4 +215,25 @@ public class BinarySearchTreeTest {
     assertThat(preorderTraversal.get(5).key, equalTo(4));
     assertThat(preorderTraversal.get(6).key, equalTo(6));
   }
+
+  @Test
+  public void shouldTraversePostorder() {
+    bst.insert(3, "Xuxa3");
+    bst.insert(1, "Xuxa1");
+    bst.insert(5, "Xuxa5");
+    bst.insert(4, "Xuxa4");
+    bst.insert(2, "Xuxa2");
+    bst.insert(6, "Xuxa6");
+    bst.insert(0, "Xuxa0");
+
+    List<Node> postorderTraversal = bst.postorderTraversal();
+
+    assertThat(postorderTraversal.get(0).key, equalTo(0));
+    assertThat(postorderTraversal.get(1).key, equalTo(2));
+    assertThat(postorderTraversal.get(2).key, equalTo(1));
+    assertThat(postorderTraversal.get(3).key, equalTo(4));
+    assertThat(postorderTraversal.get(4).key, equalTo(6));
+    assertThat(postorderTraversal.get(5).key, equalTo(5));
+    assertThat(postorderTraversal.get(6).key, equalTo(3));
+  }
 }
