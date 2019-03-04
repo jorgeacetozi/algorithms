@@ -19,9 +19,10 @@ class OptimizedConnectivity {
     }
     return count;
   }
-  
-  
-  private int AlternativeDFS(Vertex vertex) {
+
+
+  private int AlternativeDFS(Vertex vertex) { // Return the count without having to carry the
+                                              // counter as a method parameter
     int count = 0;
     if (vertex.visited == false) {
       vertex.visited = true;
