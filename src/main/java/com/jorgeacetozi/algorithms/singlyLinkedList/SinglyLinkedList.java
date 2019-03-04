@@ -47,12 +47,12 @@ class SinglyLinkedList {
     } else { // case 3: there are at least two nodes
       Node previousNode = this.head;
       Node currentNode = this.head.next;
-      
+
       while (currentNode.next != null) {
         previousNode = currentNode;
         currentNode = currentNode.next;
       }
-      
+
       previousNode.next = null;
     }
   }
@@ -62,27 +62,27 @@ class SinglyLinkedList {
     if (this.head == null) { // case 1: the list is empty
       throw new RuntimeException();
     }
-    if (this.head.next == null) { // case 2: there is only one node
-      if (this.head.value == value) {
-        this.head = null;
-        return true;
-      } else {
-        return false; // trying to remove an item that isn't in the list
-      }
-    } else { // case 2: there are two nodes, so we start comparing from the second
-      Node previousNode = this.head;
-      Node currentNode = this.head.next;
-
-      while (currentNode != null) {
-        if (currentNode.value == value) {
+    Node previousNode = null;
+    Node currentNode = head;
+    while (currentNode != null) {
+      if (currentNode.value == value) {
+        if (head.next == null) { // case 2: only one node
+          head = null;
+          return true;
+        } else if (currentNode == head) { // case 3: two or more nodes and it's the head
+          head = head.next;
+          return true;
+        } else { // case 4: two or more nodes and it's not the head. As there is no tail here, we
+                 // treat the cases of removing a node from the middle of the list and the last node
+                 // equally
           previousNode.next = currentNode.next;
           return true;
         }
-        previousNode = currentNode;
-        currentNode = currentNode.next;
       }
-      return false;
+      previousNode = currentNode;
+      currentNode = currentNode.next;
     }
+    return false;
   }
 
   // O(N)

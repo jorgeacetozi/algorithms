@@ -117,6 +117,20 @@ public class SinglyLinkedListTest {
   }
 
   @Test
+  public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheFirstOne() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+
+    boolean isRemoved = linkedList.removeItem(10);
+
+    assertTrue(isRemoved);
+    assertThat(linkedList.head.value, equalTo(11));
+    assertThat(linkedList.head.next.value, equalTo(12));
+    assertNull(linkedList.head.next.next);
+  }
+
+  @Test
   public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheLastOne() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);
