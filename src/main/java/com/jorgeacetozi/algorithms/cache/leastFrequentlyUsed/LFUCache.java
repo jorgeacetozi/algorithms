@@ -6,9 +6,14 @@ import com.jorgeacetozi.algorithms.cache.leastFrequentlyUsed.minIndexedHeap.Node
 import com.jorgeacetozi.algorithms.cache.leastRecentlyUsed.hashTable.HashTable;
 
 public class LFUCache<K, V> {
-
-  private HashTable<K, Node<K, V>> hashTable;
+  
+  // it's used to get cache items in O(1), but has nothing to do with the LFU logic
+  private HashTable<K, Node<K, V>> hashTable; 
+  
+  // It implements the actual logic for the LFU operations.
+  // As this is an Indexed Heap, it provides find() in O(1) and hence updatePriority in O(log(N))
   private MinIndexedHeap<K, V> heap;
+  
   private int capacity;
 
   public LFUCache(int capacity) {
