@@ -11,18 +11,18 @@ class GenericBinarySearch<T extends Comparable<T>> {
 
   // O(logN)
   private boolean binarySearch(int start, int end, T[] array, T target) {
-    if (start > end) {
-      return false;
-    }
+    if (start <= end) { // Unlike Quicksort, we have to consider the "equal" case, otherwise if the
+                        // target is the last array item it will not be found
+      int middle = (start + end) / 2;
 
-    int middle = (start + end) / 2;
-
-    if (array[middle].compareTo(target) == 0) {
-      return true;
-    } else if (array[middle].compareTo(target) < 0) {
-      return binarySearch(middle + 1, end, array, target);
-    } else {
-      return binarySearch(start, middle - 1, array, target);
+      if (array[middle].compareTo(target) < 0) {
+        return binarySearch(middle + 1, end, array, target);
+      } else if (array[middle].compareTo(target) > 0) {
+        return binarySearch(start, middle - 1, array, target);
+      } else {
+        return true;
+      }
     }
+    return false;
   }
 }
