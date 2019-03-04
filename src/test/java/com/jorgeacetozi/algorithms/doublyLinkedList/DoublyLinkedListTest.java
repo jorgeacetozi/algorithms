@@ -158,6 +158,23 @@ public class DoublyLinkedListTest {
   }
 
   @Test
+  public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheFirstOne() {
+    linkedList.insertEnd(10);
+    linkedList.insertEnd(11);
+    linkedList.insertEnd(12);
+    boolean isRemoved = linkedList.removeItem(10);
+    assertTrue(isRemoved);
+
+    assertThat(linkedList.head.value, equalTo(11));
+    assertNull(linkedList.head.previous);
+    assertThat(linkedList.head.next, equalTo(linkedList.tail));
+
+    assertThat(linkedList.tail.value, equalTo(12));
+    assertThat(linkedList.tail.previous, equalTo(linkedList.head));
+    assertNull(linkedList.tail.next);
+  }
+
+  @Test
   public void shouldRemoveGivenItemByValueWithTwoOrMoreNodesAndItsTheLastOne() {
     linkedList.insertEnd(10);
     linkedList.insertEnd(11);

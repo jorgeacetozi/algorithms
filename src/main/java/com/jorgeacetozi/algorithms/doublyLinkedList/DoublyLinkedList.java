@@ -56,32 +56,32 @@ class DoublyLinkedList {
   boolean removeItem(int value) {
     if (head == null) { // case 1: empty list
       throw new RuntimeException("The list is empty");
-    } else if (head == tail) { // case 2: only one element
-      if (head.value == value) {
-        head = tail = null;
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      Node previousNode = head;
-      Node currentNode = head.next;
-
-      while (currentNode != null) {
-        if (currentNode.value == value) {
-          if (currentNode == tail) { // case 3: the item is the last element in the list
-            removeEnd();
-          } else { // case 4: it's an element after the head and before the tail
-            previousNode.next = currentNode.next;
-            currentNode.next.previous = previousNode;
-          }
+    }
+    Node currentNode = head;
+    while (currentNode != null) { // first you find the node, then you treat each case separately
+      if (currentNode.value == value) {
+        if (head == tail) { // case 2: only one node
+          head = tail = null;
+          return true;
+        } else if (currentNode == head) { // case 3: two or more nodes and the item happens to be the head
+          head = head.next;
+          head.previous = null;
+          return true;
+        } else if (currentNode == tail) { // case 4: two or more nodes and the item happens to be the tail
+          tail = tail.previous;
+          tail.next = null;
+          return true;
+        } else { // case 5: two or more nodes and the item happens to be in between the head and the tail
+          Node previous = currentNode.previous;
+          Node next = currentNode.next;
+          previous.next = next;
+          next.previous = previous;
           return true;
         }
-        previousNode = currentNode;
-        currentNode = currentNode.next;
       }
-      return false;
+      currentNode = currentNode.next;
     }
+    return false;
   }
 
   // O(N)
