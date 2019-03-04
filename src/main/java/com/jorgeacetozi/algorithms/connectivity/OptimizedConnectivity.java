@@ -2,6 +2,9 @@ package com.jorgeacetozi.algorithms.connectivity;
 
 import java.util.List;
 
+/*
+ * Count all visited vertices using DFS and compare it to the total number of vertices in the graph
+ */
 class OptimizedConnectivity {
 
   boolean isConnected(List<Vertex> vertices) {
