@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import java.util.List;
 import org.junit.Test;
 
 public class BinarySearchTreeTest {
@@ -157,7 +158,7 @@ public class BinarySearchTreeTest {
 
     assertThat(bst.getHeight(), equalTo(5));
   }
-  
+
   @Test
   public void shouldGetBSTSum() {
     bst.insert(10, "Xuxa10");
@@ -171,5 +172,24 @@ public class BinarySearchTreeTest {
     bst.insert(20, "Xuxa20");
 
     assertThat(bst.getSum(), equalTo(67));
+  }
+
+  @Test
+  public void shouldTraverseInorder() {
+    bst.insert(3, "Xuxa3");
+    bst.insert(1, "Xuxa1");
+    bst.insert(5, "Xuxa5");
+    bst.insert(4, "Xuxa4");
+    bst.insert(2, "Xuxa2");
+    bst.insert(6, "Xuxa6");
+
+    List<Node> inorderTraversal = bst.inorderTraversal();
+
+    assertThat(inorderTraversal.get(0).key, equalTo(1));
+    assertThat(inorderTraversal.get(1).key, equalTo(2));
+    assertThat(inorderTraversal.get(2).key, equalTo(3));
+    assertThat(inorderTraversal.get(3).key, equalTo(4));
+    assertThat(inorderTraversal.get(4).key, equalTo(5));
+    assertThat(inorderTraversal.get(5).key, equalTo(6));
   }
 }

@@ -1,5 +1,8 @@
 package com.jorgeacetozi.algorithms.binarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class BinarySearchTree {
 
   Node root;
@@ -130,5 +133,20 @@ class BinarySearchTree {
       return 0;
     }
     return currentNode.key + getSum(currentNode.leftChild) + getSum(currentNode.rightChild);
+  }
+
+  public List<Node> inorderTraversal() {
+    return inorderTraversal(root);
+  }
+
+  private List<Node> inorderTraversal(Node currentNode) {
+    List<Node> list = new ArrayList<>();
+    if (currentNode == null) {
+      return list;
+    }
+    list.addAll(inorderTraversal(currentNode.leftChild));
+    list.add(currentNode);
+    list.addAll(inorderTraversal(currentNode.rightChild));
+    return list;
   }
 }
