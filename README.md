@@ -372,3 +372,7 @@ second statistic order (2): second greatest item or second smallest item in the 
 - **HashSet** : it is basically a HashMap with additional behavior (of not allowing duplicate keys in), so hashtable again. 
 - **LinkedHashMap**: a hashtable and a doubly linked list (that is used to keep the insertion order, like in LRU cache). `put` and `get` in O(1)
 - **LinkedHashSet**: a hashtable (with additional behavior of not allowing duplicates keys in) and a doubly linked list (that is used to keep the insertion order, like in LRU cache). `put` and `get` in O(1)
+
+# Quick Notes
+
+- When you want to keep track of the path traveled on a graph algorithm, just keep a `Vertex predecessor` reference in the Vertex class and set it in the algorithm (like Dijkstra or CycleDetection)
