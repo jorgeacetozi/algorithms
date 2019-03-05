@@ -16,7 +16,7 @@ public class CycleDetectionTest {
     Vertex d = new Vertex("D");
 
     a.neighbors = Arrays.asList(c);
-    b.neighbors = Arrays.asList(d, a);
+    b.neighbors = Arrays.asList(a, d);
     c.neighbors = Arrays.asList(b);
 
     assertTrue(cycleDetection.detectWithDFS(a));
