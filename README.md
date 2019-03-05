@@ -208,128 +208,103 @@ A) No. Consider the following counter example:
 
 The blue colored edges form a spanning tree but not a hamiltonian path.
 
-
+# TSP: Travelling Salesman Problem
 
 The Travelling Salesman Problem is about going to each city exactly once while returning to the original city (thus walking along a Hamiltonian cycle) and also taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). Finding such a cycle, perforce finding the possibly unique optimal cycle with the shortest distance, is "hard".
 
+# CPP: Chinese Postman Problem
+
 The Chinese Postman Problem or Route Inspection Problem is about visiting each route between cities at least once while returning to the original city and taking the shortest route among all possible routes that fulfill this criterium (if such a route exists). A solution that takes each route exactly once is automatically optimal and called an Eulerian Cycle. Finding such a cycle is "feasible".
 
+# Returning Values from Recursive Methods in Java
 
+There are several ways to make a recursive method return a result.
 
-Em Java, se vc precisa que uma recursão devolva algo, vc precisa passar este "algo" como parâmetro da recursão e fazer todos os "return" da função retornarem este "algo", tipo:
+# Technique 1 (The most correct one)
 
-```java
-List<T> findPartials(String str) {
-	return findPartials(root, str, i, new ArrayList<>());
-}
-
-List<T> findPartials(Node<T> currentNode, String str, int i, List<T> partials) {
-	
-	if (currentNode == null) {
-		return partials;
-	}
-
-	char currentChar = str.charAt(i);
-
-	if (currentChar < currentNode.value) {
-		findPartials(currentNode.leftChild, str, i, partials);
-	} else if (currentChar > currentNode.value) {
-		findPartials(currentNode.rightChild, str, i, partials);
-	} else if (i < str.length() - 1) {
-		findPartials(currentNode.middleChild, str, i + 1, partials);
-	} else if (i == str.length() - 1) {
-		return traverse(currentNode.middleChild, partials);
-	}
-	return partials;
-}
-
-List<T> traverse(Node<T> currentNode, List<T> partials) {
-	
-	if (currentNode == null) { 
-		return partials;
-	}
-
-	traverse(currentNode.leftChild, partials);
-	traverse(currentNode.middleChild, partials);
-	traverse(currentNode.rightChild, partials);
-
-	if (currentNode.value != null) {
-		partials.add(currentNode.value);
-	}
-	return partials;
-}
-```
-
-Se este "algo" for um objeto (Qlq Collection, array, Map, qlq objeto customizado, etc), vc não precisa fazer:
-
-partials = findPartials(currentNode.leftChild, str, i, partials);
-
-Porque uma alteração num objeto dentro da função reflete no objeto original (a cópia que é passada é a cópia da referência, e não do objeto em si: https://dzone.com/articles/java-pass-by-reference-or-pass-by-value). Caso vc faça isso, vai funcionar do mesmo jeito, mas seria uma atribuição desnecessária, tipo assim:
+This technique consists of declaring the value to be returned inside the method (generally in the first line of the method) and make the method return it in its declaration, just like you would do in an iterative one. The point to be aware of here is that you always have to accumulate the value to be returned with the recursive call. It's harder to see that it's gonna work, but it actually forces you to think "recursively", let's take a look at some examples:
 
 ```java
-  List<String> findPartials(String prefix) {
-    return findPartials(this.root, prefix, 0, new ArrayList<>());
-  }
-
-  List<String> findPartials(Node currentNode, String prefix, int i, List<String> partials) {
-    if (currentNode == null) {
-      return partials;
-    }
-
-    char currentCharacterFromPrefix = prefix.charAt(i);
-
-    if (currentCharacterFromPrefix < currentNode.character) {
-      partials = findPartials(currentNode.leftChild, prefix, i, partials); // é desnecessário o partials = 
-    } else if (currentCharacterFromPrefix > currentNode.character) {
-      partials = findPartials(currentNode.rightChild, prefix, i, partials); // é desnecessário o partials = 
-    } else if (i < prefix.length() - 1) {
-      partials = findPartials(currentNode.middleChild, prefix, i + 1, partials); // é desnecessário o partials = 
-    } else if (i == prefix.length() - 1) {
-      return traverse(currentNode.middleChild, partials);
-    }
-    return partials;
-  }
-```
-
-No entanto, se for um tipo primitivo ou seus wrappers (Integer), cada chamada possui uma cópia de verdade do valor, entao se vc não capturar o retorno da chamada recursiva, vc vai perder o valor calculado pela recursao, por exemplo:
-
-```java
-  boolean isConnected(List<Vertex> vertices) {
-    int numberOfVisitedNodes = DFS(vertices.get(0), 0);
-    return numberOfVisitedNodes == vertices.size();
-  }
-
-  private int DFS(Vertex vertex, int count) {
-    if (vertex.visited == false) {
-      vertex.visited = true;
-      count++;
-      for (Vertex neighbor : vertex.neighbors) {
-        count = DFS(neighbor, count);
-      }
-    }
-    return count;
-  }
-```
-
-Sem o `count = DFS(neighbor, count);`, ou seja, se fosse somente `DFS(neighbor, count);`, o retorno final dessa função seria sempre 1 se o vertice nao tivesse visitado, ou 0 caso estivesse.
-
-
-Outra forma retornar valores em recursão é simplesmente não usar argumentos das funções, mas sim sempre adicionar os resultados da recursão:
-```java
-  private int DFS2(Vertex vertex) {
+  private int DFS(Vertex vertex) {
     int count = 0;
     if (vertex.visited == false) {
       vertex.visited = true;
       count++;
       for (Vertex neighbor : vertex.neighbors) {
-        count = count + DFS2(neighbor);
+        count = count + DFS(neighbor);
       }
     }
     return count;
   }
 ```
 
-Ou:
+Here, the first time the method DFS is called, it counts the first vertex if it's not visited and let the recursion solve the subproblems (counting the rest of the unvisited vertices). It's REALLY a top-down approach in each the top-most call solves itself by increment the count and letting the subproblems be solved by the recursion.
+
+Another example:
+
+```java
+
+  @Test
+  public void shouldDetectCycle() {
+    Vertex a = new Vertex("A");
+    Vertex b = new Vertex("B");
+    Vertex c = new Vertex("C");
+    Vertex d = new Vertex("D");
+
+    a.neighbors = Arrays.asList(c);
+    b.neighbors = Arrays.asList(a, d);
+    c.neighbors = Arrays.asList(b);
+
+    assertTrue(cycleDetection.detectWithDFS(a));
+    cycleDetection.printCycle(a);
+  }
+
+  boolean AlternativeDetectWithDFS(Vertex vertex) {
+    boolean found = false;
+
+    if (vertex.beingVisited == true) {
+      found = true;
+      return found;
+    }
+
+    if (vertex.visited == false) {
+      vertex.visited = false;
+      vertex.beingVisited = true;
+      for (Vertex neighbor : vertex.neighbors) {
+        neighbor.predecessor = vertex; // using the predecessor allows to print the vertices in the
+                                       // cycle, but you don't need it if you don't want to print
+                                       // the cycle
+        found = found || detectWithDFS(neighbor);
+      }
+    }
+    vertex.visited = true;
+    vertex.beingVisited = false;
+    return found;
+  }
+``` 
+
+Here, we need to accumulate the boolean value by using an `OR` operator. If we don't accumulate, that means that if a vertex is connected to two other vertices (vertex B in the unit test above) and the first edge forms a cycle but the other doesn't (the scenario of the test), then the final value of the found variable for the vertex B function call in the stack would return false whereas it should be true.
+
+The same goes for lists:
+
+```java
+  public List<Node> inorderTraversal() {
+    return inorderTraversal(root);
+  }
+
+  private List<Node> inorderTraversal(Node currentNode) {
+    List<Node> list = new ArrayList<>();
+    if (currentNode == null) {
+      return list;
+    }
+    list.addAll(inorderTraversal(currentNode.leftChild));
+    list.add(currentNode);
+    list.addAll(inorderTraversal(currentNode.rightChild));
+    return list;
+  }
+```
+
+Another example with lists:
 
 ```java
   private List<String> traverse(Node currentNode) {
@@ -350,18 +325,288 @@ Ou:
   }
 ```
 
-- - - - - - - -
-0 1 2 3 4 5 6
+# Technique 2 (Bad technique because it's hard to remember the nuances)
 
+Carry the return in the method's list of arguments and return it in the method declaration.
 
-linear probing tem o problema do clustering (mtos elementos juntos formando um cluster) mas nao acontece loop infinito na insercao se vc implementar rehashing quando ultrapassa o loadfactor. Já quadratic probing pode acontecer loop infinito, já que os numeros (casa da unidade) comecam a se repetir e se os slots ja tiverem sido ocupados, o while nao vai parar. O mesmo probelma vale pro double hashing (double hashing é uma tecnica de open addressing que usa uma segunda funcao para calcular o incremento (ao inveés de ser sempre linear, ou sempre quadratico)). Pra evitar este problema, parece que usar uma tabela cujo tamanhjo é um numero primo resolveria, mas nao sei.
-Ja o metodo chaining nao tem este problema, mas ocupa mais memoria. Lembrando que o chaning poderia nao ser uma linked list, mas sim uma BBST
+## Technique 2: Returning Objects
 
-1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384
+In this technique, you declare the object you want to return in the method's list of arguments (like `partials` below) and make all return statements in the method to return the it:
 
+```java
+List<T> findPartials(String str) {
+  return findPartials(root, str, i, new ArrayList<>());
+}
 
-first statistic order (1): greatest item or smallest item in the list
-second statistic order (2): second greatest item or second smallest item in the list
+List<T> findPartials(Node<T> currentNode, String str, int i, List<T> partials) {
+  if (currentNode == null) {
+    return partials;
+  }
+
+  char currentChar = str.charAt(i);
+
+  if (currentChar < currentNode.value) {
+    findPartials(currentNode.leftChild, str, i, partials);
+  } else if (currentChar > currentNode.value) {
+  	 findPartials(currentNode.rightChild, str, i, partials);
+  } else if (i < str.length() - 1) {
+    findPartials(currentNode.middleChild, str, i + 1, partials);
+  } else if (i == str.length() - 1) {
+    return traverse(currentNode.middleChild, partials);
+  }
+  return partials;
+}
+
+List<T> traverse(Node<T> currentNode, List<T> partials) {
+  if (currentNode == null) { 
+    return partials;
+  }
+
+  traverse(currentNode.leftChild, partials);
+  traverse(currentNode.middleChild, partials);
+  traverse(currentNode.rightChild, partials);
+
+  if (currentNode.value != null) {
+    partials.add(currentNode.value);
+  }
+  return partials;
+}
+```
+
+## Technique 2: Returning Primitive Types and its Wrappers
+
+If your return type is an object (like any Collection, Arrays, Maps, customized objects, etc), you don't need to capture the return of the recursive calls (like below) as in Java [an update in an object inside a method call reflects in the object outside the method](https://dzone.com/articles/java-pass-by-reference-or-pass-by-value).
+
+`partials = findPartials(currentNode.leftChild, str, i, partials);`
+
+If you do it though, it will still work, but it's unnecessary. Below it is how it would look like:
+
+```java
+List<String> findPartials(String prefix) {
+  return findPartials(this.root, prefix, 0, new ArrayList<>());
+}
+
+List<String> findPartials(Node currentNode, String prefix, int i, List<String> partials) {
+  if (currentNode == null) {
+    return partials;
+  }
+
+  char currentCharacterFromPrefix = prefix.charAt(i);
+
+  if (currentCharacterFromPrefix < currentNode.character) {
+    partials = findPartials(currentNode.leftChild, prefix, i, partials); // é desnecessário o partials = 
+  } else if (currentCharacterFromPrefix > currentNode.character) {
+    partials = findPartials(currentNode.rightChild, prefix, i, partials); // é desnecessário o partials = 
+  } else if (i < prefix.length() - 1) {
+    partials = findPartials(currentNode.middleChild, prefix, i + 1, partials); // é desnecessário o partials = 
+  } else if (i == prefix.length() - 1) {
+    return traverse(currentNode.middleChild, partials);
+  }
+  return partials;
+}
+```
+
+However, when it comes to a primitive type or its wrappers, each method call receives a copy of the variable itself (not a copy of the pointer that points to an object), and updates in it would not affect the variable in outside scope. Thus, you must capture the return of the method:
+
+```java
+boolean isConnected(List<Vertex> vertices) {
+  int numberOfVisitedNodes = DFS(vertices.get(0), 0);
+  return numberOfVisitedNodes == vertices.size();
+}
+
+private int DFS(Vertex vertex, int count) {
+  if (vertex.visited == false) {
+    vertex.visited = true;
+    count++;
+    for (Vertex neighbor : vertex.neighbors) {
+      count = DFS(neighbor, count);
+    }
+  }
+  return count;
+}
+```
+
+Without the line `count = DFS(neighbor, count);`, that is, if it was just `DFS(neighbor, count);`, this method would always return the value **1** if the vertex passed by argument had not been visited and **0** otherwise. In Technique 3 you would have to worry about it because the return value would be an attribute of the class.
+
+# Technique 3 (The easiest one if you are getting started with recursion)
+
+Declare the return value as an instance variable (attribute of the class) and return it in your recursive method (if you are using a private auxiliary recursive method, it can even be `void` as of the Returning Objects section below). This technique is the easiest one to code as you don't have to remember how Java passes parameters to method calls, you just assume that the variable storing the result is available and you just use it as if it was a counter. However, this still has a grasp of the "iterative" way of thinking, it makes your recursion just a way to traverse the calls and not actually solving the problem completely.
+
+## Technique 3: Returning Objects
+
+```java
+class TernarySearchTree {
+
+  Node root;
+  List<String> partials = new ArrayList<>();
+
+  List<String> findPartials(String prefix) {
+    findPartials(this.root, prefix, 0);
+    return partials;
+  }
+
+  void findPartials(Node currentNode, String prefix, int i) {
+    if (currentNode == null) {
+      return;
+    }
+
+    char currentCharacterFromPrefix = prefix.charAt(i);
+
+    if (currentCharacterFromPrefix < currentNode.character) {
+      findPartials(currentNode.leftChild, prefix, i);
+    } else if (currentCharacterFromPrefix > currentNode.character) {
+      findPartials(currentNode.rightChild, prefix, i);
+    } else if (i < prefix.length() - 1) {
+      findPartials(currentNode.middleChild, prefix, i + 1);
+    } else if (i == prefix.length() - 1) {
+      traverse(currentNode.middleChild);
+    }
+  }
+
+  private void traverse(Node currentNode) {
+    if (currentNode == null) {
+      return;
+    }
+
+    traverse(currentNode.leftChild);
+    traverse(currentNode.middleChild);
+    traverse(currentNode.rightChild);
+
+    if (currentNode.value != null) {
+      partials.add((String) currentNode.value);
+    }
+  }
+ }
+ ```
+
+## Technique 3: Returning Primitive Types and their Wrappers
+
+Note that here you don't have to worry about capturing the return of the recursive method call as in Technique 2 because the counter is not being passed as copy on each function call, it's actually outside as a regular counter. That's why it's easier to use this technique, because it looks like as how you would think in the iterative way.
+
+```java
+class OptimizedConnectivity {
+  
+  int count;
+
+  boolean isConnected(List<Vertex> vertices) {
+    DFS(vertices.get(0));
+    return count == vertices.size();
+  }
+
+  private int DFS(Vertex vertex) {
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      count++;
+      for (Vertex neighbor : vertex.neighbors) {
+        DFS(neighbor);
+      }
+    }
+    return count;
+  }
+}
+```
+
+You could make it `void` too, it wouldn't matter as the return value is actually outside the method:
+
+```java
+class OptimizedConnectivity {
+  
+  int count;
+
+  boolean isConnected(List<Vertex> vertices) {
+    DFS(vertices.get(0));
+    return count == vertices.size();
+  }
+
+  private void DFS(Vertex vertex) {
+    if (vertex.visited == false) {
+      vertex.visited = true;
+      count++;
+      for (Vertex neighbor : vertex.neighbors) {
+        DFS(neighbor);
+      }
+    }
+  }
+}
+```
+
+Another example:
+
+```java
+class CycleDetection {
+  boolean found;
+
+  boolean detectWithDFS(Vertex vertex) {
+    if (vertex.beingVisited == true) {
+      this.found = true;
+      return this.found;
+    }
+
+    if (vertex.visited == false) {
+      vertex.visited = false;
+      vertex.beingVisited = true;
+      for (Vertex neighbor : vertex.neighbors) {
+        neighbor.predecessor = vertex;
+        detectWithDFS(neighbor);
+      }
+    }
+    vertex.visited = true;
+    vertex.beingVisited = false;
+    return this.found;
+  }
+}
+```
+
+# Technique 4 (The worst one because it doesn't even work for primitive types)
+
+Carry the return in the method's list of arguments and make the method void. Because of the way that Java passes parameters to method calls, it works for returning objects but not for primitive types or its wrappers. It's also ugly in terms of object-oriented thinking because the method is void and "yet is returning an object".
+
+## Technique 4: Returning Objects
+
+```java
+  List<String> findPartials(String prefix) {
+    List<String> partials = new ArrayList<>();
+    findPartials(this.root, prefix, 0, partials);
+    return partials;
+  }
+
+  private void findPartials(Node currentNode, String prefix, int i, List<String> partials) {
+    if (currentNode == null) {
+      return;
+    }
+
+    char currentCharacterFromPrefix = prefix.charAt(i);
+
+    if (currentCharacterFromPrefix < currentNode.character) {
+      findPartials(currentNode.leftChild, prefix, i, partials);
+    } else if (currentCharacterFromPrefix > currentNode.character) {
+      findPartials(currentNode.rightChild, prefix, i, partials);
+    } else if (i < prefix.length() - 1) {
+      findPartials(currentNode.middleChild, prefix, i + 1, partials);
+    } else if (i == prefix.length() - 1) {
+      traverse(currentNode.middleChild, partials);
+    }
+  }
+
+  private void traverse(Node currentNode, List<String> partials) {
+    if (currentNode == null) {
+      return;
+    }
+
+    traverse(currentNode.leftChild, partials);
+    traverse(currentNode.middleChild, partials);
+    traverse(currentNode.rightChild, partials);
+
+    if (currentNode.value != null) {
+      partials.add((String) currentNode.value);
+    }
+  }
+```
+
+## Technique 4: Returning Primitive Types and their Wrappers (it doesn't work)
+
+It's not possible to do that due to the way passes primitive types to method calls.
+
 
 # Java Collections
 - **ArrayList**: a Dynamic Array implementation
@@ -376,3 +621,16 @@ second statistic order (2): second greatest item or second smallest item in the 
 # Quick Notes
 
 - When you want to keep track of the path traveled on a graph algorithm, just keep a `Vertex predecessor` reference in the Vertex class and set it in the algorithm (like Dijkstra or CycleDetection)
+
+- - - - - - - -
+0 1 2 3 4 5 6
+
+
+linear probing tem o problema do clustering (mtos elementos juntos formando um cluster) mas nao acontece loop infinito na insercao se vc implementar rehashing quando ultrapassa o loadfactor. Já quadratic probing pode acontecer loop infinito, já que os numeros (casa da unidade) comecam a se repetir e se os slots ja tiverem sido ocupados, o while nao vai parar. O mesmo probelma vale pro double hashing (double hashing é uma tecnica de open addressing que usa uma segunda funcao para calcular o incremento (ao inveés de ser sempre linear, ou sempre quadratico)). Pra evitar este problema, parece que usar uma tabela cujo tamanhjo é um numero primo resolveria, mas nao sei.
+Ja o metodo chaining nao tem este problema, mas ocupa mais memoria. Lembrando que o chaning poderia nao ser uma linked list, mas sim uma BBST
+
+1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384
+
+
+first statistic order (1): greatest item or smallest item in the list
+second statistic order (2): second greatest item or second smallest item in the list
